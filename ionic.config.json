@@ -1,0 +1,7 @@
+{
+  "name": "summerei",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

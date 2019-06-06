@@ -1,0 +1,56 @@
+
+<div class="container" *ngIf="!dashboard">
+  <div class="row">
+
+
+    <div *ngFor="let card of hive.stockkarten" class="card col-11 col-md-5" style="margin-left: 5%; margin-top: 2%">
+      <div class="card-body">
+        <h4 class="card-title">Volk Name: {{card.hiveName}}</h4>
+        <p class="card-text">{{card.erstelldatum}}.</p>
+<!--        <p class="card-text">{{card.stadium}}</p>-->
+<!--        <a href="#" class="btn btn-primary">See Profile</a>-->
+      </div>
+    </div>
+
+<!--    <ion-card *ngFor="let card of hive.stockkarten" class=" col-11 col-md-5">-->
+<!--      <ion-item class="activated">-->
+<!--        <ion-card-header >-->
+<!--          <ion-card-title >{{card.volkId}}</ion-card-title>-->
+<!--        </ion-card-header>-->
+<!--      </ion-item>-->
+<!--      <ion-card-content >-->
+<!--        <p>{{card.erstelldatum}}</p>-->
+<!--        <p>{{card.stadium}}</p>-->
+<!--      </ion-card-content>-->
+<!--    </ion-card>-->
+  </div>
+</div>
+
+<div class="container" *ngIf="dashboard">
+  <div class="row">
+
+    <div *ngFor="let card of dashboardCards" class="card col-11 col-md-5" style="margin-left: 5%; margin-top: 2%">
+      <div class="card-body" *ngIf="card.volkId != 0">
+        <h4 class="card-title">Volkname: {{card.hiveName}}</h4>
+        <p class="card-text">{{card.erstelldatum}}.</p>
+<!--        <p class="card-text">{{card.stadium}}</p>-->
+<!--        <a href="#" class="btn btn-primary">See Profile</a>-->
+      </div>
+    </div>
+
+
+<!--    <ion-card *ngFor="let card of dashboardCards" class=" col-11 col-md-5">-->
+<!--      <ion-item class="activated">-->
+<!--        <ion-card-header >-->
+<!--          <ion-card-title >{{card.volkId}}</ion-card-title>-->
+<!--        </ion-card-header>-->
+<!--      </ion-item>-->
+<!--      <ion-card-content >-->
+<!--        <p>{{card.erstelldatum}}</p>-->
+<!--        <p>{{card.stadium}}</p>-->
+<!--      </ion-card-content>-->
+<!--    </ion-card>-->
+
+
+  </div>
+</div>
