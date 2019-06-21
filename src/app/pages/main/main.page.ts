@@ -81,6 +81,7 @@ export class MainPage implements OnInit {
       if (this.dashboardHiveCards) {
           this.showDashboard = true;
       }
+      this.setVisibleSlideRange(1);
   }
 
 
@@ -154,17 +155,24 @@ export class MainPage implements OnInit {
           let slider = document.getElementById('cardSlider')
           console.log('height: ' + slide.offsetHeight.toString());
 
-          /*
-          dieser Timeout ist notwendig um die Swipe animation beim Seitenwechsel nicht zu unterbrechen
-           */
-          window.setTimeout(function(){ slider.style.height = slide.offsetHeight.toString() + 'px'; }, 100);
+          if(slide.offsetHeight < window.innerHeight) {
+              let ionContent = document.getElementById("ionContent");
+              window.setTimeout(function(){slider.style.height = ionContent.offsetHeight.toString() + 'px';}, 100);
+          } else {
+              window.setTimeout(function(){ slider.style.height = slide.offsetHeight.toString() + 'px'; }, 100);
+          }
       } else {
           let slide = document.getElementById('dashboard');
           let slider = document.getElementById('cardSlider')
-          window.setTimeout(function(){ slider.style.height = slide.offsetHeight.toString() + 'px'; }, 100);
+          if(slide.offsetHeight < window.innerHeight) {
+              let ionContent = document.getElementById("ionContent");
+              window.setTimeout(function(){slider.style.height = ionContent.offsetHeight.toString() + 'px';}, 100);
+          } else {
+              window.setTimeout(function(){ slider.style.height = slide.offsetHeight.toString() + 'px'; }, 100);
+          }
+
           console.log('on Dashboard');
       }
-
     }
 
 }

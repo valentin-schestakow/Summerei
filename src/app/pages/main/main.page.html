@@ -38,7 +38,9 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content >
+
+
+<ion-content id="ionContent">
 
     <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide"  #stockkarten id="cardSlider">
         <ion-slide *ngIf="showDashboard">

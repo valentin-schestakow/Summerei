@@ -43,9 +43,6 @@
               },
               {
                 "input": "./node_modules/material-icons/css/material-icons.css"
-              },
-              {
-                "input": "./node_modules/bootstrap/dist/css/bootstrap.css"
               }
             ],
             "scripts": [],
