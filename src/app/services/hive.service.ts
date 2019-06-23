@@ -131,7 +131,7 @@ export class HiveService {
   private getHivecardsById(volkId: number): HiveCard[] {
     let ret: HiveCard[] = [];
     for (let card of this.hiveCards) {
-      if (card.volkId == volkId) {
+      if (card.hiveId == volkId) {
         ret.push(card);
       }
     }

@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {MenuPageModule} from './pages/menu/menu.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
 // import {SliderItemComponent} from './components/slider-item/slider-item.component';
 
 
@@ -21,6 +24,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       AppRoutingModule,
       MenuPageModule,
       NgbModule.forRoot(),
+      AngularFireModule.initializeApp(environment.firebaseConfig),
+      AngularFirestoreModule,
     ],
   providers: [
     StatusBar,
