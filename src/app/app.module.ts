@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 // import {SliderItemComponent} from './components/slider-item/slider-item.component';
 
 
@@ -26,11 +27,12 @@ import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/fire
       NgbModule.forRoot(),
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFirestoreModule,
+      AngularFireAuthModule,
     ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })

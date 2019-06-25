@@ -6,11 +6,11 @@ export class User {
     creationDate: string;
     email: string;
     name: string;
-    hives: Hive[];
+    hives: string[];
 
 
 
-    constructor(id?: string, email?: string, name?: string, hives?: Hive[], creationDate?: string) {
+    constructor(id?: string, email?: string, name?: string, hives?: string[], creationDate?: string) {
         this.id = id;
         this.email = email;
         this.name = name;

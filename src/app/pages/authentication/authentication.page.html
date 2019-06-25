@@ -1,12 +1,21 @@
-<ion-header >
+<ion-header>
   <ion-toolbar color="primary">
-    <ion-title>login</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registrieren</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="light">
-
   <ion-list style="background-color: #f4f5f8">
+
+    <ion-item color="light">
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
 
     <ion-item color="light">
       <ion-label position="floating">E-Mail</ion-label>
@@ -18,10 +27,12 @@
       <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
+    <ion-item color="light">
+      <ion-label position="floating">Passwort bestätigen</ion-label>
+      <ion-input type="password" [(ngModel)]="passwordCofirm"></ion-input>
+    </ion-item>
 
   </ion-list>
-
-  <ion-button fill="solid" expand="block" color="primary" (click)="login()">Anmelden</ion-button>
 
   <ion-button fill="solid" expand="block" color="primary" (click)="createAccount()">Registrieren</ion-button>
 </ion-content>
