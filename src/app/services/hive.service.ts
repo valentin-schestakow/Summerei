@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Hive} from '../model/hive.model';
-import {HiveCard} from '../model/hive-card.model';
+import {Hivecard} from '../model/hive-card.model';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class HiveService {
   public hives: Hive[] = [];
   nextHiveId: number;
 
-  public hiveCards: HiveCard[] = [];
+  public hiveCards: Hivecard[] = [];
   nextHiveCardId: number;
   private changeEmitter: boolean = false;
 
@@ -25,9 +25,9 @@ export class HiveService {
     } else {
       this.hives = [];
       this.nextHiveId = 1;
-      this.persistHive(new Hive(this.nextHiveId,this.hiveCards,'Test_Datum','Garten'));
-      this.persistHive(new Hive(this.nextHiveId,this.hiveCards,'Test_Datum','Verein Volk 2'));
-      this.persistHive(new Hive(this.nextHiveId,this.hiveCards,'Test_Datum','Verein Volk 3'));
+      this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Garten'));
+      this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Verein Volk 2'));
+      this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Verein Volk 3'));
     }
 
     if (hiveCardsJSON) {
@@ -36,7 +36,7 @@ export class HiveService {
     } else {
       this.hiveCards = [];
       this.nextHiveCardId = 1;
-      this.persistHiveCard(new HiveCard(0,"test"));
+      this.persistHiveCard(new Hivecard('0',"test"));
     }
 
   }
@@ -53,7 +53,8 @@ export class HiveService {
 
 
   persistHive(hive: Hive): void {
-    hive.id = this.nextHiveId++;
+  this.nextHiveId++;
+    hive.id = this.nextHiveId.toString();
     this.hives.push(hive);
     this.saveHive();
   }
@@ -72,7 +73,7 @@ export class HiveService {
   }
 
 
-  persistHiveCard(hiveCard: HiveCard): void {
+  persistHiveCard(hiveCard: Hivecard): void {
     this.hiveCards.push(hiveCard);
     this.saveHiveCards();
   }
@@ -83,21 +84,21 @@ export class HiveService {
   }
 
 
-  findAllHiveCards(): HiveCard[] {
+  findAllHiveCards(): Hivecard[] {
     let recordsJSON: string = localStorage.getItem('hiveCards');
     this.hiveCards = JSON.parse(recordsJSON);
     return this.hiveCards;
   }
 
-  findHiveById(id: number): Hive {
+  findHiveById(id: string): Hive {
     return this.hives.find(h => h.id == id);
   }
 
-  findHiveCardById(id: number): HiveCard {
+  findHiveCardById(id: string): Hivecard {
     return this.hiveCards.find(h => h.id == id);
   }
 
-  updateHiveCard(hiveCard: HiveCard){
+  updateHiveCard(hiveCard: Hivecard){
     for (let i in this.hiveCards) {
       if (this.hiveCards[i].id == hiveCard.id) {
         this.hiveCards[i] = hiveCard;
@@ -118,7 +119,7 @@ export class HiveService {
   }
 
 
-  deleteHive(id: number) {
+  deleteHive(id: string) {
     for (let i in this.hives) {
       if (this.hives[i].id == id) {
         this.hives.splice(+i);
@@ -128,10 +129,10 @@ export class HiveService {
   }
 
 
-  private getHivecardsById(volkId: number): HiveCard[] {
-    let ret: HiveCard[] = [];
+  private getHivecardsById(volkId: string): Hivecard[] {
+    let ret: Hivecard[] = [];
     for (let card of this.hiveCards) {
-      if (card.volkId == volkId) {
+      if (card.hiveId == volkId) {
         ret.push(card);
       }
     }

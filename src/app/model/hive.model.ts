@@ -1,28 +1,28 @@
-import {HiveCard} from './hive-card.model';
+import {Hivecard} from './hive-card.model';
 
 export class Hive {
-    id: number;
-    erstelldatum: string;
+    id: string;
+    creationDate: string;
     name: string;
-    königinFarbe: string;
-    rasse: string;
-    beutenart: string;
-    stockkarten : HiveCard[];
-    mitglieder: string[];
+    queenColor: string;
+    race: string;
+    beehiveKind: string;
+    hivecards : Hivecard[];
+    members: string[];
     adminId: string;
+    state: string;
 
-
-
-    constructor(id?: number, stockkarten?: HiveCard[], erstelldatum?: string, name?: string, königinFarbe?: string, rasse?: string, beutenart?: string,
-                 mitglieder?: string[], adminId?: string) {
+    constructor(id?: string, hivecards?: Hivecard[], creationDate?: string, name?: string, queenColor?: string, race?: string, beehiveKind?: string,
+                members?: string[], adminId?: string, state?: string) {
         this.id = id;
-        this.erstelldatum = erstelldatum;
+        this.creationDate = creationDate;
         this.name = name;
-        this.königinFarbe = königinFarbe;
-        this.rasse = rasse;
-        this.beutenart = beutenart;
-        this.stockkarten = stockkarten;
-        this.mitglieder = mitglieder;
+        this.queenColor = queenColor;
+        this.race = race;
+        this.beehiveKind = beehiveKind;
+        this.hivecards = hivecards;
+        this.members = members;
         this.adminId = adminId
+        this.state = state;
     }
 }

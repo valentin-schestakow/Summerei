@@ -1,29 +1,31 @@
-export class HiveCard {
+export class Hivecard {
 
-    id: number;
-    volkId: number;
-    erstelldatum: string;
-    belagwaben: string;
-    stadium: string;
-    sanftmut: string;
-    schwarmverhalten: string;
-    koenigin_gesehen: boolean;
-    auffaeligkeiten: string;
-    bemerkungen: string;
+    id: string;
+    hiveId: string;
+    creationDate: string;
+    broodStadium: string;
+    gentleness: number;
+    swarmBehavior: number;
+    queenSeen: boolean;
+    peculiarity: string;
+    comment: string;
     hiveName: string;
+    creator: string;
 
 
-    constructor( volkId?: number, erstelldatum?: string, belagwaben?: string, stadium?: string, sanftmut?: string,
-                 schwarmverhalten?: string, koenigin_gesehen?: boolean, auffaeligkeiten?: string, bemerkungen?: string, hiveName?: string) {
-       this.volkId = volkId;
-       this.erstelldatum = erstelldatum;
-       this.belagwaben = belagwaben;
-       this.stadium = stadium;
-       this.sanftmut = sanftmut;
-       this.schwarmverhalten = schwarmverhalten;
-       this.koenigin_gesehen = koenigin_gesehen;
-       this.auffaeligkeiten = auffaeligkeiten;
-       this.bemerkungen = bemerkungen;
+    constructor(hivecardId?: string, hiveId?: string, creationDate?: string, broodStadium?: string,
+                 gentleness?: number, swarmBehavior?: number, queenSeen?: boolean,
+                 peculiarity?: string, comment?: string, hiveName?: string,
+                 creator?: string) {
+       this.hiveId = hiveId;
+       this.creationDate = creationDate;
+       this.broodStadium = broodStadium;
+       this.gentleness = gentleness;
+       this.swarmBehavior = swarmBehavior;
+       this.queenSeen = queenSeen;
+       this.peculiarity = peculiarity;
+       this.comment = comment;
        this.hiveName = hiveName;
+       this.creator = creator;
     }
 }

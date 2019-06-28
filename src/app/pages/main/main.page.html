@@ -1,27 +1,20 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+            <ion-menu-button color="dark"></ion-menu-button>
         </ion-buttons>
         <ion-title>Summerei</ion-title>
         <ion-buttons slot="end">
-            <ion-button *ngIf="isNotDashboard">
+            <ion-button color="dark" *ngIf="isNotDashboard">
                 <ion-icon slot="icon-only" name="stats"></ion-icon>
             </ion-button>
-            <ion-button>
-                <ion-icon slot="icon-only" name="more">
+            <ion-button (click)="moreButton($event)" color="dark">
+                <ion-icon  slot="icon-only" name="more">
                 </ion-icon>
-<!--                    <ion-select interface="popover">-->
-<!--                        <ion-select-option *ngFor="let num of options"-->
-<!--                                           [value]="num">{{num}}-->
-<!--                        </ion-select-option>-->
-<!--                    </ion-select>-->
-
-
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
-    <ion-toolbar>
+    <ion-toolbar color="light">
       <ion-slides (ionSlideTransitionStart)="transitionFromVoelker()" [options]="optionsTabSlide" #voelker>
           <ion-slide *ngIf="showDashboard">
               <ion-chip color="dark">
@@ -40,11 +33,12 @@
 
 
 
-<ion-content id="ionContent">
+<ion-content id="ionContent" color="light">
+
 
     <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide"  #stockkarten id="cardSlider">
         <ion-slide *ngIf="showDashboard">
-            <app-slider-item [dashboardCards]="dashboardHiveCards" [dashboard]="true"  id="dashboard"></app-slider-item>
+            <app-slider-item [dashboardCards]="dashboardHivecards" [dashboard]="true"  id="dashboard"></app-slider-item>
         </ion-slide>
         <ion-slide *ngFor="let hive of hiveData">
             <app-slider-item [dashboard]="false" [hive]="hive" [id]="hive.id"></app-slider-item>
@@ -54,7 +48,7 @@
 
 
     <ion-fab *ngIf="isNotDashboard" (click)="createHiveCard()" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="success">
+        <ion-fab-button color="primary">
             <ion-icon color="dark" name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

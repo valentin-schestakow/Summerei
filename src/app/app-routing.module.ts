@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '',
-    redirectTo: 'menu',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
@@ -12,6 +12,9 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
   { path: 'hive-form', loadChildren: './pages/hive-form/hive-form.module#HiveFormPageModule' },
+  { path: 'authentication', loadChildren: './pages/authentication/authentication.module#AuthenticationPageModule' },
+  { path: 'main', loadChildren: './pages/main/main.module#MainPageModule' },
+  { path: 'color-picker', loadChildren: './pages/color-picker/color-picker.module#ColorPickerPageModule' },
 ];
 
 @NgModule({

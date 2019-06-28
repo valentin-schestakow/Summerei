@@ -10,7 +10,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {MenuPageModule} from './pages/menu/menu.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import {SliderItemComponent} from './components/slider-item/slider-item.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {MoreButtonPageModule} from './pages/more-button/more-button.module';
+import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
+
 
 
 @NgModule({
@@ -21,12 +27,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       AppRoutingModule,
       MenuPageModule,
       NgbModule.forRoot(),
+      AngularFireModule.initializeApp(environment.firebaseConfig),
+      AngularFirestoreModule,
+      AngularFireAuthModule,
+      MoreButtonPageModule,
+      ColorPickerPageModule,
     ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+

@@ -21,7 +21,7 @@
 
       <ion-item>
         <ion-label>Datum</ion-label>
-        <ion-datetime [placeholder]="hiveCard.erstelldatum" cancelText="Abbrechen" doneText="Fertig" displayFormat="DD/MM/YYYY"
+        <ion-datetime [placeholder]="hivecard.creationDate" cancelText="Abbrechen" doneText="Fertig" displayFormat="DD/MM/YYYY"
                       pickerFormat="DD MM YY" #date ></ion-datetime>
       </ion-item>
 
@@ -41,30 +41,20 @@
 
       <ion-item>
         <ion-label>Sanftmut</ion-label>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon (click)="gentleStar(1)" id="gentleStar_1" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="gentleStar(2)" id="gentleStar_2" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="gentleStar(3)" id="gentleStar_3" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="gentleStar(4)" id="gentleStar_4" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="gentleStar(5)" id="gentleStar_5" name="star-outline" color="dark"></ion-icon>
       </ion-item>
 
       <ion-item>
         <ion-label>Schwarmverhalten</ion-label>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Belagwaben</ion-label>
-        <ion-input #belagwaben
-                   type="string"
-                   text-right
-                   max="100"
-                   required>
-        </ion-input>
+        <ion-icon (click)="behaviorStar(1)" id="behaviorStar_1" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="behaviorStar(2)" id="behaviorStar_2" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="behaviorStar(3)" id="behaviorStar_3" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="behaviorStar(4)" id="behaviorStar_4" name="star-outline" color="dark"></ion-icon>
+        <ion-icon (click)="behaviorStar(5)" id="behaviorStar_5" name="star-outline" color="dark"></ion-icon>
       </ion-item>
 
       <ion-item>
@@ -79,8 +69,17 @@
               <ion-label>rechts</ion-label>
             </ion-segment-button>
           </ion-segment>
-
         </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Belagwaben</ion-label>
+        <ion-input #belagwaben
+                   type="string"
+                   text-right
+                   max="100"
+                   required>
+        </ion-input>
       </ion-item>
 
       <ion-item>
@@ -96,47 +95,9 @@
                       #auffaeligkeiten
                       required="true"></ion-textarea>
       </ion-item>
-
-
-
-
-
-
-      <!--      <ion-item>-->
-<!--        <ion-label>Creditpoints</ion-label>-->
-<!--        <ion-input formControlName="crp"-->
-<!--                   #crp-->
-<!--                   type="number"-->
-<!--                   text-right-->
-<!--                   max="30"-->
-<!--                   required>-->
-<!--        </ion-input>-->
-<!--      </ion-item>-->
-<!--      <p class="ion-text-end ion-padding-end text-danger"-->
-<!--         *ngIf="errors.get('crp')">-->
-<!--        {{errors.get('crp')}}-->
-<!--      </p>-->
-
-
-<!--      <ion-item>-->
-<!--        <ion-label>Note</ion-label>-->
-<!--        <ion-input formControlName="mark"-->
-<!--                   #mark-->
-<!--                   type="number"-->
-<!--                   text-right-->
-<!--                   max="100"-->
-<!--                   required>-->
-<!--        </ion-input>-->
-<!--      </ion-item>-->
-
-<!--      <p class="ion-text-end ion-padding-end text-danger"-->
-<!--         *ngIf="errors.get('mark')">-->
-<!--        {{errors.get('mark')}}-->
-<!--      </p>-->
-
     </ion-list>
-<!--  </form>-->
+
   <div padding>
-    <ion-button size="large" type="submit" expand="block">Speichern</ion-button>
+    <ion-button (click)="save()" size="large" type="submit" expand="block">Speichern</ion-button>
   </div>
 </ion-content>
