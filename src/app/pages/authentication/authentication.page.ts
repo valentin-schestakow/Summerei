@@ -27,7 +27,7 @@ export class AuthenticationPage implements OnInit {
 
     if (this.password === this.passwordCofirm) {
       this.authService.register(this.email, this.password, this.username).then(() => {
-        this.router.navigateByUrl("main");
+        this.router.navigateByUrl("menu");
       }).catch(() => {
         this.presentToast();
       })

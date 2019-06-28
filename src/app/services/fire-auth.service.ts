@@ -12,12 +12,12 @@ export class FireAuthService {
 
   public currentUser: any;
   public isLoggedIn: boolean = false;
+  public username: string = "";
+  public uid: string;
+  public email: string;
 
-
-  private email: string;
   private password: string;
-  private username: string = "";
-  private uid: string;
+
 
   constructor(private fireAuth: AngularFireAuth,
               public router: Router,
@@ -62,7 +62,9 @@ export class FireAuthService {
         .then(data => {
 
           this.currentUser = data.user;
+
             if (this.currentUser) {
+                this.uid = this.currentUser.uid;
                 this.isLoggedIn = true;
                 ret = true;
             }

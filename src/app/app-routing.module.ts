@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'hive-form', loadChildren: './pages/hive-form/hive-form.module#HiveFormPageModule' },
   { path: 'authentication', loadChildren: './pages/authentication/authentication.module#AuthenticationPageModule' },
   { path: 'main', loadChildren: './pages/main/main.module#MainPageModule' },
+  { path: 'color-picker', loadChildren: './pages/color-picker/color-picker.module#ColorPickerPageModule' },
 ];
 
 @NgModule({

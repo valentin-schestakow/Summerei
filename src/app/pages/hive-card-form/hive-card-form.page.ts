@@ -4,8 +4,9 @@ import {AlertController, IonDatetime, IonInput, IonSelect, IonTextarea, NavContr
 import {FormBuilder} from '@angular/forms';
 import {Hive} from '../../model/hive.model';
 import {HiveService} from '../../services/hive.service';
-import {HiveCard} from '../../model/hive-card.model';
+import {Hivecard} from '../../model/hive-card.model';
 import {templateRefExtractor} from '@angular/core/src/render3';
+import {FireDbService} from '../../services/fire-db.service';
 
 @Component({
   selector: 'app-hive-card-form',
@@ -15,7 +16,7 @@ import {templateRefExtractor} from '@angular/core/src/render3';
 export class HiveCardFormPage implements OnInit {
 
   isEditMode = false;
-  hiveCard: HiveCard = new HiveCard();
+  hivecard: Hivecard = new Hivecard();
   hive: Hive = new Hive();
   pageTitle: string;
   stadien: number[] = [1,2,3];
@@ -51,19 +52,20 @@ export class HiveCardFormPage implements OnInit {
   private behaviorStar_3: Element;
   private behaviorStar_4: Element;
   private behaviorStar_5: Element;
+  private hiveId: string;
 
 
 
 
   constructor(private route: ActivatedRoute,
-              private hiveService: HiveService,
               public router: Router,
               private navCtrl: NavController,
-              public alertController: AlertController) {
+              public alertController: AlertController,
+              private fireDb: FireDbService) {
 
 
-    const hiveId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    Object.assign(this.hive, this.hiveService.findHiveById(hiveId));
+    this.hiveId = this.route.snapshot.paramMap.get('hiveId');
+    Object.assign(this.hive, this.fireDb.findHiveById(this.hiveId));
     this.pageTitle = 'Stockkarte anlegen';
   }
 
@@ -93,21 +95,22 @@ export class HiveCardFormPage implements OnInit {
    * - Fallunterscheidung zwischen neu Karte anlegen und vorhandene bearbeiten
    */
   save() {
-    this.hiveCard.creationDate = this.dateRef.value;
-    this.hiveCard.broodStadium = this.stadiumRef.value;
-    this.hiveCard.queenSeen = this.isCheckedQueenSeen;
+    this.hivecard.creationDate = this.dateRef.value;
+    this.hivecard.broodStadium = this.stadiumRef.value;
+    this.hivecard.queenSeen = this.isCheckedQueenSeen;
     // this.hiveCard.belagwaben = this.belagwabenRef.value;
-    this.hiveCard.gentleness = this.gentleStarSelectedCount;
-    this.hiveCard.swarmBehavior = this.behaviorStarSelectedCount;
-    this.hiveCard.comment = this.bemerkungenRef.value;
-    this.hiveCard.peculiarity = this.auffaeligkeitenRef.value;
-    this.hiveCard.hiveId = this.hive.id;
-    this.hiveCard.hiveName = this.hive.name;
-    this.hive.hiveCards.push(this.hiveCard);
+    this.hivecard.gentleness = this.gentleStarSelectedCount;
+    this.hivecard.swarmBehavior = this.behaviorStarSelectedCount;
+    this.hivecard.comment = this.bemerkungenRef.value;
+    this.hivecard.peculiarity = this.auffaeligkeitenRef.value;
+    this.hivecard.hiveId = this.hive.id;
+    this.hivecard.hiveName = this.hive.name;
+    // this.hive.hivecards.push(this.hivecard);
 
-    this.hiveService.updateHive(this.hive);
-    this.hiveService.persistHiveCard(this.hiveCard);
-    this.hiveService.emitChange(true);
+    this.fireDb.addHivecardToHive(this.hiveId, this.hivecard);
+    // this.hiveService.updateHive(this.hive);
+    // this.hiveService.persistHiveCard(this.hivecard);
+    // this.hiveService.emitChange(true);
 
     this.navCtrl.pop();
   }

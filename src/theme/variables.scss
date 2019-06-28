@@ -87,6 +87,17 @@
   --ion-color-theme-contrast-rgb: 0,0,0;
   --ion-color-theme-shade: #8fb8e0;
   --ion-color-theme-tint: #acd6ff;
+
+  ion-popover{
+    .popover-wrapper{
+      .popover-content{
+
+        max-width: fit-content;
+      }
+    }
+  }
+
+
 }
 
 

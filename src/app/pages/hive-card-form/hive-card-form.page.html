@@ -21,7 +21,7 @@
 
       <ion-item>
         <ion-label>Datum</ion-label>
-        <ion-datetime [placeholder]="hiveCard.creationDate" cancelText="Abbrechen" doneText="Fertig" displayFormat="DD/MM/YYYY"
+        <ion-datetime [placeholder]="hivecard.creationDate" cancelText="Abbrechen" doneText="Fertig" displayFormat="DD/MM/YYYY"
                       pickerFormat="DD MM YY" #date ></ion-datetime>
       </ion-item>
 
@@ -98,6 +98,6 @@
     </ion-list>
 
   <div padding>
-    <ion-button size="large" type="submit" expand="block">Speichern</ion-button>
+    <ion-button (click)="save()" size="large" type="submit" expand="block">Speichern</ion-button>
   </div>
 </ion-content>

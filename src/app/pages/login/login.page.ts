@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 
   login() {
     this.authService.login(this.email, this.password).then(() => {
-      this.router.navigateByUrl("main");
+      this.router.navigateByUrl("menu");
     }).catch(() => {
       this.presentToast();
     });

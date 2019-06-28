@@ -45,7 +45,8 @@
                 "input": "./node_modules/material-icons/css/material-icons.css"
               }
             ],
-            "scripts": [],
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js",
+                        "./node_modules/bootstrap/dist/js/bootstrap.js"],
             "es5BrowserSupport": true
           },
           "configurations": {

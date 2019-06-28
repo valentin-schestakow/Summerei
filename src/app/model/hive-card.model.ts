@@ -1,7 +1,7 @@
-export class HiveCard {
+export class Hivecard {
 
-    id: number;
-    hiveId: number;
+    id: string;
+    hiveId: string;
     creationDate: string;
     broodStadium: string;
     gentleness: number;
@@ -13,7 +13,7 @@ export class HiveCard {
     creator: string;
 
 
-    constructor( hiveId?: number, creationDate?: string, broodStadium?: string,
+    constructor(hivecardId?: string, hiveId?: string, creationDate?: string, broodStadium?: string,
                  gentleness?: number, swarmBehavior?: number, queenSeen?: boolean,
                  peculiarity?: string, comment?: string, hiveName?: string,
                  creator?: string) {

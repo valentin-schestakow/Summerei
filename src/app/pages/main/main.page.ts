@@ -1,9 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonSlides} from '@ionic/angular';
+import {IonSlides, PopoverController} from '@ionic/angular';
 import {HiveService} from '../../services/hive.service';
 import {Hive} from '../../model/hive.model';
-import {HiveCard} from '../../model/hive-card.model';
+import {Hivecard} from '../../model/hive-card.model';
 import {Router} from '@angular/router';
+import {MoreButtonPage} from '../more-button/more-button.page';
+import * as $ from 'jquery';
+import {FireDbService} from '../../services/fire-db.service';
+import {plainToClass} from 'class-transformer';
 
 
 @Component({
@@ -17,76 +21,91 @@ export class MainPage implements OnInit {
   @ViewChild('stockkarten') stockkartenSlide: IonSlides;
 
 
-  hiveData: Hive[];
+  hiveData: Hive[] = [];
   currentHive: Hive = new Hive();
 
   isNotDashboard: boolean = false;
   showDashboard: boolean = false;
 
   optionsTabSlide = {
-    autoHeight: true,
-    slidesPerView: '3',
-    centeredSlides: true,
+      autoHeight: true,
+      slidesPerView: '3',
+      centeredSlides: true,
       speed: 400,
-    spaceBetween: 1,
+      spaceBetween: 1,
   };
 
     optionsCardsSlide = {
         autoHeight: true,
     };
 
-    dashboardHiveCards:  HiveCard[];
+    dashboardHivecards:  Hivecard[];
 
     options: string[] = ['test','test'];
 
 
 
-  constructor(public hiveService: HiveService,
-              private router: Router) {
-      this.hiveData = this.hiveService.findAllHives();
-      this.dashboardHiveCards = this.hiveService.findAllHiveCards();
-      this.hiveService.listenToChange().subscribe(change => {
-          if(change) {
-              this.transitionFromStockkarten();
-              this.hiveService.emitChange(false);
+  constructor(private fireDb: FireDbService,
+              private router: Router,
+              public popoverController: PopoverController,) {
+
+      this.fireDb.getHivesOfCurrentUser().subscribe(data => {
+          let tempHives: Hive[] = [];
+          data.forEach((hive) =>{
+              tempHives.push(plainToClass(Hive, hive));
+          });
+
+          this.hiveData = tempHives;
+          this.dashboardHivecards = this.fireDb.findAllHiveCards();
+          if (this.dashboardHivecards.length > 0) {
+              this.showDashboard = true;
           }
-      })
+          this.transitionFromStockkarten();
+      });
+
+
+      //this.hiveData = this.hiveService.findAllHives();
+      //this.dashboardHiveCards = this.hiveService.findAllHiveCards();
+
+      // this.fireDb.listenToChange().subscribe(change => {
+      //     if(change) {
+      //         this.hiveData = this.fireDb.hives;
+      //         this.dashboardHivecards = this.fireDb.findAllHiveCards();
+      //         this.transitionFromStockkarten();
+      //         this.fireDb.emitChange(false);
+      //         if (this.dashboardHivecards) {
+      //             this.showDashboard = true;
+      //         }
+      //     }
+      // })
   }
 
   ngOnInit() {
+      // this.fireDb.observeHives().subscribe( hives => {
+      //     this.hiveData = hives;
+      //     this.dashboardHivecards = this.fireDb.findAllHiveCards();
+      //     this.transitionFromStockkarten();
+      //     if (this.dashboardHivecards.length > 0) {
+      //         this.showDashboard = true;
+      //     }
+      // })
   }
 
 
   ionViewWillEnter() {
-      this.hiveData = this.hiveService.findAllHives();
-      this.dashboardHiveCards = this.hiveService.findAllHiveCards();
+      this.hiveData = this.fireDb.hives;
+      this.dashboardHivecards = this.fireDb.findAllHiveCards();
+      // this.transitionFromStockkarten();
 
-      this.transitionFromStockkarten();
-
-      // this.stockkartenSlide.getActiveIndex()
-      //     .then(ret => {
-      //
-      //         this.currentHive = this.hiveData[ret];
-      //         // this.setVisibleSlideRange(ret, ret+1);
-      //
-      //         if (ret == 0 && this.showDashboard) {
-      //             this.isNotDashboard = false;
-      //         } else {
-      //             this.isNotDashboard = true;
-      //
-      //         }
-      //     });
-
-      // this.showDashboard = true;
-      if (this.dashboardHiveCards) {
+      if (this.dashboardHivecards.length > 0) {
           this.showDashboard = true;
       }
-      this.setVisibleSlideRange(1);
+      // this.setVisibleSlideRange(1);
   }
 
 
     createHiveCard() {
-        this.router.navigate(['hive-card-form', {id: this.currentHive.id}]);
+        this.router.navigate(['hive-card-form', {hiveId: this.currentHive.id}]);
     }
 
   transitionFromStockkarten() {
@@ -174,5 +193,15 @@ export class MainPage implements OnInit {
           console.log('on Dashboard');
       }
     }
+
+
+    async moreButton(ev: Event) {
+      let popover = await this.popoverController.create({
+          event: ev,
+          component: MoreButtonPage,
+        });
+        await popover.present();
+    }
+
 
 }

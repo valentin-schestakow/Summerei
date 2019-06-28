@@ -12,9 +12,11 @@ import {MenuPageModule} from './pages/menu/menu.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-// import {SliderItemComponent} from './components/slider-item/slider-item.component';
+import {MoreButtonPageModule} from './pages/more-button/more-button.module';
+import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
+
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFirestoreModule,
       AngularFireAuthModule,
+      MoreButtonPageModule,
+      ColorPickerPageModule,
     ],
   providers: [
     StatusBar,
@@ -37,3 +41,4 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
