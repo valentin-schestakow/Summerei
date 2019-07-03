@@ -56,6 +56,7 @@ export class MainPage implements OnInit {
           });
 
           this.hiveData = tempHives;
+          this.fireDb.hives = tempHives;
           this.dashboardHivecards = this.fireDb.findAllHiveCards();
           if (this.dashboardHivecards.length > 0) {
               this.showDashboard = true;
@@ -107,6 +108,8 @@ export class MainPage implements OnInit {
     createHiveCard() {
         this.router.navigate(['hive-card-form', {hiveId: this.currentHive.id}]);
     }
+
+
 
   transitionFromStockkarten() {
     this.stockkartenSlide.getActiveIndex()
@@ -171,7 +174,7 @@ export class MainPage implements OnInit {
       if(index >= 0) {
           let testID = this.hiveData[index].id.toString();
           let slide = document.getElementById(testID);
-          let slider = document.getElementById('cardSlider')
+          let slider = document.getElementById('cardSlider');
           console.log('height: ' + slide.offsetHeight.toString());
 
           if(slide.offsetHeight < window.innerHeight) {
@@ -182,7 +185,7 @@ export class MainPage implements OnInit {
           }
       } else {
           let slide = document.getElementById('dashboard');
-          let slider = document.getElementById('cardSlider')
+          let slider = document.getElementById('cardSlider');
           if(slide.offsetHeight < window.innerHeight) {
               let ionContent = document.getElementById("ionContent");
               window.setTimeout(function(){slider.style.height = ionContent.offsetHeight.toString() + 'px';}, 100);

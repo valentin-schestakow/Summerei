@@ -14,14 +14,14 @@ export class FireDbService {
 
   constructor(private firebaseFirestore: AngularFirestore,
               private fireAuth: FireAuthService) {
-    let query = this.firebaseFirestore.collection('hive', ref => ref.where('members' ,'array-contains', this.fireAuth.uid+""));
-    query.valueChanges().subscribe(data => {
-      let tempHives: Hive[] = [];
-      data.forEach((hive) =>{
-        tempHives.push(plainToClass(Hive, hive));
-      });
-      this.hives = tempHives;
-    });
+    // let query = this.firebaseFirestore.collection('hive', ref => ref.where('members' ,'array-contains', this.fireAuth.uid+""));
+    // query.valueChanges().subscribe(data => {
+    //   let tempHives: Hive[] = [];
+    //   data.forEach((hive) =>{
+    //     tempHives.push(plainToClass(Hive, hive));
+    //   });
+    //   this.hives = tempHives;
+    // });
   }
 
   public hives: Hive[] = [];
@@ -61,13 +61,13 @@ export class FireDbService {
   }
 
   addHivecardToHive(hiveId: string, hiveCard: Hivecard) {
-    let year: string = hiveCard.creationDate.substr(0,4);
-    let month: string = hiveCard.creationDate.substr(5,2);
-    let day: string = hiveCard.creationDate.substr(8,2);
-
-    let date: string = day+'.'+ month +'.'+ year;
-
-    hiveCard.creationDate = date;
+    // let year: string = hiveCard.creationDate.substr(0,4);
+    // let month: string = hiveCard.creationDate.substr(5,2);
+    // let day: string = hiveCard.creationDate.substr(8,2);
+    //
+    // let date: string = day+'.'+ month +'.'+ year;
+    //
+    // hiveCard.creationDate = date;
 
     let tempCards: Hivecard[] = this.hives.find(hive => isHive(hiveId,hive)).hivecards;
     tempCards.push(hiveCard);
@@ -95,23 +95,6 @@ export class FireDbService {
     return this.hives.find(h => h.id == id);
   }
 
-  // listenToChange(){
-  //   let observable = new Observable<boolean>(observer => {
-  //     observer.next(this.changeEmitter);
-  //   });
-  //   return observable;
-  // }
-  //
-  // emitChange(change: boolean){
-  //   this.changeEmitter = change;
-  // }
-
-  observeHives() : Observable<Hive[]> {
-    return new Observable<Hive[]>(observer => {
-      observer.next(this.hives);
-    });
-  }
-
   findAllHiveCards(): Hivecard[] {
     this.hivecards = [];
     this.hives.forEach(hive => {
@@ -124,6 +107,19 @@ export class FireDbService {
 
 
   //@TODO verschiedene Methods zum bearbeiten der Hives an sich
+  findHivecardById(hiveId: string, hivecardId: string) {
+    let tempHive: Hive = this.findHiveById(hiveId);
+    return tempHive.hivecards.find(card => card.id == hivecardId);
+  }
+
+  updateHivecard(hiveId: string, hivecardId: string, newHivecard: Hivecard) {
+    let hiveIndex: number = this.hives.findIndex(hive => hive.id == hiveId);
+    let hiveCardIndex: number = this.hives[hiveIndex].hivecards.findIndex(card => card.id == hivecardId);
+    this.hives[hiveIndex].hivecards[hiveCardIndex] = newHivecard;
+    this.firebaseFirestore.collection("hive").doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(this.hives[hiveIndex].hivecards))});
+
+  }
+
 }
 
 function isHive(hiveId: string, hive: Hive) {

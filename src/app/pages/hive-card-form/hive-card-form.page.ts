@@ -1,12 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AlertController, IonDatetime, IonInput, IonSelect, IonTextarea, NavController} from '@ionic/angular';
+import {AlertController, IonCheckbox, IonDatetime, IonInput, IonSegmentButton, IonSelect, IonTextarea, NavController} from '@ionic/angular';
 import {FormBuilder} from '@angular/forms';
 import {Hive} from '../../model/hive.model';
 import {HiveService} from '../../services/hive.service';
 import {Hivecard} from '../../model/hive-card.model';
 import {templateRefExtractor} from '@angular/core/src/render3';
 import {FireDbService} from '../../services/fire-db.service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {DatePicker} from '@ionic-native/date-picker/ngx';
 
 @Component({
   selector: 'app-hive-card-form',
@@ -19,24 +21,25 @@ export class HiveCardFormPage implements OnInit {
   hivecard: Hivecard = new Hivecard();
   hive: Hive = new Hive();
   pageTitle: string;
-  stadien: number[] = [1,2,3];
+  private hiveId: string;
+  private hivecardId: string;
+
 
 
   isCheckedQueenSeen: boolean = false;
   @ViewChild('date')
   private dateRef: IonDatetime;
-  @ViewChild('stadium')
-  private stadiumRef: IonSelect;
-  @ViewChild('belagwaben')
-  private belagwabenRef: IonInput;
-  @ViewChild('sanftmut')
-  private sanftmutRef: IonInput;
-  @ViewChild('schwarmverhalten')
-  private schwarmverhaltenRef: IonInput;
+  @ViewChild('broodStatus')
+  private broodStatusRef: IonSelect;
+  @ViewChild('frameChange')
+  private frameChangeRef: IonSelect;
   @ViewChild('bemerkungen')
-  private bemerkungenRef: IonTextarea;
+  private commentRef: IonTextarea;
   @ViewChild('auffaeligkeiten')
-  private auffaeligkeitenRef: IonTextarea;
+  private peculiarityRef: IonTextarea;
+  @ViewChild ('queenSeenCheck')
+  private queenSeenCheckRef: IonCheckbox;
+
 
 
   private gentleStarSelectedCount: number;
@@ -45,6 +48,7 @@ export class HiveCardFormPage implements OnInit {
   private gentleStar_3: Element;
   private gentleStar_4: Element;
   private gentleStar_5: Element;
+  private gentleStar_1_reset: boolean = false;
 
   private behaviorStarSelectedCount: number;
   private behaviorStar_1: Element;
@@ -52,7 +56,7 @@ export class HiveCardFormPage implements OnInit {
   private behaviorStar_3: Element;
   private behaviorStar_4: Element;
   private behaviorStar_5: Element;
-  private hiveId: string;
+  private behaviorStar_1_reset: boolean = false;
 
 
 
@@ -61,12 +65,22 @@ export class HiveCardFormPage implements OnInit {
               public router: Router,
               private navCtrl: NavController,
               public alertController: AlertController,
-              private fireDb: FireDbService) {
+              private fireDb: FireDbService,
+              private firebaseFirestore: AngularFirestore,
+              private datePicker: DatePicker) {
 
 
     this.hiveId = this.route.snapshot.paramMap.get('hiveId');
-    Object.assign(this.hive, this.fireDb.findHiveById(this.hiveId));
-    this.pageTitle = 'Stockkarte anlegen';
+    this.hivecardId = this.route.snapshot.paramMap.get('hivecardId');
+    if(this.hivecardId){
+      Object.assign(this.hivecard, this.fireDb.findHivecardById(this.hiveId ,this.hivecardId));
+      this.isEditMode = true;
+      this.pageTitle = 'Stockkarte berbeiten';
+    } else {
+      this.pageTitle = 'Stockkarte anlegen';
+    }
+
+
   }
 
   ngOnInit() {
@@ -89,30 +103,46 @@ export class HiveCardFormPage implements OnInit {
     this.navCtrl.pop();
   }
 
+  ionViewWillEnter() {
+    if (this.isEditMode) {
+      //@TODO momentanes Datum auswählen
+        this.dateRef.value = this.hivecard.creationDate;
+        this.broodStatusRef.value = this.hivecard.broodStatus;
+        this.queenSeenCheckRef.checked = this.hivecard.queenSeen;
+        this.gentleStar(this.hivecard.gentleness);
+        this.behaviorStar(this.hivecard.swarmBehavior);
+        this.frameChangeRef.value = this.hivecard.frameChange;
+        this.commentRef.value = this.hivecard.comment;
+        this.peculiarityRef.value = this.hivecard.peculiarity;
+    } else {
+        this.dateRef.value = new Date().toISOString();
+    }
+  }
+
   /**
    * @Todo
    * - Nutzereinganben überprüfen und melden
    * - Fallunterscheidung zwischen neu Karte anlegen und vorhandene bearbeiten
    */
   save() {
-    this.hivecard.creationDate = this.dateRef.value;
-    this.hivecard.broodStadium = this.stadiumRef.value;
-    this.hivecard.queenSeen = this.isCheckedQueenSeen;
-    // this.hiveCard.belagwaben = this.belagwabenRef.value;
-    this.hivecard.gentleness = this.gentleStarSelectedCount;
-    this.hivecard.swarmBehavior = this.behaviorStarSelectedCount;
-    this.hivecard.comment = this.bemerkungenRef.value;
-    this.hivecard.peculiarity = this.auffaeligkeitenRef.value;
-    this.hivecard.hiveId = this.hive.id;
-    this.hivecard.hiveName = this.hive.name;
-    // this.hive.hivecards.push(this.hivecard);
+      this.hivecard.creationDate = this.dateRef.value;
+      this.hivecard.broodStatus = this.broodStatusRef.value;
+      this.hivecard.queenSeen = this.queenSeenCheckRef.checked;
+      this.hivecard.frameChange = this.frameChangeRef.value;
+      this.hivecard.gentleness = this.gentleStarSelectedCount;
+      this.hivecard.swarmBehavior = this.behaviorStarSelectedCount;
+      this.hivecard.comment = this.commentRef.value;
+      this.hivecard.peculiarity = this.peculiarityRef.value;
+      this.hivecard.hiveId = this.hive.id;
+      this.hivecard.hiveName = this.hive.name;
+      this.hivecard.id = this.firebaseFirestore.createId();
 
-    this.fireDb.addHivecardToHive(this.hiveId, this.hivecard);
-    // this.hiveService.updateHive(this.hive);
-    // this.hiveService.persistHiveCard(this.hivecard);
-    // this.hiveService.emitChange(true);
-
-    this.navCtrl.pop();
+      if(this.isEditMode) {
+          this.fireDb.updateHivecard(this.hiveId, this.hivecardId, this.hivecard);
+      } else {
+          this.fireDb.addHivecardToHive(this.hiveId, this.hivecard);
+      }
+      this.navCtrl.pop();
   }
 
   delete() {
@@ -136,6 +166,16 @@ export class HiveCardFormPage implements OnInit {
         this.gentleStar_4.setAttribute('color','dark');
         this.gentleStar_5.setAttribute('name','star-outline');
         this.gentleStar_5.setAttribute('color','dark');
+
+          if(this.gentleStar_1_reset) {
+              this.gentleStar_1.setAttribute('name','star-outline');
+              this.gentleStar_1.setAttribute('color','dark');
+              this.gentleStarSelectedCount= 0;
+              this.gentleStar_1_reset = false;
+          } else {
+              this.gentleStar_1_reset = true;
+          }
+
         break;
 
       case 2:
@@ -224,6 +264,15 @@ export class HiveCardFormPage implements OnInit {
         this.behaviorStar_4.setAttribute('color','dark');
         this.behaviorStar_5.setAttribute('name','star-outline');
         this.behaviorStar_5.setAttribute('color','dark');
+
+        if(this.behaviorStar_1_reset) {
+            this.behaviorStar_1.setAttribute('name','star-outline');
+            this.behaviorStar_1.setAttribute('color','dark');
+            this.behaviorStarSelectedCount = 0;
+            this.behaviorStar_1_reset = false;
+        } else {
+            this.behaviorStar_1_reset = true;
+        }
         break;
 
       case 2:
@@ -293,12 +342,5 @@ export class HiveCardFormPage implements OnInit {
         break;
 
     }
-  }
-
-  private fillStar(element: Element) {
-
-  }
-
-  private colorStar(element: Element) {
   }
 }

@@ -16,6 +16,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {MoreButtonPageModule} from './pages/more-button/more-button.module';
 import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
+import {DatePickerOriginal} from '@ionic-native/date-picker';
+import {DatePicker} from '@ionic-native/date-picker/ngx';
 
 
 
@@ -36,6 +38,7 @@ import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
   providers: [
     StatusBar,
     SplashScreen,
+    DatePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
