@@ -1,0 +1,21 @@
+.hivecard {
+  //background-color:rgba(0, 0, 0, 0.5);
+  //background-color: #10dc60;
+  background-color: rgba(238,238,238,0.5);
+  color: #000000 !important;
+  font-family: Arial, serif;
+  margin-top: 2%;
+  min-width: 100%;
+  align-content: center;
+}
+.unimportant-text {
+  font-size: smaller;
+  font-weight: normal;
+  text-align: left;
+}
+
+.important-text {
+  font-size: larger;
+  font-weight: bold;
+  text-align: right;
+}

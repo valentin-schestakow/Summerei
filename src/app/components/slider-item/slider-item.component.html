@@ -1,24 +1,37 @@
 
 <div class="container" *ngIf="!dashboard">
-  <div class="row">
-    <div *ngFor="let card of hive.hivecards" class="card col-11 col-md-5" style="margin-left: 5%; margin-top: 2%;" >
-      <div class="card-body" (click)="editHivecard(card.id)">
-        <h4 class="card-title">{{card.creationDate}}</h4>
-        <p class="card-text">andere wichtige Daten</p>
-      </div>
+<!--    <ion-card *ngFor="let card of hive.hivecards" (click)="editHivecard(card.id)">-->
+<!--        <ion-card-header>-->
+<!--            <ion-card-subtitle style="color: #000000;">Erstellt am: {{card.creationDate | date:'dd/MM/yyyy'}}</ion-card-subtitle>-->
+<!--&lt;!&ndash;            <ion-card-title>Card Title</ion-card-title>&ndash;&gt;-->
+<!--        </ion-card-header>-->
+
+<!--        <ion-card-content >-->
+<!--            Baurahmen erneuert: {{card.frameChange}}<br>-->
+<!--            Brutstadien: {{card.broodStatus}}<br>-->
+<!--            Königin gesehen: {{card.queenSeen}}-->
+<!--        </ion-card-content>-->
+<!--    </ion-card>-->
+    <div *ngFor="let card of hive.hivecards" (click)="editHivecard(card.id)" class="hivecard card col-12 col-md-5">
+        <div class="card-body">
+            <h5 class="card-title">Erstellt am: {{card.creationDate | date:'dd/MM/yyyy'}}</h5>
+            <p style="text-align: left" >
+                <span class="unimportant-text">Baurahmen erneuert: </span><span class="important-text">{{card.frameChange}}</span><br>
+                <span class="unimportant-text">Brutstadien: </span><span class="important-text">{{card.broodStatus}}</span><br>
+                <span class="unimportant-text">Königin gesehen: </span><span class="important-text">{{card.queenSeen}}</span>
+            </p>
+        </div>
     </div>
-  </div>
 </div>
 
 
 
 <div class="container" *ngIf="dashboard">
-  <div class="row">
-    <div *ngFor="let card of dashboardCards" class="card col-11 col-md-5" style="margin-left: 5%; margin-top: 2%; ">
-      <div class="card-body" *ngIf="card.hiveId != 0">
-        <h4 class="card-title">Volkname: {{card.hiveName}}</h4>
-        <p class="card-text">{{card.creationDate}}.</p>
-      </div>
-    </div>
+    <div *ngFor="let card of dashboardCards" class="hivecard card col-11 col-md-5" >
+        <div class="card-body">
+            <h5 class="card-title">Volk: {{card.hiveName}}</h5>
+            <h5 class="card-text">
+                Zustand: </h5>
+        </div>
   </div>
 </div>

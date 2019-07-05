@@ -75,7 +75,7 @@ export class FireDbService {
     this.firebaseFirestore.collection('hive').doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(tempCards))});
   }
 
-  deletHivecard(hiveId: string, hivecardId: string) {
+  deleteHivecard(hiveId: string, hivecardId: string) {
     let tempCards: Hivecard[] = this.hives.find(hive => isHive(hiveId,hive)).hivecards;
     for (let i = 0; i < tempCards.length; i++) {
       if(tempCards[i].id == hivecardId){
@@ -117,7 +117,10 @@ export class FireDbService {
     let hiveCardIndex: number = this.hives[hiveIndex].hivecards.findIndex(card => card.id == hivecardId);
     this.hives[hiveIndex].hivecards[hiveCardIndex] = newHivecard;
     this.firebaseFirestore.collection("hive").doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(this.hives[hiveIndex].hivecards))});
+  }
 
+  updateHive (hive: Hive) {
+    this.firebaseFirestore.collection('hive').doc(hive.id).set(JSON.parse(JSON.stringify(hive)));
   }
 
 }

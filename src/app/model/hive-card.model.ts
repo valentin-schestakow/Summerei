@@ -12,6 +12,7 @@ export class Hivecard {
     hiveName: string;
     creator: string;
     frameChange: string[];
+    hiveState: string;
 
 
     constructor(hivecardId?: string, hiveId?: string, creationDate?: string, broodStatus?: string[],

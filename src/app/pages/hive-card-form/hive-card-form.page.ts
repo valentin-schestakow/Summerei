@@ -74,9 +74,11 @@ export class HiveCardFormPage implements OnInit {
     this.hivecardId = this.route.snapshot.paramMap.get('hivecardId');
     if(this.hivecardId){
       Object.assign(this.hivecard, this.fireDb.findHivecardById(this.hiveId ,this.hivecardId));
+      Object.assign(this.hive, this.fireDb.findHiveById(this.hiveId));
       this.isEditMode = true;
       this.pageTitle = 'Stockkarte berbeiten';
     } else {
+      Object.assign(this.hive, this.fireDb.findHiveById(this.hiveId));
       this.pageTitle = 'Stockkarte anlegen';
     }
 
@@ -135,6 +137,7 @@ export class HiveCardFormPage implements OnInit {
       this.hivecard.peculiarity = this.peculiarityRef.value;
       this.hivecard.hiveId = this.hive.id;
       this.hivecard.hiveName = this.hive.name;
+      this.hivecard.hiveState  = this.hive.state;
       this.hivecard.id = this.firebaseFirestore.createId();
 
       if(this.isEditMode) {
@@ -146,7 +149,8 @@ export class HiveCardFormPage implements OnInit {
   }
 
   delete() {
-
+    this.fireDb.deleteHivecard(this.hiveId, this.hivecardId);
+    this.navCtrl.pop();
   }
 
   gentleStar(count: number) {

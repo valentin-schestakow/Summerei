@@ -15,10 +15,13 @@ export class LoginPage implements OnInit {
 
   constructor(public authService: FireAuthService,
               public router: Router,
-              public toastController: ToastController,) { }
+              public toastController: ToastController,) {
+    this.authService.login("t@t.de","123456").then(() => {
+      this.router.navigateByUrl("menu");
+    })
+  }
 
   ngOnInit() {
-
   }
 
   login() {

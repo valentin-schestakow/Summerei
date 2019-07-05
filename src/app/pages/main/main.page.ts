@@ -41,8 +41,6 @@ export class MainPage implements OnInit {
 
     dashboardHivecards:  Hivecard[];
 
-    options: string[] = ['test','test'];
-
 
 
   constructor(private fireDb: FireDbService,
@@ -60,8 +58,12 @@ export class MainPage implements OnInit {
           this.dashboardHivecards = this.fireDb.findAllHiveCards();
           if (this.dashboardHivecards.length > 0) {
               this.showDashboard = true;
+          } else {
+              this.showDashboard = false;
           }
+
           this.transitionFromStockkarten();
+
       });
 
 
@@ -171,11 +173,11 @@ export class MainPage implements OnInit {
 
     slideVisibility(index: number) {
       if(this.showDashboard) index--;
-      if(index >= 0) {
-          let testID = this.hiveData[index].id.toString();
+      if(index >= 0 && this.hiveData.length > 0) {
+          let testID = this.hiveData[index].id;
           let slide = document.getElementById(testID);
           let slider = document.getElementById('cardSlider');
-          console.log('height: ' + slide.offsetHeight.toString());
+          // console.log('height: ' + slide.offsetHeight.toString());
 
           if(slide.offsetHeight < window.innerHeight) {
               let ionContent = document.getElementById("ionContent");
@@ -192,8 +194,6 @@ export class MainPage implements OnInit {
           } else {
               window.setTimeout(function(){ slider.style.height = slide.offsetHeight.toString() + 'px'; }, 100);
           }
-
-          console.log('on Dashboard');
       }
     }
 
@@ -206,5 +206,17 @@ export class MainPage implements OnInit {
         await popover.present();
     }
 
+    checkIfnotNull(object: any) {
+        if (object == null) {
+            return false;
+        }
 
+        if (object === null) {
+            return false;
+        }
+
+        if (typeof object === 'undefined') {
+            return false;
+        }
+    }
 }

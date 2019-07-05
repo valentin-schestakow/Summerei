@@ -33,7 +33,7 @@
 
 
 
-<ion-content id="ionContent" color="light">
+<ion-content id="ionContent" >
 
 
     <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide"  #stockkarten id="cardSlider">
@@ -45,9 +45,14 @@
         </ion-slide>
     </ion-slides>
 
+    <div class="card-body" *ngIf="hiveData.length == 0" #noCards>
+        <h5 class="card-title">dfsdafsadf</h5>
+        <h5 class="card-text"></h5>
+    </div>
 
 
-    <ion-fab *ngIf="isNotDashboard" (click)="createHiveCard()" vertical="bottom" horizontal="end" slot="fixed">
+
+    <ion-fab *ngIf="isNotDashboard && hiveData.length > 0" (click)="createHiveCard()" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="primary">
             <ion-icon color="dark" name="add"></ion-icon>
         </ion-fab-button>

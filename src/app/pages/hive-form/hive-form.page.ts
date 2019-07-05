@@ -43,6 +43,7 @@ export class HiveFormPage implements OnInit {
     if(hiveId) {
       Object.assign(this.hive, this.fireDb.findHiveById(hiveId));
     } else {
+      this.hive = new Hive();
       this.pageTitle = 'Volk anlegen';
     }
 
@@ -61,23 +62,25 @@ export class HiveFormPage implements OnInit {
    * - Fallunterscheidung zwischen neu Karte anlegen und vorhandene bearbeiten
    */
   save() {
+    this.hive.name = this.hiveNameRef.value;
+    this.hive.queenColor = this.selectedColor;
+    this.hive.race = this.raceRef.value;
+    this.hive.beehiveKind = this.beehiveKindRef.value;
+    //@TODO Standort holen
+    // this.hive. = this.positionRef.value;
 
-    if(this.isEditMode) {
-
+    if (this.isEditMode) {
+      this.fireDb.updateHive(this.hive);
     } else {
-      this.hive.name = this.hiveNameRef.value;
-      this.hive.queenColor = this.selectedColor;
-      this.hive.race = this.raceRef.value;
-      this.hive.beehiveKind = this.beehiveKindRef.value;
-      // this.hive. = this.positionRef.value;
-
       this.fireDb.createHive(this.hive);
     }
+
     this.navCtrl.pop();
   }
 
   delete() {
-
+    this.fireDb.deleteHive(this.hive.id);
+    this.navCtrl.pop();
   }
 
   async moreColorButton(ev: Event) {
