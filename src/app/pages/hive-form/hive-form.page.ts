@@ -25,8 +25,8 @@ export class HiveFormPage implements OnInit {
   private raceRef: IonTextarea;
   @ViewChild('beehiveKind')
   private beehiveKindRef: IonTextarea;
-  @ViewChild('position')
-  private positionRef: IonTextarea;
+  // @ViewChild('position')
+  // private positionRef: IonTextarea;
 
 
 
@@ -39,9 +39,11 @@ export class HiveFormPage implements OnInit {
               private fireDb: FireDbService) {
 
 
-    const hiveId = this.route.snapshot.paramMap.get('id');
+    const hiveId = this.route.snapshot.paramMap.get('hiveId');
     if(hiveId) {
       Object.assign(this.hive, this.fireDb.findHiveById(hiveId));
+      this.isEditMode = true;
+      this.pageTitle = 'Volk bearbeiten';
     } else {
       this.hive = new Hive();
       this.pageTitle = 'Volk anlegen';

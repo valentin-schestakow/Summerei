@@ -1,28 +1,22 @@
 
-<div class="container" *ngIf="!dashboard">
-<!--    <ion-card *ngFor="let card of hive.hivecards" (click)="editHivecard(card.id)">-->
-<!--        <ion-card-header>-->
-<!--            <ion-card-subtitle style="color: #000000;">Erstellt am: {{card.creationDate | date:'dd/MM/yyyy'}}</ion-card-subtitle>-->
-<!--&lt;!&ndash;            <ion-card-title>Card Title</ion-card-title>&ndash;&gt;-->
-<!--        </ion-card-header>-->
+<span *ngIf="!dashboard">
+    <span *ngFor="let card of hive.hivecards" (click)="editHivecard(card.id)" class="hivecard col-11">
+        <ion-card >
+            <ion-card-header>
+                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                <ion-card-title>Card Title</ion-card-title>
+            </ion-card-header>
 
-<!--        <ion-card-content >-->
-<!--            Baurahmen erneuert: {{card.frameChange}}<br>-->
-<!--            Brutstadien: {{card.broodStatus}}<br>-->
-<!--            Königin gesehen: {{card.queenSeen}}-->
-<!--        </ion-card-content>-->
-<!--    </ion-card>-->
-    <div *ngFor="let card of hive.hivecards" (click)="editHivecard(card.id)" class="hivecard card col-12 col-md-5">
-        <div class="card-body">
-            <h5 class="card-title">Erstellt am: {{card.creationDate | date:'dd/MM/yyyy'}}</h5>
-            <p style="text-align: left" >
+            <ion-card-content  class="container">
+                <p style="text-align: left" >
                 <span class="unimportant-text">Baurahmen erneuert: </span><span class="important-text">{{card.frameChange}}</span><br>
                 <span class="unimportant-text">Brutstadien: </span><span class="important-text">{{card.broodStatus}}</span><br>
                 <span class="unimportant-text">Königin gesehen: </span><span class="important-text">{{card.queenSeen}}</span>
             </p>
-        </div>
-    </div>
-</div>
+            </ion-card-content>
+        </ion-card>
+    </span>
+</span>
 
 
 

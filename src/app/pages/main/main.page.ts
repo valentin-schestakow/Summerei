@@ -202,6 +202,7 @@ export class MainPage implements OnInit {
       let popover = await this.popoverController.create({
           event: ev,
           component: MoreButtonPage,
+          cssClass: 'custom-popover',
         });
         await popover.present();
     }
@@ -218,5 +219,9 @@ export class MainPage implements OnInit {
         if (typeof object === 'undefined') {
             return false;
         }
+    }
+
+    editHive(id: string) {
+        this.router.navigate(['hive-form', {hiveId: this.currentHive.id}]);
     }
 }
