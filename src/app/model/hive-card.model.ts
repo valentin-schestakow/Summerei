@@ -3,7 +3,7 @@ export class Hivecard {
     id: string;
     hiveId: string;
     creationDate: string;
-    broodStadium: string;
+    broodStatus: string[];
     gentleness: number;
     swarmBehavior: number;
     queenSeen: boolean;
@@ -11,15 +11,17 @@ export class Hivecard {
     comment: string;
     hiveName: string;
     creator: string;
+    frameChange: string[];
+    hiveState: string;
 
 
-    constructor(hivecardId?: string, hiveId?: string, creationDate?: string, broodStadium?: string,
+    constructor(hivecardId?: string, hiveId?: string, creationDate?: string, broodStatus?: string[],
                  gentleness?: number, swarmBehavior?: number, queenSeen?: boolean,
                  peculiarity?: string, comment?: string, hiveName?: string,
-                 creator?: string) {
+                 creator?: string, frameChange?: string[]) {
        this.hiveId = hiveId;
        this.creationDate = creationDate;
-       this.broodStadium = broodStadium;
+       this.broodStatus = broodStatus;
        this.gentleness = gentleness;
        this.swarmBehavior = swarmBehavior;
        this.queenSeen = queenSeen;
@@ -27,5 +29,6 @@ export class Hivecard {
        this.comment = comment;
        this.hiveName = hiveName;
        this.creator = creator;
+       this.frameChange = frameChange;
     }
 }

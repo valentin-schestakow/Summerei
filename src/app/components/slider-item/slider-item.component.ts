@@ -15,9 +15,11 @@ export class SliderItemComponent implements OnInit {
   @Input() dashboard: boolean;
   @Input() dashboardCards: Hivecard[];
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router,) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 
   editHivecard(hivecardId: string) {

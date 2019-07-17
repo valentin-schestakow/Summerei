@@ -16,7 +16,7 @@ export class MoreButtonPage implements OnInit {
   }
 
   createHive() {
-    console.log('TEST');
+    // console.log('TEST');
     this.router.navigateByUrl('hive-form');
     this.popoverController.dismiss();
 

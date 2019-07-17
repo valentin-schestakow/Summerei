@@ -2,4 +2,31 @@
   margin-right: 5px;
 }
 
+ion-content {
+  --background: none;
+  background-image: url(../../../assets/biene-im-anflug.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
+.noHive {
+  //background-color:rgba(0, 0, 0, 0.5);
+  //background-color: #10dc60;
+  background-color: rgba(238,238,238,0.6);
+  color: #000000 !important;
+  font-family: Arial, serif;
+  margin-top: 2%;
+  min-width: 100%;
+  align-content: center;
+  text-align: center;
+}
+
+.hiveButton {
+  position: relative;
+  top: -5%;
+}
+
+ion-slide {
+  justify-content: center;
+}

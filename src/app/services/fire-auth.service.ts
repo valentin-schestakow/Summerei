@@ -88,8 +88,6 @@ export class FireAuthService {
         user.email = this.email
         user.id = this.uid;
         user.name = this.username;
-        let hives: string[] = []
-        user.hives = hives;
 
         this.db.collection('user').doc(this.uid).set(JSON.parse(JSON.stringify(user)))
             .then(data => {

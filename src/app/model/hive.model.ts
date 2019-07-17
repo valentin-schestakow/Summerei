@@ -11,6 +11,7 @@ export class Hive {
     members: string[];
     adminId: string;
     state: string;
+    location: any;
 
     constructor(id?: string, hivecards?: Hivecard[], creationDate?: string, name?: string, queenColor?: string, race?: string, beehiveKind?: string,
                 members?: string[], adminId?: string, state?: string) {

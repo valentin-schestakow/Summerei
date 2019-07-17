@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="back()">
         <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
@@ -14,9 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-<!--  <form [formGroup]="detailForm">-->
+<ion-content >
     <ion-list lines="full">
 
       <ion-item>
@@ -27,16 +25,16 @@
 
       <ion-item>
         <ion-label>Brutstadien</ion-label>
-        <ion-select interface="popover" #stadium>
-          <ion-select-option *ngFor="let num of stadien"
-                             [value]="num">{{num}}
-          </ion-select-option>
+        <ion-select multiple="true" #broodStatus>
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Königin gesehen?</ion-label>
-        <ion-checkbox  [checked]="isCheckedQueenSeen"></ion-checkbox>
+        <ion-checkbox  [checked]="isCheckedQueenSeen" #queenSeenCheck></ion-checkbox>
       </ion-item>
 
       <ion-item>
@@ -58,42 +56,37 @@
       </ion-item>
 
       <ion-item>
-        <div class="row">
-          <ion-label class="col-6">Baurahmen erneuert</ion-label>
-
-          <ion-segment class="col-6" color="primary">
-            <ion-segment-button value="friends">
-              <ion-label>links</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="enemies">
-              <ion-label>rechts</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </div>
+        <ion-label>Baurahmen erneuert</ion-label>
+        <ion-select multiple="true" #frameChange>
+          <ion-select-option value="links">links</ion-select-option>
+          <ion-select-option value="rechts">rechts</ion-select-option>
+        </ion-select>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Belagwaben</ion-label>
-        <ion-input #belagwaben
-                   type="string"
-                   text-right
-                   max="100"
-                   required>
-        </ion-input>
-      </ion-item>
+<!--      <ion-item>-->
+<!--        <ion-label>Belagwaben</ion-label>-->
+<!--        <ion-input #belagwaben-->
+<!--                   type="string"-->
+<!--                   text-right-->
+<!--                   max="100"-->
+<!--                   required>-->
+<!--        </ion-input>-->
+<!--      </ion-item>-->
 
       <ion-item>
         <ion-label>Bemerkungen</ion-label>
         <ion-textarea rows="1.5" cols="20" placeholder=""
                       #bemerkungen
-                      required="true"></ion-textarea>
+                      required="true"
+                      text-right></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label >Auffälligkeiten</ion-label>
         <ion-textarea rows="1.5" cols="20" placeholder=""
                       #auffaeligkeiten
-                      required="true"></ion-textarea>
+                      required="true"
+                      text-right></ion-textarea>
       </ion-item>
     </ion-list>
 

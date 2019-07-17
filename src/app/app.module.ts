@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -16,7 +16,13 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {MoreButtonPageModule} from './pages/more-button/more-button.module';
 import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
+import {DatePicker} from '@ionic-native/date-picker/ngx';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {HttpClientModule} from '@angular/common/http';
 
+import {SmileyPickerPageModule} from './pages/smiley-picker/smiley-picker.module';
+import {RouteReuseStrategy} from '@angular/router';
+import {FireDbService} from './services/fire-db.service';
 
 
 @NgModule({
@@ -25,6 +31,7 @@ import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
     imports: [BrowserModule,
       IonicModule.forRoot(),
       AppRoutingModule,
+      HttpClientModule,
       MenuPageModule,
       NgbModule.forRoot(),
       AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -32,10 +39,14 @@ import {ColorPickerPageModule} from './pages/color-picker/color-picker.module';
       AngularFireAuthModule,
       MoreButtonPageModule,
       ColorPickerPageModule,
+      SmileyPickerPageModule
     ],
   providers: [
     StatusBar,
     SplashScreen,
+    DatePicker,
+    Geolocation,
+    FireDbService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
