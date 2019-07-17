@@ -3,7 +3,7 @@ import {IonSlides, PopoverController} from '@ionic/angular';
 import {HiveService} from '../../services/hive.service';
 import {Hive} from '../../model/hive.model';
 import {Hivecard} from '../../model/hive-card.model';
-import {Router} from '@angular/router';
+import {Navigation, NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {MoreButtonPage} from '../more-button/more-button.page';
 import * as $ from 'jquery';
 import {FireDbService} from '../../services/fire-db.service';
@@ -16,6 +16,8 @@ import {plainToClass} from 'class-transformer';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+
+    // private currentNavigation: Navigation;
 
   @ViewChild('voelker') voelkerSlide: IonSlides;
   @ViewChild('stockkarten') stockkartenSlide: IonSlides;
@@ -37,6 +39,8 @@ export class MainPage implements OnInit {
 
     optionsCardsSlide = {
         autoHeight: true,
+        slidesPerView: 1,
+        centeredSlides: true,
     };
 
     dashboardHivecards:  Hivecard[];
@@ -47,24 +51,28 @@ export class MainPage implements OnInit {
               private router: Router,
               public popoverController: PopoverController,) {
 
-      this.fireDb.getHivesOfCurrentUser().subscribe(data => {
-          let tempHives: Hive[] = [];
-          data.forEach((hive) =>{
-              tempHives.push(plainToClass(Hive, hive));
+      this.fireDb.listenToHivesOfCurrentUser().subscribe(() => {
+          this.fireDb.getHivesOfCurrentUser().subscribe(data => {
+              let tempHives: Hive[] = [];
+              data.forEach((hive) =>{
+                  tempHives.push(plainToClass(Hive, hive));
+              });
+
+              this.hiveData = tempHives;
+              this.fireDb.hives = tempHives;
+              this.dashboardHivecards = this.fireDb.findAllHiveCards();
+              if (this.dashboardHivecards.length > 0) {
+                  this.showDashboard = true;
+              } else {
+                  this.showDashboard = false;
+              }
+              this.transitionFromVoelker();
+              this.transitionFromStockkarten();
+
           });
 
-          this.hiveData = tempHives;
-          this.fireDb.hives = tempHives;
-          this.dashboardHivecards = this.fireDb.findAllHiveCards();
-          if (this.dashboardHivecards.length > 0) {
-              this.showDashboard = true;
-          } else {
-              this.showDashboard = false;
-          }
+      })
 
-          this.transitionFromStockkarten();
-
-      });
 
 
       //this.hiveData = this.hiveService.findAllHives();
@@ -108,7 +116,8 @@ export class MainPage implements OnInit {
 
 
     createHiveCard() {
-        this.router.navigate(['hive-card-form', {hiveId: this.currentHive.id}]);
+      // this.currentNavigation = this.router.getCurrentNavigation();
+       this.router.navigate(['hive-card-form', {hiveId: this.currentHive.id}])
     }
 
 

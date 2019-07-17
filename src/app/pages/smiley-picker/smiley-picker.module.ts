@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HiveFormPage } from './hive-form.page';
-import {SpinnerComponent} from '../../components/spinner/spinner.component';
+import { SmileyPickerPage } from './smiley-picker.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: HiveFormPage
+    component: SmileyPickerPage
   }
 ];
 
@@ -22,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-    declarations: [HiveFormPage, SpinnerComponent]
+  declarations: [SmileyPickerPage]
 })
-export class HiveFormPageModule {}
+export class SmileyPickerPageModule {}

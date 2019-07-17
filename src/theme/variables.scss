@@ -102,4 +102,42 @@
   --ion-color-tint: var(--ion-color-gold-tint) !important;
 }
 
+.cancelButton {
+  color: #f04141 !important;
+}
 
+.confirmButton {
+  color: #A1C36C !important;
+}
+
+.white {
+  color: #f4f5f8;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+
+.smColorSuccess {
+  color: #10dc60;
+}
+.smColorWarning {
+  color: #ffce00;
+}
+
+.smColorDanger {
+  color: #f04141;
+}

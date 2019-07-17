@@ -3,8 +3,7 @@ import {Hive} from '../model/hive.model';
 import {Hivecard} from '../model/hive-card.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FireAuthService} from './fire-auth.service';
-import {plainToClass} from 'class-transformer';
-import {Observable} from 'rxjs';
+
 
 
 @Injectable({
@@ -14,23 +13,19 @@ export class FireDbService {
 
   constructor(private firebaseFirestore: AngularFirestore,
               private fireAuth: FireAuthService) {
-    // let query = this.firebaseFirestore.collection('hive', ref => ref.where('members' ,'array-contains', this.fireAuth.uid+""));
-    // query.valueChanges().subscribe(data => {
-    //   let tempHives: Hive[] = [];
-    //   data.forEach((hive) =>{
-    //     tempHives.push(plainToClass(Hive, hive));
-    //   });
-    //   this.hives = tempHives;
-    // });
   }
 
   public hives: Hive[] = [];
   public hivecards: Hivecard[] = [];
-  private changeEmitter: boolean = false;
 
   getHivesOfCurrentUser() {
     let query = this.firebaseFirestore.collection('hive', ref => ref.where('members' ,'array-contains', this.fireAuth.uid+""));
     return  query.valueChanges()
+  }
+
+  listenToHivesOfCurrentUser() {
+    let query = this.firebaseFirestore.collection('hive', ref => ref.where('members' ,'array-contains', this.fireAuth.uid+""));
+    return  query.snapshotChanges()
   }
 
   createHive(hive: Hive) {
@@ -61,14 +56,6 @@ export class FireDbService {
   }
 
   addHivecardToHive(hiveId: string, hiveCard: Hivecard) {
-    // let year: string = hiveCard.creationDate.substr(0,4);
-    // let month: string = hiveCard.creationDate.substr(5,2);
-    // let day: string = hiveCard.creationDate.substr(8,2);
-    //
-    // let date: string = day+'.'+ month +'.'+ year;
-    //
-    // hiveCard.creationDate = date;
-
     let tempCards: Hivecard[] = this.hives.find(hive => isHive(hiveId,hive)).hivecards;
     tempCards.push(hiveCard);
 

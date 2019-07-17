@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'authentication', loadChildren: './pages/authentication/authentication.module#AuthenticationPageModule' },
   { path: 'main', loadChildren: './pages/main/main.module#MainPageModule' },
   { path: 'color-picker', loadChildren: './pages/color-picker/color-picker.module#ColorPickerPageModule' },
+  { path: 'smiley-picker', loadChildren: './pages/smiley-picker/smiley-picker.module#SmileyPickerPageModule' },
 ];
 
 @NgModule({

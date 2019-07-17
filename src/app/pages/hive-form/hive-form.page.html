@@ -15,14 +15,35 @@
 </ion-header>
 
 <ion-content>
-
   <ion-list lines="full">
 
     <ion-item>
       <ion-label>Farbe Königin</ion-label>
         <ion-item (click)="moreColorButton($event)">
-            <ion-icon [color]="selectedColor" name="water"></ion-icon>
+            <ion-icon [ngClass]="selectedColor" name="water"></ion-icon>
         </ion-item>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Zustand</ion-label>
+      <ion-item (click)="moreSmileysButton($event)">
+
+          <ion-chip *ngIf="state == 'good'" color="dark">
+              <i class="material-icons smileys smColorSuccess">sentiment_very_satisfied</i>
+              <ion-label color="dark">Gut</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngIf="state == 'mediocre'" color="dark">
+              <i class="material-icons smileys smColorWarning">sentiment_satisfied</i>
+              <ion-label color="dark">Mittelmäßig</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngIf="state == 'bad'" color="dark">
+              <i class="material-icons smileys smColorDanger">sentiment_very_dissatisfied</i>
+              <ion-label color="dark">Schlecht</ion-label>
+          </ion-chip>
+
+      </ion-item>
     </ion-item>
 
 
@@ -30,29 +51,36 @@
       <ion-label >Volkname</ion-label>
       <ion-textarea rows="1.5" cols="20" placeholder=""
                     #hiveName
-                    required="true"></ion-textarea>
+                    required="true"
+                    text-right></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label >Rasse</ion-label>
       <ion-textarea rows="1.5" cols="20" placeholder=""
                     #race
-                    required="true"></ion-textarea>
+                    required="true"
+                    text-right></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label >Beutenart</ion-label>
       <ion-textarea rows="1.5" cols="20" placeholder=""
                     #beehiveKind
-                    required="true"></ion-textarea>
+                    required="true"
+                    text-right></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label >Standort</ion-label>
+      <ion-button *ngIf="!locationSet" (click)="locationDialog()">hinzufügen</ion-button>
+
+      <ion-text *ngIf="locationSet">{{location.name}}</ion-text>
+      <ion-item *ngIf="locationSet" (click)="locationDialog()">
+        <ion-icon name="create" color="primary"></ion-icon>
+      </ion-item>
     </ion-item>
 
-<!--    <ion-item>-->
-<!--      <ion-label >Standort</ion-label>-->
-<!--      <ion-textarea rows="1.5" cols="20" placeholder="in Arbeit..."-->
-<!--                    #position-->
-<!--                    required="true"></ion-textarea>-->
-<!--    </ion-item>-->
+      <app-spinner *ngIf="showSpinner"></app-spinner>
   </ion-list>
 
 

@@ -14,53 +14,72 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
-    <ion-toolbar color="secondary" *ngIf="hiveData.length > 0">
-      <ion-slides (ionSlideTransitionStart)="transitionFromVoelker()" [options]="optionsTabSlide" #voelker>
-          <ion-slide *ngIf="showDashboard">
-              <ion-chip color="dark">
-                  <ion-label color="dark">Dashboard</ion-label>
-              </ion-chip>
-          </ion-slide>
-          <ion-slide *ngFor="let hive of hiveData" class="btn-group hiveName" (click)="editHive(hive.id)">
-              <ion-chip color="success">
-                  <i class="material-icons smileys">sentiment_very_satisfied</i>
-                  <ion-label color="success">{{hive.name}}</ion-label>
-              </ion-chip>
-          </ion-slide>
-      </ion-slides>
-    </ion-toolbar>
+
+    <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
+        <ion-toolbar color="secondary" *ngIf="hiveData.length > 0">
+            <ion-slides (ionSlideTransitionStart)="transitionFromVoelker()" [options]="optionsTabSlide" #voelker>
+                <ion-slide *ngIf="showDashboard">
+                    <ion-chip color="dark">
+                        <ion-label color="dark">Dashboard</ion-label>
+                    </ion-chip>
+                </ion-slide>
+                <ion-slide *ngFor="let hive of hiveData" class="hiveName" (click)="editHive(hive.id)">
+                    <ion-chip *ngIf="hive.state == 'good'" color="success">
+                        <i class="material-icons smileys">sentiment_very_satisfied</i>
+                        <ion-label color="dark">{{hive.name}}</ion-label>
+                    </ion-chip>
+
+                    <ion-chip *ngIf="hive.state == 'mediocre'" color="warning">
+                        <i class="material-icons smileys">sentiment_satisfied</i>
+                        <ion-label color="dark">{{hive.name}}</ion-label>
+                    </ion-chip>
+
+                    <ion-chip *ngIf="hive.state == 'bad'" color="danger">
+                        <i class="material-icons smileys">sentiment_very_dissatisfied</i>
+                        <ion-label color="dark">{{hive.name}}</ion-label>
+                    </ion-chip>
+
+                </ion-slide>
+            </ion-slides>
+        </ion-toolbar>
+    <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
+
+
 </ion-header>
 
 
 
 <ion-content id="ionContent" >
-    <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide"  #stockkarten id="cardSlider">
-        <ion-slide *ngIf="showDashboard">
-            <app-slider-item [dashboardCards]="dashboardHivecards" [dashboard]="true"  id="dashboard"></app-slider-item>
-        </ion-slide>
-        <ion-slide *ngFor="let hive of hiveData">
-            <app-slider-item [dashboard]="false" [hive]="hive" [id]="hive.id"></app-slider-item>
-        </ion-slide>
-    </ion-slides>
 
 
-    <div class="card noHive" *ngIf="hiveData.length == 0">
-        <div class="card-body">
-            <h3 class="card-title">Es Sind keine Völker vorhanden!</h3>
-            <h4 style="text-align: left" class="card-text">
-                Hier: <ion-button shape="round" color="tertiary" size="large" class="hiveButton"><img src="../../../assets/beehive_icon.png"></ion-button> kannst du ein  Volk anlegen!
-            </h4>
+    <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
+        <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide"  #stockkarten id="cardSlider">
+            <ion-slide *ngIf="showDashboard">
+                <app-slider-item [dashboardCards]="dashboardHivecards" [dashboard]="true"  id="dashboard"></app-slider-item>
+            </ion-slide>
+            <ion-slide *ngFor="let hive of hiveData">
+                <app-slider-item [dashboard]="false" [hive]="hive" [id]="hive.id"></app-slider-item>
+            </ion-slide>
+        </ion-slides>
+
+        <div class="card noHive" *ngIf="hiveData.length == 0">
+            <div class="card-body">
+                <h3 class="card-title">Es Sind keine Völker vorhanden!</h3>
+                <h4 style="text-align: left" class="card-text">
+                    Hier: <ion-button shape="round" color="tertiary" size="large" class="hiveButton"><img src="../../../assets/beehive_icon.png"></ion-button> kannst du ein  Volk anlegen!
+                </h4>
+            </div>
         </div>
-    </div>
+
+        <ion-fab *ngIf="isNotDashboard && hiveData.length > 0" (click)="createHiveCard()" vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button color="tertiary">
+                <ion-icon color="dark" name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
 
 
 
 
-
-    <ion-fab *ngIf="isNotDashboard && hiveData.length > 0" (click)="createHiveCard()" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="tertiary">
-            <ion-icon color="dark" name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
 
 </ion-content>
