@@ -103,11 +103,21 @@
 }
 
 .cancelButton {
-  color: #f04141 !important;
+  color: #000000 !important;
+  align-content: center !important;
+  background-color: rgba(255, 58, 38, 0.1) !important;
 }
 
 .confirmButton {
-  color: #A1C36C !important;
+  color: #000000 !important;
+  align-content: center !important;
+  background-color: rgba(91, 204, 69, 0.1) !important;
+}
+
+.secondConfirmButton {
+  color: #000000 !important;
+  align-content: center !important;
+  background-color: rgba(16, 92, 255, 0.1) !important;
 }
 
 .white {

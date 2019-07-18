@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HiveFormPage } from './hive-form.page';
-import {SpinnerComponent} from '../../components/spinner/spinner.component';
+import {ComponentsModule} from '../../components/components.module';
+
 
 const routes: Routes = [
   {
@@ -20,8 +21,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentsModule,
   ],
-    declarations: [HiveFormPage, SpinnerComponent]
+    declarations: [HiveFormPage]
 })
 export class HiveFormPageModule {}

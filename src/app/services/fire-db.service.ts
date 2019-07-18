@@ -4,6 +4,9 @@ import {Hivecard} from '../model/hive-card.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FireAuthService} from './fire-auth.service';
 
+import * as firebase from 'firebase';
+import FieldValue = firebase.firestore.FieldValue;
+
 
 
 @Injectable({
@@ -110,6 +113,9 @@ export class FireDbService {
     this.firebaseFirestore.collection('hive').doc(hive.id).set(JSON.parse(JSON.stringify(hive)));
   }
 
+  redeemInviteCode(key: string) {
+    return this.firebaseFirestore.collection('hive').doc(key).update({"members" : FieldValue.arrayUnion(this.fireAuth.uid)});
+  }
 }
 
 function isHive(hiveId: string, hive: Hive) {
