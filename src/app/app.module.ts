@@ -23,6 +23,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {SmileyPickerPageModule} from './pages/smiley-picker/smiley-picker.module';
 import {RouteReuseStrategy} from '@angular/router';
 import {FireDbService} from './services/fire-db.service';
+import {SpinnerComponent} from './components/spinner/spinner.component';
+import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import {FireDbService} from './services/fire-db.service';
       AngularFireAuthModule,
       MoreButtonPageModule,
       ColorPickerPageModule,
-      SmileyPickerPageModule
+      SmileyPickerPageModule,
+
     ],
   providers: [
     StatusBar,
@@ -47,6 +50,8 @@ import {FireDbService} from './services/fire-db.service';
     DatePicker,
     Geolocation,
     FireDbService,
+    SpinnerComponent,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

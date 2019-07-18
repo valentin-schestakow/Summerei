@@ -16,10 +16,16 @@ export class MoreButtonPage implements OnInit {
   }
 
   createHive() {
-    // console.log('TEST');
+    console.log('TEST');
     this.router.navigateByUrl('hive-form');
     this.popoverController.dismiss();
 
   }
 
+  invitePage() {
+
+    console.log('invite');
+    this.router.navigateByUrl('invite');
+    this.popoverController.dismiss();
+  }
 }
