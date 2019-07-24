@@ -21,7 +21,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-button fill="solid" expand="block" color="primary" (click)="redeemButton()">Einlösen</ion-button>
+  <ion-button fill="solid" size="large" expand="block" color="primary" (click)="redeemButton()">Einlösen</ion-button>
 
   <br>
   <ion-item>
@@ -30,7 +30,7 @@
       <ion-select-option [value]="hive.id" *ngFor="let hive of hives">{{hive.name}}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-button fill="solid" expand="block" color="primary" (click)="generateButton()">Versenden</ion-button>
+  <ion-button fill="solid" size="large" expand="block" color="primary" (click)="generateButton()">Versenden</ion-button>
 
 
 </ion-content>

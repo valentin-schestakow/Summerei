@@ -25,6 +25,9 @@ import {RouteReuseStrategy} from '@angular/router';
 import {FireDbService} from './services/fire-db.service';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
+import {NativeStorage} from '@ionic-native/native-storage/ngx';
+import {Network} from '@ionic-native/network/ngx';
+import {FireAuthService} from './services/fire-auth.service';
 
 
 @NgModule({
@@ -50,8 +53,11 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx';
     DatePicker,
     Geolocation,
     FireDbService,
+    FireAuthService,
     SpinnerComponent,
     SocialSharing,
+    NativeStorage,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

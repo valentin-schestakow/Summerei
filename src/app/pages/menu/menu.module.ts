@@ -13,6 +13,7 @@ const routes: Routes = [
     component: MenuPage,
       children: [
           { path: 'main', loadChildren: '../main/main.module#MainPageModule'},
+          { path: 'settings', loadChildren: '../settings/settings.module#SettingsPageModule'},
       ]
   }, {path: '', redirectTo :'/menu/main', pathMatch: 'full',}
 ];

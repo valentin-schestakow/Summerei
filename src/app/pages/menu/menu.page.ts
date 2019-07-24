@@ -1,28 +1,77 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, RouterEvent} from '@angular/router';
+import {AlertController, ToastController} from '@ionic/angular';
+import {LocalDbService} from '../../services/local-db.service';
+import {error} from 'selenium-webdriver';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.page.html',
-  styleUrls: ['./menu.page.scss'],
+    selector: 'app-menu',
+    templateUrl: './menu.page.html',
+    styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage {
 
-  pages = [
-    {title: 'Einstellungen', url: '/menu/main'},
-    {title: 'Logout', url: '/menu/slider'}
-  ]
+    pages = [
+        {title: 'Einstellungen', url: '/menu/settings'},
+        {title: 'Abmelden', url: ''}
+    ];
 
-  selectedPath = '';
+    selectedPath = '';
 
 
-  constructor(private router: Router) {
+    constructor(private router: Router,
+                private toastController: ToastController,
+                private alertService: AlertService,
+                private alertController: AlertController,
+                private localDbService: LocalDbService) {
 
-    this.router.events.subscribe((event: RouterEvent) => {
-      this.selectedPath = event.url;
-    });
+        this.router.events.subscribe((event: RouterEvent) => {
+            this.selectedPath = event.url;
+        });
+    }
 
-  }
+    async presentToast(msg: string) {
+        const toast = await this.toastController.create({
+            message: msg,
+            duration: 2000,
+            position: 'top',
+        });
+        toast.present();
+    }
+
+    route(p: { title: string; url: string }) {
+        if (p.title == 'Abmelden') {
+            this.logoutDialog();
+        } else {
+            this.router.navigateByUrl(p.url);
+        }
+    }
+
+
+    async logoutDialog() {
+        const alert = await this.alertController.create({
+            header: 'Wollen Sie sich wirklich abmelden?',
+            buttons: [
+                {
+                    text: 'Nein',
+                    role: 'cancel',
+                    cssClass: 'cancelButton',
+                },
+                {
+                    text: 'Ja',
+                    cssClass: 'confirmButton',
+                    handler: () => {
+                        this.localDbService.clearLocalStorage();
+                        this.router.navigateByUrl('login');
+                    }
+                }
+            ]
+        });
+        await alert.present();
+    }
+
 }
+
 
 

@@ -1,0 +1,28 @@
+.hivecard {
+  //background-color:rgba(0, 0, 0, 0.5);
+  //background-color: #10dc60;
+  //--background: rgba(238,238,238,0.5);
+  ion-card {
+    --background: rgba(255,255,255,0.8);
+    color: #000000 !important;
+    font-family: Arial, serif;
+    min-width: 90vw;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+}
+.unimportant-text {
+  font-size: medium;
+}
+
+.important-text {
+  font-size: x-large;
+}
+
+.transparentBg {
+  --background: transparent;
+}
+
+

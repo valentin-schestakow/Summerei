@@ -87,9 +87,13 @@ export class HiveFormPage implements OnInit {
     this.hive.queenColor = this.selectedColor;
     this.hive.race = this.raceRef.value;
     this.hive.beehiveKind = this.beehiveKindRef.value;
-    //@TODO Standort holen
     this.hive.location = this.location;
     this.hive.state = this.state;
+    if(this.location !== ""){
+      this.hive.location = this.location;
+    } else {
+      this.hive.location = "unset"
+    }
 
     if (this.isEditMode) {
       this.fireDb.updateHive(this.hive);
@@ -124,12 +128,9 @@ export class HiveFormPage implements OnInit {
       this.location = {name: name, latitude: resp.coords.latitude, longitude: resp.coords.longitude};
       this.locationSet = true;
       this.showSpinner = false;
-      // this.presentToast(this.location);
 
-      // console.log(name);
-      // console.log("coords" + resp.coords.latitude);
-      // console.log("coords" + resp.coords.longitude);
       this.weatherService.loadForecast();
+
 
     }).catch((error) => {
       console.log('Error getting location', error);

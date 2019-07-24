@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NoPreloading, PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   { path: '',
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'color-picker', loadChildren: './pages/color-picker/color-picker.module#ColorPickerPageModule' },
   { path: 'smiley-picker', loadChildren: './pages/smiley-picker/smiley-picker.module#SmileyPickerPageModule' },
   { path: 'invite', loadChildren: './pages/invite/invite.module#InvitePageModule' },
+  { path: 'hivedetail', loadChildren: './pages/hivedetail/hivedetail.module#HivedetailPageModule' },
 ];
 
 @NgModule({
