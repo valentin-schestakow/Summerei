@@ -8,6 +8,7 @@ import {FireDbService} from '../../services/fire-db.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {WeatherService} from '../../services/weather.service';
 import {SmileyPickerPage} from '../smiley-picker/smiley-picker.page';
+import {LocalDbService} from '../../services/local-db.service';
 
 @Component({
   selector: 'app-hive-form',
@@ -37,6 +38,9 @@ export class HiveFormPage implements OnInit {
   state: string = "good";
 
   showSpinner: boolean = false;
+  private showDelete: boolean;
+
+
 
 
   constructor(private route: ActivatedRoute,
@@ -47,8 +51,14 @@ export class HiveFormPage implements OnInit {
               private geolocation: Geolocation,
               private alertController: AlertController,
               private weatherService: WeatherService,
-              private toastController: ToastController) {
+              private toastController: ToastController,
+              private localDb: LocalDbService) {
 
+    if(this.localDb.settings.viewKind == "slideView") {
+      this.showDelete = true;
+    } else {
+      this.showDelete = false;
+    }
 
     const hiveId = this.route.snapshot.paramMap.get('hiveId');
     if(hiveId) {
@@ -87,9 +97,13 @@ export class HiveFormPage implements OnInit {
     this.hive.queenColor = this.selectedColor;
     this.hive.race = this.raceRef.value;
     this.hive.beehiveKind = this.beehiveKindRef.value;
-    //@TODO Standort holen
     this.hive.location = this.location;
     this.hive.state = this.state;
+    if(this.location !== ""){
+      this.hive.location = this.location;
+    } else {
+      this.hive.location = "unset"
+    }
 
     if (this.isEditMode) {
       this.fireDb.updateHive(this.hive);
@@ -115,8 +129,10 @@ export class HiveFormPage implements OnInit {
     await popover.present();
     await popover.onDidDismiss().then( data => {
       console.log(data);
-      this.selectedColor = data.data;
-        })
+      if(data.data != undefined) {
+        this.selectedColor = data.data;
+      }
+    })
   }
 
   getLocation(name: string) {
@@ -124,12 +140,9 @@ export class HiveFormPage implements OnInit {
       this.location = {name: name, latitude: resp.coords.latitude, longitude: resp.coords.longitude};
       this.locationSet = true;
       this.showSpinner = false;
-      // this.presentToast(this.location);
 
-      // console.log(name);
-      // console.log("coords" + resp.coords.latitude);
-      // console.log("coords" + resp.coords.longitude);
       this.weatherService.loadForecast();
+
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -179,7 +192,9 @@ export class HiveFormPage implements OnInit {
     await popover.present();
     await popover.onDidDismiss().then( data => {
       console.log(data);
-      this.state = data.data;
+      if(data.data != undefined) {
+        this.state = data.data;
+      }
     })
   }
 

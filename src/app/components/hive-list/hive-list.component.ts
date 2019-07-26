@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Hive} from '../../model/hive.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-hive-list',
@@ -7,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HiveListComponent implements OnInit {
 
-  constructor() { }
+  @Input() hive: Hive;
+
+  constructor(private router: Router,) { }
 
   ngOnInit() {}
 
+  moveToHivedetail(id: string) {
+    this.router.navigate(['hivedetail', {hiveId: id}]);
+  }
 }

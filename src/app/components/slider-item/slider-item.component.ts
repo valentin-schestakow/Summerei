@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Hive} from '../../model/hive.model';
 import {Hivecard} from '../../model/hive-card.model';
 import {Router} from '@angular/router';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-slider-item',
@@ -15,7 +16,9 @@ export class SliderItemComponent implements OnInit {
   @Input() dashboard: boolean;
   @Input() dashboardCards: Hivecard[];
 
-  constructor(private router: Router,) {
+
+  constructor(private router: Router,
+              private toast: ToastController) {
   }
 
   ngOnInit() {

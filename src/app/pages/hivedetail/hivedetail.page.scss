@@ -1,0 +1,41 @@
+ion-content {
+  --background: none;
+  background-image: url(../../../assets/blackbee.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hivecard {
+  //background-color:rgba(0, 0, 0, 0.5);
+  //background-color: #10dc60;
+  //--background: rgba(238,238,238,0.5);
+  ion-card {
+    --background: rgba(253, 248, 255, 0.85);
+    color: #000000 !important;
+    font-family: Arial, serif;
+    min-width: 90vw;
+    font-weight: bold;
+  }
+}
+.unimportant-text {
+  font-size: medium;
+}
+
+.important-text {
+  font-size: x-large;
+}
+
+.transparentBg {
+  --background: transparent;
+  background-color: transparent;
+}
+
+.buttonWidth {
+  width: 100%;
+}
+
+.hiveIcon{
+  margin-top: 0;
+}
+

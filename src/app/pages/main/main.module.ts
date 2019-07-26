@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { MainPage } from './main.page';
-import {SliderItemComponent} from '../../components/slider-item/slider-item.component';
+import {ComponentsModule} from '../../components/components.module';
+// import {SliderItemComponent} from '../../components/slider-item/slider-item.component';
 
 
 
@@ -22,8 +23,9 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
+        ComponentsModule,
         RouterModule.forChild(routes),
     ],
-    declarations: [MainPage, SliderItemComponent]
+    declarations: [MainPage]
 })
 export class MainPageModule {}

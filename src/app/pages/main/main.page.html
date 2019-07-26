@@ -9,13 +9,14 @@
                 <ion-icon slot="icon-only" name="stats"></ion-icon>
             </ion-button>
             <ion-button (click)="moreButton($event)" color="dark">
-                <ion-icon  slot="icon-only" name="more">
+                <ion-icon slot="icon-only" name="more">
                 </ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
 
     <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
+    <div *ngIf="slideView">
         <ion-toolbar color="secondary" *ngIf="hiveData.length > 0">
             <ion-slides (ionSlideTransitionStart)="transitionFromVoelker()" [options]="optionsTabSlide" #voelker>
                 <ion-slide *ngIf="showDashboard">
@@ -42,44 +43,58 @@
                 </ion-slide>
             </ion-slides>
         </ion-toolbar>
+    </div>
     <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
 
 
 </ion-header>
 
 
+<ion-content id="ionContent">
 
-<ion-content id="ionContent" >
-
+    <!--    <app-hive-list></app-hive-list>-->
 
     <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
-        <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide"  #stockkarten id="cardSlider">
+    <div *ngIf="slideView">
+        <ion-slides (ionSlideTransitionStart)="transitionFromStockkarten()" [options]="optionsCardsSlide" #stockkarten
+                    id="cardSlider">
             <ion-slide *ngIf="showDashboard">
-                <app-slider-item [dashboardCards]="dashboardHivecards" [dashboard]="true"  id="dashboard"></app-slider-item>
+                <app-slider-item [dashboardCards]="dashboardHivecards" [dashboard]="true"
+                                 id="dashboard"></app-slider-item>
             </ion-slide>
             <ion-slide *ngFor="let hive of hiveData">
                 <app-slider-item [dashboard]="false" [hive]="hive" [id]="hive.id"></app-slider-item>
             </ion-slide>
         </ion-slides>
-
-        <div class="card noHive" *ngIf="hiveData.length == 0">
-            <div class="card-body">
-                <h3 class="card-title">Es Sind keine Völker vorhanden!</h3>
-                <h4 style="text-align: left" class="card-text">
-                    Hier: <ion-button shape="round" color="tertiary" size="large" class="hiveButton"><img src="../../../assets/beehive_icon.png"></ion-button> kannst du ein  Volk anlegen!
-                </h4>
-            </div>
-        </div>
-
-        <ion-fab *ngIf="isNotDashboard && hiveData.length > 0" (click)="createHiveCard()" vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button color="tertiary">
-                <ion-icon color="dark" name="add"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
+    </div>
     <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
 
 
+    <div *ngIf="!slideView">
+        <app-hive-list *ngFor="let hive of hiveData" [hive]="hive"></app-hive-list>
+    </div>
 
 
-
+    <div class="card noHive" *ngIf="hiveData.length == 0">
+        <div class="card-body">
+            <h3 class="card-title">Es Sind keine Völker vorhanden!</h3>
+            <h4 style="text-align: left" class="card-text">
+                Hier:
+                <ion-button shape="round" color="tertiary" size="large" class="hiveButton" (click)="creatHive()"><img
+                        src="../../../assets/beehive_icon.png"></ion-button>
+                kannst du ein Volk anlegen!
+            </h4>
+        </div>
+    </div>
 </ion-content>
+
+<div *ngIf="slideView">
+    <ion-fab *ngIf="isNotDashboard && hiveData.length > 0" (click)="createHiveCard()" vertical="bottom" horizontal="end"
+             slot="">
+        <ion-fab-button color="tertiary">
+            <ion-icon color="dark" name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</div>
+
+

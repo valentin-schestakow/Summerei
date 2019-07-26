@@ -1,9 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Einstellungen</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Eintrag-Benachrichtigung</ion-label>
+      <ion-toggle [checked]="hivecardNoti" [(ngModel)]="hivecardNoti"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Wetter-Benachrichtigung</ion-label>
+      <ion-toggle [checked]="weatherNoti" [(ngModel)]="weatherNoti"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ansichtsart</ion-label>
+      <ion-select cancelText="Abbrechen" [placeholder]="viewKind" [(ngModel)]="viewKind">
+        <ion-select-option value="slideView" >Gleitansicht</ion-select-option>
+        <ion-select-option value="listView" >Listenansicht</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button fill="solid" expand="block" size="large" color="primary" (click)="save()">Speichern</ion-button>
+
 
 </ion-content>

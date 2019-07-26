@@ -25,6 +25,11 @@ import {RouteReuseStrategy} from '@angular/router';
 import {FireDbService} from './services/fire-db.service';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
+import {NativeStorage} from '@ionic-native/native-storage/ngx';
+import {Network} from '@ionic-native/network/ngx';
+import {FireAuthService} from './services/fire-auth.service';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -42,7 +47,7 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx';
       MoreButtonPageModule,
       ColorPickerPageModule,
       SmileyPickerPageModule,
-
+      BrowserAnimationsModule,
     ],
   providers: [
     StatusBar,
@@ -50,8 +55,12 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx';
     DatePicker,
     Geolocation,
     FireDbService,
+    FireAuthService,
     SpinnerComponent,
     SocialSharing,
+    NativeStorage,
+    Network,
+    NativePageTransitions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

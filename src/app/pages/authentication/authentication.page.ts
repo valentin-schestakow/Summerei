@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NavController, ToastController} from '@ionic/angular';
 import {FireAuthService} from '../../services/fire-auth.service';
 import {Router} from '@angular/router';
+import {LocalDbService} from '../../services/local-db.service';
+import {Settings} from '../../model/settings.model';
 
 @Component({
   selector: 'app-authentication',
@@ -18,7 +20,8 @@ export class AuthenticationPage implements OnInit {
   constructor(public navctrl: NavController,
               public authService: FireAuthService,
               public router: Router,
-              public toastController: ToastController,) { }
+              public toastController: ToastController,
+              private localDbService: LocalDbService) { }
 
   ngOnInit() {
   }

@@ -1,14 +1,21 @@
-<ion-chip color="dark" (click)="choose('good')">
-  <i class="material-icons smileys smColorSuccess">sentiment_very_satisfied</i>
-  <ion-label color="dark">Gut</ion-label>
-</ion-chip>
+<ion-button fill="clear" size="large">
+  <ion-chip color="dark" size="large"(click)="choose('good')">
+    <i class="material-icons smileys smColorSuccess">sentiment_very_satisfied</i>
+    <ion-label color="dark">Gut</ion-label>
+  </ion-chip>
+</ion-button>
 <br>
-<ion-chip color="dark" (click)="choose('mediocre')">
-  <i class="material-icons smileys smColorWarning">sentiment_satisfied</i>
-  <ion-label color="dark">Mittelmäßig</ion-label>
-</ion-chip>
+<ion-button size="large" fill="clear">
+  <ion-chip color="dark" size="large" (click)="choose('mediocre')">
+    <i class="material-icons smileys smColorWarning">sentiment_satisfied</i>
+    <ion-label color="dark">Medioker</ion-label>
+  </ion-chip>
+</ion-button>
 <br>
-<ion-chip color="dark" (click)="choose('bad')">
-  <i class="material-icons smileys smColorDanger">sentiment_very_dissatisfied</i>
-  <ion-label color="dark">Schlecht</ion-label>
-</ion-chip>
+<ion-button size="large" fill="clear">
+  <ion-chip color="dark" size="large" (click)="choose('bad')">
+    <i class="material-icons smileys smColorDanger">sentiment_very_dissatisfied</i>
+    <ion-label color="dark">Schlecht</ion-label>
+  </ion-chip>
+</ion-button>
+

@@ -6,14 +6,16 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 })
 export class WeatherService {
 
-  static WEATHER_URL = 'http://api.openweathermap.org/data/2.5/forecast?';
+  static WEATHER_URL = 'https://api.weatherbit.io/v2.0/';
   weatherData: any = "";
-  appID: string = "";
+  apiKey: string = "";
+  postalCode: string = "";
 
   constructor(private http: HttpClient) { }
 
   loadForecast() {
-    this.http.get(WeatherService.WEATHER_URL + 'lat=' + '50.5654999' + '&lon=' + '8.796356099999999' + '&units=metric' + '&appid=' + '7cc4a8c80e2008e20a47678294d0b805', {
+    // this.http.get(WeatherService.WEATHER_URL + 'forecast/daily?&postal_code='+this.postalCode+'&country=DE&lang=de&key='+this.apiKey,
+    this.http.get(WeatherService.WEATHER_URL + 'forecast/daily?&postal_code=35390&country=DE&lang=de&key=41aea7e2922b4647819b485d1f262d85', {
       observe: 'response',
       // headers: lastModified ? {'If-Modified-Since': lastModified} : {}
     }).subscribe((response) => {

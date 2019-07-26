@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LocalAuthService } from './local-auth.service';
+import { AlertServiceService } from './alert.service';
 
-describe('LocalAuthService', () => {
+describe('AlertServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: LocalAuthService = TestBed.get(LocalAuthService);
+    const service: AlertServiceService = TestBed.get(AlertServiceService);
     expect(service).toBeTruthy();
   });
 });
