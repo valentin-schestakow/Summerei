@@ -9,7 +9,9 @@ export class Hive {
     beehiveKind: string;
     hivecards : Hivecard[];
     members: string[];
+    memberNames: string[];
     adminId: string;
+    adminName: string;
     state: string;
     location: any;
 

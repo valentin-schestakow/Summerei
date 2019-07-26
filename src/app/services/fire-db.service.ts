@@ -50,6 +50,7 @@ export class FireDbService {
         hive.id = this.firebaseFirestore.createId();
         hive.adminId = this.fireAuth.uid;
         hive.creationDate = new Date().toISOString();
+        hive.adminName = this.fireAuth.user.name;
         // hive.state = 'good';
         //
         // let today = new Date();
@@ -63,6 +64,10 @@ export class FireDbService {
         let members: string[] = [];
         members.push(this.fireAuth.uid);
         hive.members = members;
+
+        let memberNames: string[] = [];
+        memberNames.push(this.fireAuth.user.name);
+        hive.memberNames = memberNames;
 
         let hivecards: Hivecard[] = [];
         hive.hivecards = hivecards;
@@ -112,8 +117,6 @@ export class FireDbService {
         return this.hivecards;
     }
 
-
-    //@TODO verschiedene Methods zum bearbeiten der Hives an sich
     findHivecardById(hiveId: string, hivecardId: string) {
         let tempHive: Hive = this.findHiveById(hiveId);
         return tempHive.hivecards.find(card => card.id == hivecardId);
@@ -131,6 +134,7 @@ export class FireDbService {
     }
 
     redeemInviteCode(key: string) {
+        this.firebaseFirestore.collection('hive').doc(key).update({'memberNames': FieldValue.arrayUnion(this.fireAuth.user.name)});
         return this.firebaseFirestore.collection('hive').doc(key).update({'members': FieldValue.arrayUnion(this.fireAuth.uid)});
     }
 

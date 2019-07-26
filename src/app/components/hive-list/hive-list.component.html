@@ -1,20 +1,36 @@
-
-<span (click)="moveToHivedetail(hive.id)" class="hivecard col-12" >
+<span (click)="moveToHivedetail(hive.id)" class="hivecard col-12">
 <ion-card>
   <ion-card-header>
     <ion-card-title>
-
        <ion-item class="transparentBg">
-        <ion-label class="important-text">{{hive.name}}</ion-label>
-        <span class="unimportant-text">{{hive.state}}</span>
+        <ion-label>Name:</ion-label>
+        <span class="important-text">{{hive.name}}</span>
       </ion-item>
     </ion-card-title>
   </ion-card-header>
 
-  <ion-card-content  class="container">
+  <ion-card-content class="container">
     <ion-item class="transparentBg">
-      <span class="important-text">{{hive.id}}</span>
+        <ion-label>Ort:</ion-label>
+        <span *ngIf="hive.location !== 'unset'" class="important-text">{{hive.location}}</span>
+        <span *ngIf="hive.location == 'unset'" class="important-text">?</span>
     </ion-item>
+
+      <ion-item class="transparentBg">
+        <ion-label>Status:</ion-label>
+        <ion-chip *ngIf="hive.state == 'good'" color="success">
+            <i class="material-icons smileys md-32">sentiment_very_satisfied</i>
+        </ion-chip>
+
+          <ion-chip *ngIf="hive.state == 'mediocre'" color="warning">
+              <i class="material-icons smileys md-32">sentiment_satisfied</i>
+          </ion-chip>
+
+          <ion-chip *ngIf="hive.state == 'bad'" color="danger">
+              <i class="material-icons smileys md-32">sentiment_very_dissatisfied</i>
+          </ion-chip>
+    </ion-item>
+
   </ion-card-content>
 </ion-card>
 </span>

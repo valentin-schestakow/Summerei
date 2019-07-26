@@ -1,8 +1,7 @@
-
 <span *ngIf="!dashboard">
     <span *ngFor="let card of hive.hivecards" (click)="editHivecard(card.id)" class="hivecard col-12">
         <ion-card >
-            <ion-card-content  class="container">
+            <ion-card-content class="container">
 
                 <ion-item class="transparentBg">
                     <ion-label>
@@ -35,14 +34,14 @@
 
             </ion-card-content>
         </ion-card>
+
     </span>
 </span>
 
 
-
 <span *ngIf="dashboard">
-    <span *ngFor="let card of dashboardCards" class="hivecard col-12" >
-        <ion-card >
+    <span *ngFor="let card of dashboardCards" class="hivecard col-12">
+        <ion-card>
             <ion-card-header>
                 <ion-card-title>
                     <ion-item class="transparentBg">
@@ -54,7 +53,7 @@
                 </ion-card-title>
             </ion-card-header>
 
-            <ion-card-content  class="container">
+            <ion-card-content class="container">
 
                 <ion-item class="transparentBg">
                     <ion-label>

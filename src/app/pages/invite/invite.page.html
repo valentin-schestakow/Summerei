@@ -26,7 +26,7 @@
   <br>
   <ion-item>
     <ion-label>Volk</ion-label>
-    <ion-select placeholder="Volk auswählen" #hive>
+    <ion-select cancelText="Abbrechen" placeholder="Volk auswählen" #hive>
       <ion-select-option [value]="hive.id" *ngFor="let hive of hives">{{hive.name}}</ion-select-option>
     </ion-select>
   </ion-item>

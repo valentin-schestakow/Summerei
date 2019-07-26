@@ -16,6 +16,7 @@ export class SliderItemComponent implements OnInit {
   @Input() dashboard: boolean;
   @Input() dashboardCards: Hivecard[];
 
+
   constructor(private router: Router,
               private toast: ToastController) {
   }

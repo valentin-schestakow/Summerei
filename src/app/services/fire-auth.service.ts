@@ -8,6 +8,7 @@ import {Network} from '@ionic-native/network/ngx';
 import {LocalDbService} from './local-db.service';
 import {plainToClass} from 'class-transformer';
 import {Settings} from '../model/settings.model';
+import {Hive} from '../model/hive.model';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class FireAuthService {
     public uid: string = 'unset';
     public email: string;
     public networkStatus: string = '';
+    public user: User;
 
     private password: string;
 
@@ -35,9 +37,8 @@ export class FireAuthService {
 
     async register(email: string, password: string, username?: string): Promise<boolean> {
 
-        let ret: boolean = false;
 
-        await this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
+        return  await this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
             .then(data => {
                 // console.log(data);
                 this.currentUser = data.user;
@@ -47,25 +48,18 @@ export class FireAuthService {
                     this.username = username;
                     this.uid = this.currentUser.uid;
                     this.isLoggedIn = true;
-                    ret = true;
 
-                    this.localDbService.saveLoginLocal(this.email, this.password, this.uid);
+                    this.getCurrentUser();
                     this.createUser();
                     this.addSettings();
 
-                    // this.presentToast('is Logged in');
+                    return Promise.resolve(true);
                 }
             }).catch(error => {
                 // this.presentToast(error);
+                return Promise.reject(false);
                 console.log(error);
             });
-
-        if (ret) {
-            return Promise.resolve(true);
-        } else {
-            return Promise.reject(false);
-        }
-
     }
 
     async login(email: string, password: string): Promise<boolean> {
@@ -81,7 +75,7 @@ export class FireAuthService {
                     this.password = password;
                     this.isLoggedIn = true;
 
-                    this.localDbService.saveLoginLocal(this.email, this.password, this.uid);
+                    this.getCurrentUser();
                     this.addSettings();
                     return Promise.resolve(true);
                 }
@@ -89,6 +83,13 @@ export class FireAuthService {
             }).catch(error => {
                 return Promise.reject(false);
             });
+    }
+
+    async getCurrentUser() {
+        return await this.db.collection('user').doc(this.uid).valueChanges().subscribe((user: User) => {
+            this.user = plainToClass(User, user);
+            this.localDbService.saveLoginLocal(user.email,this.password,user.id,user.name);
+        });
     }
 
 
@@ -143,7 +144,7 @@ export class FireAuthService {
 
         this.localDbService.getUserSettings()
             .catch(() => {
-                this.localDbService.saveLoginLocal(this.email, this.password, this.uid);
+                this.getCurrentUser();
                 let settings: Settings = new Settings('listView', true, true);
                 this.localDbService.setSettings(settings);
             });

@@ -1,16 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertController, IonSlides, PopoverController, ToastController} from '@ionic/angular';
+import {AlertController, IonSlides, NavController, PopoverController, ToastController} from '@ionic/angular';
 import {Hive} from '../../model/hive.model';
 import {Hivecard} from '../../model/hive-card.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MoreButtonPage} from '../more-button/more-button.page';
-import * as $ from 'jquery';
 import {FireDbService} from '../../services/fire-db.service';
-import {plainToClass} from 'class-transformer';
 import {LocalDbService} from '../../services/local-db.service';
 import {Settings} from '../../model/settings.model';
-import set = Reflect.set;
-import {FireAuthService} from '../../services/fire-auth.service';
 
 
 @Component({
@@ -45,7 +41,7 @@ export class MainPage implements OnInit {
     };
 
     dashboardHivecards: Hivecard[];
-    slideView: boolean = true;
+    slideView: boolean = false;
     private logout: string;
 
 
@@ -54,8 +50,7 @@ export class MainPage implements OnInit {
                 private popoverController: PopoverController,
                 private localDbService: LocalDbService,
                 private toastController: ToastController,
-                private alertController: AlertController,
-                private route: ActivatedRoute,) {
+                private alertController: AlertController,) {
     }
 
     ngOnInit() {
@@ -108,7 +103,6 @@ export class MainPage implements OnInit {
 
 
     createHiveCard() {
-        // this.currentNavigation = this.router.getCurrentNavigation();
         this.router.navigate(['hive-card-form', {hiveId: this.currentHive.id}]);
     }
 
@@ -183,7 +177,6 @@ export class MainPage implements OnInit {
                 this.slideVisibility(index);
             }
         }
-
     }
 
     slideVisibility(index: number) {
@@ -260,4 +253,7 @@ export class MainPage implements OnInit {
         toast.present();
     }
 
+    creatHive() {
+        this.router.navigateByUrl('hive-form');
+    }
 }

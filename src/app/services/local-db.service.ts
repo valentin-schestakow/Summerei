@@ -38,8 +38,8 @@ export class LocalDbService {
     }
 
 
-    saveLoginLocal(email: string, password: string, id: string) {
-        this.nativeStorage.setItem('user', {email: email, password: password, id: id})
+    saveLoginLocal(email: string, password: string, id: string, name: string) {
+        this.nativeStorage.setItem('user', {email: email, password: password, id: id, name: name})
             .then(
                 () => console.log('Stored User!'),
                 error => console.log('Error storing user' + error)

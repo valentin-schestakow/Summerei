@@ -23,9 +23,9 @@ export class LoginPage implements OnInit {
       this.router.navigateByUrl('menu');
     }
 
-    // this.authService.login("t@t.de","123456").then(() => {
-    //   this.router.navigateByUrl("menu");
-    // })
+    this.authService.login("t@t.de","123456").then(() => {
+      this.router.navigateByUrl("menu");
+    })
     // this.authService.handleLogin();
     }
 
@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
 
   login() {
     this.authService.login(this.email, this.password).then(() => {
-      this.localDbService.saveLoginLocal(this.email, this.password, this.authService.uid);
+      // this.localDbService.saveLoginLocal(this.email, this.password, this.authService.uid);
       this.router.navigateByUrl("menu");
     }).catch(() => {
       this.presentToast();

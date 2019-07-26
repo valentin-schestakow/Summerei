@@ -28,6 +28,8 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 import {NativeStorage} from '@ionic-native/native-storage/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {FireAuthService} from './services/fire-auth.service';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -45,7 +47,7 @@ import {FireAuthService} from './services/fire-auth.service';
       MoreButtonPageModule,
       ColorPickerPageModule,
       SmileyPickerPageModule,
-
+      BrowserAnimationsModule,
     ],
   providers: [
     StatusBar,
@@ -58,6 +60,7 @@ import {FireAuthService} from './services/fire-auth.service';
     SocialSharing,
     NativeStorage,
     Network,
+    NativePageTransitions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

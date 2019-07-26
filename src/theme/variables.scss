@@ -3,26 +3,26 @@
 
 /** Ionic CSS Variables **/
 :root {
-  --ion-color-primary: #A1C36C;
-  --ion-color-primary-rgb: 161,195,108;
-  --ion-color-primary-contrast: #000000;
-  --ion-color-primary-contrast-rgb: 0,0,0;
-  --ion-color-primary-shade: #8eac5f;
-  --ion-color-primary-tint: #aac97b;
+  --ion-color-primary: #274073;
+  --ion-color-primary-rgb: 39,64,115;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-shade: #223865;
+  --ion-color-primary-tint: #3d5381;
 
-  --ion-color-secondary: #E9ECF3;
-  --ion-color-secondary-rgb: 233,236,243;
+  --ion-color-secondary: #A7C0F2;
+  --ion-color-secondary-rgb: 167,192,242;
   --ion-color-secondary-contrast: #000000;
   --ion-color-secondary-contrast-rgb: 0,0,0;
-  --ion-color-secondary-shade: #cdd0d6;
-  --ion-color-secondary-tint: #ebeef4;
+  --ion-color-secondary-shade: #93a9d5;
+  --ion-color-secondary-tint: #b0c6f3;
 
-  --ion-color-tertiary: #8C5C03;
-  --ion-color-tertiary-rgb: 140,92,3;
+  --ion-color-tertiary: #8C6969;
+  --ion-color-tertiary-rgb: 140,105,105;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255,255,255;
-  --ion-color-tertiary-shade: #7b5103;
-  --ion-color-tertiary-tint: #986c1c;
+  --ion-color-tertiary-shade: #7b5c5c;
+  --ion-color-tertiary-tint: #987878;
 
 
 
@@ -152,6 +152,11 @@
   color: #f04141;
 }
 
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-32 { font-size: 32px; }
+.material-icons.md-48 { font-size: 48px; }
+
 
 
 //for the loading screeen when app starts
@@ -210,3 +215,34 @@
       -webkit-transform: scale(1.0);
     }
 }
+
+.crown-red {
+  --background: red;
+}
+.crown-green{
+  --background: green;
+}
+.crown-blue{
+  --background: blue;
+}
+.crown-yellow{
+  --background: yellow;
+}
+.crown-white{
+  --background: white;
+}
+
+
+.colorPalette {
+  margin: 0;
+}
+
+.colorPickerBackground{
+  --background: rgba(0,0,0,0.2);
+}
+
+
+//.boxshadow {
+//  margin: 4px 0 0 4px;
+//  box-shadow: 0 0 0 4px #fff;
+//}

@@ -54,7 +54,7 @@ export class MenuPage {
             header: 'Wollen Sie sich wirklich abmelden?',
             buttons: [
                 {
-                    text: 'Nein',
+                    text: 'Abbrechen',
                     role: 'cancel',
                     cssClass: 'cancelButton',
                 },

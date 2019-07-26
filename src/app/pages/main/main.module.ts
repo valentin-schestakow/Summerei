@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { MainPage } from './main.page';
 import {ComponentsModule} from '../../components/components.module';
-import {SliderItemComponent} from '../../components/slider-item/slider-item.component';
+// import {SliderItemComponent} from '../../components/slider-item/slider-item.component';
 
 
 
@@ -26,6 +26,6 @@ const routes: Routes = [
         ComponentsModule,
         RouterModule.forChild(routes),
     ],
-    declarations: [MainPage, SliderItemComponent]
+    declarations: [MainPage]
 })
 export class MainPageModule {}

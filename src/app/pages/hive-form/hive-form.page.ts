@@ -8,6 +8,7 @@ import {FireDbService} from '../../services/fire-db.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {WeatherService} from '../../services/weather.service';
 import {SmileyPickerPage} from '../smiley-picker/smiley-picker.page';
+import {LocalDbService} from '../../services/local-db.service';
 
 @Component({
   selector: 'app-hive-form',
@@ -37,6 +38,9 @@ export class HiveFormPage implements OnInit {
   state: string = "good";
 
   showSpinner: boolean = false;
+  private showDelete: boolean;
+
+
 
 
   constructor(private route: ActivatedRoute,
@@ -47,8 +51,14 @@ export class HiveFormPage implements OnInit {
               private geolocation: Geolocation,
               private alertController: AlertController,
               private weatherService: WeatherService,
-              private toastController: ToastController) {
+              private toastController: ToastController,
+              private localDb: LocalDbService) {
 
+    if(this.localDb.settings.viewKind == "slideView") {
+      this.showDelete = true;
+    } else {
+      this.showDelete = false;
+    }
 
     const hiveId = this.route.snapshot.paramMap.get('hiveId');
     if(hiveId) {
@@ -119,8 +129,10 @@ export class HiveFormPage implements OnInit {
     await popover.present();
     await popover.onDidDismiss().then( data => {
       console.log(data);
-      this.selectedColor = data.data;
-        })
+      if(data.data != undefined) {
+        this.selectedColor = data.data;
+      }
+    })
   }
 
   getLocation(name: string) {
@@ -180,7 +192,9 @@ export class HiveFormPage implements OnInit {
     await popover.present();
     await popover.onDidDismiss().then( data => {
       console.log(data);
-      this.state = data.data;
+      if(data.data != undefined) {
+        this.state = data.data;
+      }
     })
   }
 
