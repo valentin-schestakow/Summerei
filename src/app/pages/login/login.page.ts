@@ -19,13 +19,13 @@ export class LoginPage implements OnInit {
               private toastController: ToastController,
               private localDbService: LocalDbService) {
 
-    if(this.authService.isLoggedIn) {
-      this.router.navigateByUrl('menu');
-    }
+    // if(this.authService.isLoggedIn) {
+    //   this.router.navigateByUrl('menu');
+    // }
 
-    this.authService.login("t@t.de","123456").then(() => {
-      this.router.navigateByUrl("menu");
-    })
+    // this.authService.login("t@t.de","123456").then(() => {
+    //   this.router.navigateByUrl("menu");
+    // })
     // this.authService.handleLogin();
     }
 

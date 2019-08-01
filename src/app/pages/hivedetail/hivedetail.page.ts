@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Hive} from '../../model/hive.model';
 import {FireDbService} from '../../services/fire-db.service';
-import {AlertController, NavController} from '@ionic/angular';
+import {AlertController, IonSearchbar, NavController, ToastController} from '@ionic/angular';
+import {Weather} from '../../model/weather.model';
+import {Forecast} from '../../model/forecast';
+import {LocalDbService} from '../../services/local-db.service';
 
 @Component({
     selector: 'app-hivedetail',
@@ -10,19 +13,23 @@ import {AlertController, NavController} from '@ionic/angular';
     styleUrls: ['./hivedetail.page.scss'],
 })
 export class HivedetailPage implements OnInit {
-
     hive: Hive = new Hive();
     private hiveId: string;
     names: string[] = [];
 
     selectedPage: string = "hive";
+    weatherData: Weather;
+    forecasts: Forecast[] = [];
 
 
     constructor(private route: ActivatedRoute,
                 public router: Router,
                 private fireDb: FireDbService,
                 private navCtrl: NavController,
-                private alertController: AlertController) {
+                private alertController: AlertController,
+                private toastController: ToastController,
+                private localDbService: LocalDbService) {
+
         this.hiveId = this.route.snapshot.paramMap.get('hiveId');
         if (this.hiveId) {
             this.fireDb.hivesObservable.subscribe(() => {
@@ -36,6 +43,20 @@ export class HivedetailPage implements OnInit {
     }
 
     ngOnInit() {
+
+        this.localDbService.weatherObservable.subscribe((weather: Weather[]) => {
+            let tempForecasts: Forecast[] = [];
+            this.localDbService.getWeatherById(this.hiveId).forecast.forEach((forecast: Forecast) => {
+                tempForecasts.push(forecast);
+            });
+            this.forecasts = tempForecasts;
+        });
+
+        this.localDbService.getWeatherData()
+            .then(
+                () => console.log('getWeather true'),
+                () => console.log('getWeather false')
+            );
     }
 
     back() {
@@ -81,5 +102,13 @@ export class HivedetailPage implements OnInit {
 
     createHiveCard() {
         this.router.navigate(['hive-card-form', {hiveId: this.hiveId}]);
+    }
+
+    async presentToast(text: string) {
+        const toast = await this.toastController.create({
+            message: text,
+            duration: 2000
+        });
+        toast.present();
     }
 }

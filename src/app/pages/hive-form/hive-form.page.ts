@@ -9,6 +9,10 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {WeatherService} from '../../services/weather.service';
 import {SmileyPickerPage} from '../smiley-picker/smiley-picker.page';
 import {LocalDbService} from '../../services/local-db.service';
+import {Weather} from '../../model/weather.model';
+import {FirestoreWeather} from '../../model/firestore-weather.model';
+import {Forecast} from '../../model/forecast';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-hive-form',
@@ -32,13 +36,15 @@ export class HiveFormPage implements OnInit {
   @ViewChild('beehiveKind')
   private beehiveKindRef: IonTextarea;
 
-  location: any = "";
+  location: string = "";
   locationSet: boolean = false;
 
   state: string = "good";
 
   showSpinner: boolean = false;
   private showDelete: boolean;
+  weather: Weather;
+  private firestoreWeather: FirestoreWeather = new FirestoreWeather('','');
 
 
 
@@ -52,27 +58,28 @@ export class HiveFormPage implements OnInit {
               private alertController: AlertController,
               private weatherService: WeatherService,
               private toastController: ToastController,
-              private localDb: LocalDbService) {
+              private localDb: LocalDbService,
+              private firebaseFirestore: AngularFirestore,
+              private firestore: AngularFirestore) {
 
     if(this.localDb.settings.viewKind == "slideView") {
       this.showDelete = true;
     } else {
       this.showDelete = false;
     }
+  }
 
-    const hiveId = this.route.snapshot.paramMap.get('hiveId');
+  ngOnInit() {
+    let hiveId = this.route.snapshot.paramMap.get('hiveId');
     if(hiveId) {
       Object.assign(this.hive, this.fireDb.findHiveById(hiveId));
       this.isEditMode = true;
       this.pageTitle = 'Volk bearbeiten';
     } else {
       this.hive = new Hive();
+      this.hive.id = "";
       this.pageTitle = 'Volk anlegen';
     }
-
-  }
-
-  ngOnInit() {
   }
 
   ionViewWillEnter() {
@@ -81,10 +88,12 @@ export class HiveFormPage implements OnInit {
       this.raceRef.value = this.hive.race;
       this.beehiveKindRef.value = this.hive.beehiveKind;
       this.state = this.hive.state;
-      if (this.hive.location !== "") {
-        this.location = this.hive.location;
+      this.selectedColor = this.hive.queenColor;
+      if (this.hive.location.city !== "") {
+        this.location = this.hive.location.city;
         this.locationSet = true;
       }
+      this.firestoreWeather = this.hive.location;
     }
   }
 
@@ -92,26 +101,23 @@ export class HiveFormPage implements OnInit {
     this.navCtrl.pop();
   }
 
-  save() {
+  async save() {
     this.hive.name = this.hiveNameRef.value;
     this.hive.queenColor = this.selectedColor;
     this.hive.race = this.raceRef.value;
     this.hive.beehiveKind = this.beehiveKindRef.value;
-    this.hive.location = this.location;
+    this.hive.location = this.firestoreWeather;
     this.hive.state = this.state;
-    if(this.location !== ""){
-      this.hive.location = this.location;
-    } else {
-      this.hive.location = "unset"
-    }
 
     if (this.isEditMode) {
       this.fireDb.updateHive(this.hive);
+      this.back();
     } else {
-      this.fireDb.createHive(this.hive);
+        this.fireDb.createHive(this.hive);
+        this.back();
     }
 
-    this.back();
+
   }
 
   delete() {
@@ -135,31 +141,60 @@ export class HiveFormPage implements OnInit {
     })
   }
 
-  getLocation(name: string) {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.location = {name: name, latitude: resp.coords.latitude, longitude: resp.coords.longitude};
+  getLocation(postalCode: string) {
+    this.weatherService.loadForecast(postalCode).then((response) => {
+      this.firestoreWeather = new FirestoreWeather(response.body.city_name, postalCode);
+
+
+      let tempForecastArray: Forecast[] = [];
+      response.body.data.forEach((forecast) => {
+
+          // let yyyy = JSON.stringify(forecast.datetime).slice(0,5);
+          // let mm = JSON.stringify(forecast.datetime).slice(6,8);
+          // let dd = JSON.stringify(forecast.datetime).slice(9);
+          // let date = dd + "/" + mm + "/" + yyyy;
+          let tempForecast: Forecast = new Forecast(forecast.app_min_temp, forecast.app_max_temp, forecast.temp, forecast.datetime, forecast.weather.description, forecast.weather.icon);
+          tempForecastArray.push(tempForecast);
+      });
+
+      let weather: Weather = new Weather();
+    if(this.isEditMode) {
+      weather.hiveId = this.hive.id;
+      weather.lastModified = new Date().toISOString();
+      weather.forecast = tempForecastArray;
+    } else {
+      let id = this.firebaseFirestore.createId();
+      this.hive.id = id;
+      weather.hiveId = id;
+      weather.lastModified = new Date().toISOString();
+      weather.forecast = tempForecastArray;
+    }
+
+    // let test4 = JSON.stringify(weather);
+    // let test2 = JSON.parse(JSON.stringify(weather));
+    // let testw: Weather = plainToClass(Weather,JSON.parse(JSON.stringify(weather)));
+
+
+    this.localDb.setWeatherData(weather);
+
+      console.log(response.body);
+      this.location = response.body.city_name;
+      this.showSpinner = false;
       this.locationSet = true;
+    }).catch(() => {
       this.showSpinner = false;
-
-      this.weatherService.loadForecast();
-
-
-    }).catch((error) => {
-      console.log('Error getting location', error);
-      this.showSpinner = false;
-      // this.presentToast('error');
     });
   }
 
   async locationDialog() {
     const alert = await this.alertController.create({
-      header: 'Name des Standort:',
+      header: 'Geben Sie bitte die Postleizahl des Standortes an:',
       inputs: [
         {
-          name: 'name',
+          name: 'postalCode',
           type: 'text',
-          id: 'name',
-          placeholder: 'beliebiger Name'
+          id: 'postalCode',
+          placeholder: 'Postleizahl'
         }],
       buttons: [
         {
@@ -172,7 +207,7 @@ export class HiveFormPage implements OnInit {
           cssClass: 'confirmButton',
           handler: (data) => {
             this.showSpinner = true;
-            this.getLocation(data.name);
+            this.getLocation(data.postalCode);
           }
         }
       ]
@@ -204,6 +239,14 @@ export class HiveFormPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+
+  async anyDialog(msg: string) {
+    const alert = await this.alertController.create({
+      header: msg,
+    });
+    await alert.present();
   }
 
 }

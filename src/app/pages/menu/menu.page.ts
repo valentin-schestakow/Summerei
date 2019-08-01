@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterEvent} from '@angular/router';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController, NavController, ToastController} from '@ionic/angular';
 import {LocalDbService} from '../../services/local-db.service';
 import {error} from 'selenium-webdriver';
-import {AlertService} from '../../services/alert.service';
 
 @Component({
     selector: 'app-menu',
@@ -22,9 +21,9 @@ export class MenuPage {
 
     constructor(private router: Router,
                 private toastController: ToastController,
-                private alertService: AlertService,
                 private alertController: AlertController,
-                private localDbService: LocalDbService) {
+                private localDbService: LocalDbService,
+                private navCtrl: NavController) {
 
         this.router.events.subscribe((event: RouterEvent) => {
             this.selectedPath = event.url;
@@ -63,7 +62,8 @@ export class MenuPage {
                     cssClass: 'confirmButton',
                     handler: () => {
                         this.localDbService.clearLocalStorage();
-                        this.router.navigateByUrl('login');
+                        navigator['app'].exitApp();
+                        // this.router.navigateByUrl('login');
                     }
                 }
             ]

@@ -1,0 +1,51 @@
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content style="--color: white;"
+                           refreshingSpinner="bubbles">
+    </ion-refresher-content>
+</ion-refresher>
+
+<ion-virtual-scroll [items]="forecasts" approxItemHeight="330 px">
+    <div *virtualItem="let day" class="wrapper">
+        <ion-list class="list">
+
+            <ion-item class="transparentBg">
+                <ion-label class="important-text">
+                    {{day.description}}
+                </ion-label>
+                <ion-img [src]="'../assets/weather-icons/'+day.icon+'.png'"></ion-img>
+            </ion-item>
+
+            <ion-item class="transparentBg">
+                <ion-label>
+                    Datum:
+                </ion-label>
+                <span class="important-text">{{day.date | date :'dd/MM/yyyy'}}</span>
+            </ion-item>
+
+            <ion-item class="transparentBg">
+                <ion-label>
+                    max. Temperatur:
+                </ion-label>
+                <span class="important-text">{{day.maxTemp}}°</span>
+            </ion-item>
+
+            <ion-item class="transparentBg">
+                <ion-label>
+                    min. Temperatur:
+                </ion-label>
+                <span class="important-text">{{day.minTemp}}°</span>
+            </ion-item>
+
+            <ion-item class="transparentBg">
+                <ion-label>
+                    duchscnittliche Temperatur:
+                </ion-label>
+                <span class="important-text">{{day.averageTemp}}°</span>
+            </ion-item>
+        </ion-list>
+        <br>
+        <br>
+        <br>
+    </div>
+</ion-virtual-scroll>
+

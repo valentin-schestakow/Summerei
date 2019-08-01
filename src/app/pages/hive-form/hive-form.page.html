@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-button (click)="back()">
                 <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
@@ -82,7 +82,7 @@
 
             <ion-button *ngIf="!locationSet" (click)="locationDialog()">hinzufügen</ion-button>
 
-            <ion-text *ngIf="locationSet">{{location.name}}</ion-text>
+            <ion-text *ngIf="locationSet">{{location}}</ion-text>
             <ion-item *ngIf="locationSet" (click)="locationDialog()">
                 <ion-icon name="create" color="primary"></ion-icon>
             </ion-item>

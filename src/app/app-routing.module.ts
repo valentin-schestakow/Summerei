@@ -3,7 +3,7 @@ import {NoPreloading, PreloadAllModules, RouterModule, Routes} from '@angular/ro
 
 const routes: Routes = [
   { path: '',
-    redirectTo: 'login',
+    redirectTo: 'start-loading',
     pathMatch: 'full'
   },
   { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
@@ -16,7 +16,12 @@ const routes: Routes = [
   { path: 'color-picker', loadChildren: './pages/color-picker/color-picker.module#ColorPickerPageModule' },
   { path: 'smiley-picker', loadChildren: './pages/smiley-picker/smiley-picker.module#SmileyPickerPageModule' },
   { path: 'invite', loadChildren: './pages/invite/invite.module#InvitePageModule' },
+  { path: 'hive', loadChildren: './pages/hive/hive.module#HivePageModule' },
   { path: 'hivedetail', loadChildren: './pages/hivedetail/hivedetail.module#HivedetailPageModule' },
+  { path: 'weather', loadChildren: './pages/weather/weather.module#WeatherPageModule' },
+  { path: 'entry', loadChildren: './pages/entry/entry.module#EntryPageModule' },
+  { path: 'start-loading', loadChildren: './pages/start-loading/start-loading.module#StartLoadingPageModule' },
+
 ];
 
 @NgModule({

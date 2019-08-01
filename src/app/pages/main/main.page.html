@@ -1,14 +1,19 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-menu-button color="dark"></ion-menu-button>
+            <ion-menu-button ></ion-menu-button>
         </ion-buttons>
         <ion-title>Summerei</ion-title>
         <ion-buttons slot="end">
-            <ion-button color="dark" *ngIf="isNotDashboard">
-                <ion-icon slot="icon-only" name="stats"></ion-icon>
+
+            <ion-button *ngIf="!slideView" (click)="initSearch()">
+                <ion-icon slot="icon-only" name="search"></ion-icon>
             </ion-button>
-            <ion-button (click)="moreButton($event)" color="dark">
+
+<!--            <ion-button color="dark" *ngIf="isNotDashboard">-->
+<!--                <ion-icon slot="icon-only" name="stats"></ion-icon>-->
+<!--            </ion-button>-->
+            <ion-button (click)="moreButton($event)" >
                 <ion-icon slot="icon-only" name="more">
                 </ion-icon>
             </ion-button>
@@ -45,12 +50,18 @@
         </ion-toolbar>
     </div>
     <!--    Dieser Teil wird benötigt wenn Die Ansicht als Slider Ansicht gewünscht ist-->
-
-
 </ion-header>
 
 
 <ion-content id="ionContent">
+
+    <ion-searchbar *ngIf="showSearch"
+                   (ionInput)="doSearch($event)"
+                   (ionClear)="clearSearchbar()"
+                   [showCancelButton]="true"
+                   (ionCancel)="resetSearch()"
+                   #searchbar>
+    </ion-searchbar>
 
     <!--    <app-hive-list></app-hive-list>-->
 
@@ -75,17 +86,22 @@
     </div>
 
 
-    <div class="card noHive" *ngIf="hiveData.length == 0">
+    <div class="card noHive" *ngIf="hiveData.length == 0 && !showNothingFound">
         <div class="card-body">
             <h3 class="card-title">Es Sind keine Völker vorhanden!</h3>
             <h4 style="text-align: left" class="card-text">
                 Hier:
                 <ion-button shape="round" color="tertiary" size="large" class="hiveButton" (click)="creatHive()"><img
                         src="../../../assets/beehive_icon.png"></ion-button>
-                kannst du ein Volk anlegen!
+                können Sie ein Volk anlegen!
             </h4>
         </div>
     </div>
+
+    <div *ngIf="showNothingFound" class="alert alert-danger container-fluid text-center">
+        <strong>Keine</strong> Übereinstimmung!
+    </div>
+
 </ion-content>
 
 <div *ngIf="slideView">
