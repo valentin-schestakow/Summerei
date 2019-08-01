@@ -30,6 +30,8 @@ import {Network} from '@ionic-native/network/ngx';
 import {FireAuthService} from './services/fire-auth.service';
 import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HivePageModule} from './pages/hive/hive.module';
+import {OneSignal} from '@ionic-native/onesignal/ngx';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       AppRoutingModule,
       HttpClientModule,
       MenuPageModule,
+      HivePageModule,
       NgbModule.forRoot(),
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFirestoreModule,
@@ -61,6 +64,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NativeStorage,
     Network,
     NativePageTransitions,
+    OneSignal,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

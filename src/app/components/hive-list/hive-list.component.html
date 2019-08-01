@@ -12,8 +12,8 @@
   <ion-card-content class="container">
     <ion-item class="transparentBg">
         <ion-label>Ort:</ion-label>
-        <span *ngIf="hive.location !== 'unset'" class="important-text">{{hive.location}}</span>
-        <span *ngIf="hive.location == 'unset'" class="important-text">?</span>
+        <span *ngIf="hive.location.city !== ''" class="important-text">{{hive.location.city}}</span>
+        <span *ngIf="hive.location.city == ''" class="important-text">?</span>
     </ion-item>
 
       <ion-item class="transparentBg">

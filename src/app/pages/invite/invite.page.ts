@@ -3,6 +3,7 @@ import {FireDbService} from '../../services/fire-db.service';
 import {Hive} from '../../model/hive.model';
 import {AlertController, IonSelect, NavController, ToastController} from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import {OneSignal} from '@ionic-native/onesignal/ngx';
 
 @Component({
   selector: 'app-invite',
@@ -24,7 +25,7 @@ export class InvitePage implements OnInit {
               private navCtrl: NavController,
               private socialSharing: SocialSharing,
               private toastController: ToastController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,) {
     this.hives = this.fireDb.hives;
   }
 

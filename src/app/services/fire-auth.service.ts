@@ -8,7 +8,6 @@ import {Network} from '@ionic-native/network/ngx';
 import {LocalDbService} from './local-db.service';
 import {plainToClass} from 'class-transformer';
 import {Settings} from '../model/settings.model';
-import {Hive} from '../model/hive.model';
 
 @Injectable({
     providedIn: 'root'
@@ -98,6 +97,8 @@ export class FireAuthService {
         user.email = this.email;
         user.id = this.uid;
         user.name = this.username;
+
+        console.log(user);
 
         this.db.collection('user').doc(this.uid).set(JSON.parse(JSON.stringify(user)))
             .then(data => {

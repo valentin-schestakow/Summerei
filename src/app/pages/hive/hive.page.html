@@ -1,0 +1,158 @@
+<!--<ion-header>-->
+<!--  <ion-toolbar color="primary">-->
+<!--    <ion-buttons slot="start">-->
+<!--      <ion-button (click)="back()">-->
+<!--        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>-->
+<!--      </ion-button>-->
+<!--    </ion-buttons>-->
+<!--    <ion-title>Summerei</ion-title>-->
+<!--  </ion-toolbar>-->
+<!--</ion-header>-->
+
+
+<!--<ion-content [ngSwitch]="selectedPage">-->
+
+<!--  &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;    This Part is for  viewing hive"Page" -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--  <span *ngSwitchCase="'hive'" class="hivecard col-12">-->
+<!--    <ion-card>-->
+<!--        <ion-card-content class="container">-->
+
+<!--            <ion-item class="transparentBg">-->
+<!--                <ion-label>-->
+<!--                    Farbe Königin:-->
+<!--                </ion-label>-->
+<!--                <ion-chip color="dark" >-->
+<!--                    <ion-icon size="large" class="colorPalette" [ngClass]="hive.queenColor" name="water"></ion-icon>-->
+<!--                </ion-chip>-->
+<!--            </ion-item>-->
+
+<!--            <ion-item class="transparentBg" [ngSwitch]="hive.state">-->
+<!--                <ion-label>-->
+<!--                    Zustand:-->
+<!--                </ion-label>-->
+<!--                    <ion-chip *ngSwitchCase="'good'" color="dark">-->
+<!--                        <i class="material-icons smileys md-32 smColorSuccess">sentiment_very_satisfied</i>-->
+<!--                    </ion-chip>-->
+<!--                    <ion-chip *ngSwitchCase="'mediocre'" color="dark">-->
+<!--                        <i class="material-icons smileys smColorWarning">sentiment_satisfied</i>-->
+<!--                    </ion-chip>-->
+<!--                    <ion-chip *ngSwitchCase="'bad'" color="dark">-->
+<!--                        <i class="material-icons smileys smColorDanger">sentiment_very_dissatisfied</i>-->
+<!--                    </ion-chip>-->
+<!--            </ion-item>-->
+
+<!--            <ion-item class="transparentBg">-->
+<!--                <ion-label >-->
+<!--                    Rasse:-->
+<!--                </ion-label>-->
+<!--                <ion-label text-wrap class="important-text">{{hive.race}}</ion-label>-->
+<!--            </ion-item>-->
+
+
+<!--            <ion-item class="transparentBg">-->
+<!--                <ion-label>-->
+<!--                    Beutenart:-->
+<!--                </ion-label>-->
+<!--                <ion-label text-wrap class="important-text">{{hive.beehiveKind}}</ion-label>-->
+<!--            </ion-item>-->
+
+<!--            <ion-item  class="transparentBg">-->
+<!--                <ion-label>-->
+<!--                    Ort:-->
+<!--                </ion-label>-->
+<!--                <ion-label text-wrap class="important-text">{{hive.location.city}}</ion-label>-->
+<!--            </ion-item>-->
+
+<!--            <ion-item class="transparentBg" lines="full">-->
+<!--                <ion-label>-->
+<!--                    Mitglieder:-->
+<!--                </ion-label>-->
+<!--                <ion-label class="important-text" text-wrap>-->
+<!--                    {{names}}-->
+<!--                </ion-label>-->
+<!--            </ion-item>-->
+
+<!--            <ion-row>-->
+<!--                <ion-col size="6">-->
+<!--                    <ion-button fill="solid" expand="block" color="danger" (click)="deleteHive()">Löschen</ion-button>-->
+<!--                </ion-col>-->
+<!--                 <ion-col size="6">-->
+<!--                     <ion-button fill="solid" expand="block" color="success"-->
+<!--                                 (click)="editHive()">Bearbeiten</ion-button>-->
+<!--                 </ion-col>-->
+<!--            </ion-row>-->
+<!--        </ion-card-content>-->
+<!--    </ion-card>-->
+<!--</span>-->
+<!--  -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;    This Part is for  viewing hive"Page" -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+
+<!--  <span *ngSwitchCase="'cards'">-->
+<!--        <app-slider-item [dashboard]="false" [hive]="hive" [id]="hive.id"></app-slider-item>-->
+<!--    </span>-->
+
+
+<!--  <span *ngSwitchCase="'weather'">-->
+<!--        <app-weather [forecasts]="forecasts" [hiveId]="hiveId"></app-weather>-->
+<!--    </span>-->
+
+
+
+<!--</ion-content>-->
+
+
+
+<!--<ion-footer>-->
+
+<!--    <span *ngIf="selectedPage == 'cards'">-->
+<!--        <ion-fab class="fabButton" (click)="createHiveCard()" vertical="bottom" horizontal="end" >-->
+<!--            <ion-fab-button color="tertiary">-->
+<!--                <ion-icon color="dark" name="add"></ion-icon>-->
+<!--            </ion-fab-button>-->
+<!--        </ion-fab>-->
+<!--    </span>-->
+
+<!--  <ion-toolbar>-->
+<!--    -->
+<!--    -->
+<!--&lt;!&ndash;      <ion-tabs>&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <ion-tab-bar slot="bottom" color="primary">&ndash;&gt;-->
+<!--&lt;!&ndash;              <ion-tab-button tab="hivedetail">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ion-icon name="home"></ion-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ion-label>Home</ion-label>&ndash;&gt;-->
+<!--&lt;!&ndash;              </ion-tab-button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <ion-tab-button tab="entry">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ion-icon name="apps"></ion-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ion-label>Feed</ion-label>&ndash;&gt;-->
+<!--&lt;!&ndash;              </ion-tab-button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <ion-tab-button tab="weather">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ion-icon name="settings"></ion-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ion-label>Settings</ion-label>&ndash;&gt;-->
+<!--&lt;!&ndash;              </ion-tab-button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </ion-tab-bar>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      </ion-tabs>&ndash;&gt;-->
+
+
+<!--    <ion-segment [(ngModel)]="selectedPage">-->
+<!--      <ion-segment-button checked layout="icon-bottom" value="hive">-->
+<!--        <ion-icon name="home"></ion-icon>-->
+<!--        <ion-label>Volk</ion-label>-->
+<!--      </ion-segment-button>-->
+<!--      <ion-segment-button layout="icon-bottom" value="cards">-->
+<!--        <ion-icon color="dark" name="clipboard"></ion-icon>-->
+<!--        <ion-label>Einträge</ion-label>-->
+<!--      </ion-segment-button>-->
+<!--      <ion-segment-button layout="icon-bottom" value="weather">-->
+<!--        <ion-icon name="sunny"></ion-icon>-->
+<!--        <ion-label>Wetter</ion-label>-->
+<!--      </ion-segment-button>-->
+<!--    </ion-segment>-->
+<!--  </ion-toolbar>-->
+<!--</ion-footer>-->
+
+
+

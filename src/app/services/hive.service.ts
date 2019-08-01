@@ -25,9 +25,9 @@ export class HiveService {
     } else {
       this.hives = [];
       this.nextHiveId = 1;
-      this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Garten'));
-      this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Verein Volk 2'));
-      this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Verein Volk 3'));
+      // this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Garten'));
+      // this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Verein Volk 2'));
+      // this.persistHive(new Hive(this.nextHiveId.toString(),this.hiveCards,'Test_Datum','Verein Volk 3'));
     }
 
     if (hiveCardsJSON) {

@@ -9,26 +9,9 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-toolbar>
-    <ion-segment [(ngModel)]="selectedPage">
-        <ion-segment-button checked layout="icon-bottom" value="hive">
-            <ion-icon name="home"></ion-icon>
-            <ion-label>Volk</ion-label>
-        </ion-segment-button>
-        <ion-segment-button layout="icon-bottom" value="cards">
-            <ion-icon color="dark" name="clipboard"></ion-icon>
-            <ion-label>Einträge</ion-label>
-        </ion-segment-button>
-        <ion-segment-button layout="icon-bottom" value="weather">
-            <ion-icon name="sunny"></ion-icon>
-            <ion-label>Wetter</ion-label>
-        </ion-segment-button>
-    </ion-segment>
-</ion-toolbar>
 
 <ion-content [ngSwitch]="selectedPage">
 
-<!---------------------------------------    This Part is for  viewing hive"Page" ------------------------------------->
     <span *ngSwitchCase="'hive'" class="hivecard col-12">
     <ion-card>
         <ion-card-content class="container">
@@ -76,7 +59,7 @@
                 <ion-label>
                     Ort:
                 </ion-label>
-                <ion-label text-wrap class="important-text">{{hive.location}}</ion-label>
+                <ion-label text-wrap class="important-text">{{hive.location.city}}</ion-label>
             </ion-item>
 
             <ion-item class="transparentBg" lines="full">
@@ -100,7 +83,7 @@
         </ion-card-content>
     </ion-card>
 </span>
-    <!---------------------------    This Part is for  viewing hive"Page" --------------------------------------------->
+
 
 
     <span *ngSwitchCase="'cards'">
@@ -109,22 +92,63 @@
 
 
     <span *ngSwitchCase="'weather'">
-
+        <app-weather [postalCode]="hive.location.postalCode" [forecasts]="forecasts" [hiveId]="hiveId"></app-weather>
     </span>
 
 </ion-content>
 
-<div *ngIf="selectedPage == 'cards'">
-    <ion-fab (click)="createHiveCard()" vertical="bottom" horizontal="end"
-             slot="">
-        <ion-fab-button color="tertiary">
-            <ion-icon color="dark" name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-</div>
+
 
 <ion-footer>
-</ion-footer>
 
+    <span *ngIf="selectedPage == 'cards'">
+        <ion-fab class="fabButton" (click)="createHiveCard()" vertical="bottom" horizontal="end" >
+            <ion-fab-button color="tertiary">
+                <ion-icon color="dark" name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </span>
+
+    <ion-toolbar>
+
+
+        <!--      <ion-tabs>-->
+
+        <!--          <ion-tab-bar slot="bottom" color="primary">-->
+        <!--              <ion-tab-button tab="hivedetail">-->
+        <!--                  <ion-icon name="home"></ion-icon>-->
+        <!--                  <ion-label>Home</ion-label>-->
+        <!--              </ion-tab-button>-->
+
+        <!--              <ion-tab-button tab="entry">-->
+        <!--                  <ion-icon name="apps"></ion-icon>-->
+        <!--                  <ion-label>Feed</ion-label>-->
+        <!--              </ion-tab-button>-->
+
+        <!--              <ion-tab-button tab="weather">-->
+        <!--                  <ion-icon name="settings"></ion-icon>-->
+        <!--                  <ion-label>Settings</ion-label>-->
+        <!--              </ion-tab-button>-->
+        <!--          </ion-tab-bar>-->
+
+        <!--      </ion-tabs>-->
+
+
+        <ion-segment [(ngModel)]="selectedPage">
+            <ion-segment-button checked layout="icon-bottom" value="hive">
+                <ion-icon name="home"></ion-icon>
+                <ion-label>Volk</ion-label>
+            </ion-segment-button>
+            <ion-segment-button layout="icon-bottom" value="cards">
+                <ion-icon color="dark" name="clipboard"></ion-icon>
+                <ion-label>Einträge</ion-label>
+            </ion-segment-button>
+            <ion-segment-button layout="icon-bottom" value="weather">
+                <ion-icon name="sunny"></ion-icon>
+                <ion-label>Wetter</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-footer>
 
 

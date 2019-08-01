@@ -1,0 +1,42 @@
+
+ion-card {
+  --background: rgba(253, 248, 255, 0.85);
+  color: #000000 !important;
+  font-family: Arial, serif;
+  min-width: fit-content;
+  font-weight: bold;
+}
+
+.list {
+  --background: rgba(253, 248, 255, 0.85);
+  background-color: rgba(253, 248, 255, 0.85);
+  color: #000000 !important;
+  font-family: Arial, serif;
+  min-width: 100%;
+  min-height: fit-content;
+  font-weight: bold;
+}
+
+.wrapper {
+  color: #000000 !important;
+  font-family: Arial, serif;
+  min-width: fit-content;
+  font-weight: bold;
+}
+
+
+.unimportant-text {
+  font-size: medium;
+}
+
+.important-text {
+  font-size: x-large;
+}
+
+.transparentBg {
+  --background: transparent !important;
+  background-color: transparent !important;
+}
+
+
+

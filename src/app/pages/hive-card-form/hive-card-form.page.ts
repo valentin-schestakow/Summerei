@@ -10,6 +10,7 @@ import {FireDbService} from '../../services/fire-db.service';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {DatePicker} from '@ionic-native/date-picker/ngx';
 import {NavigationOptions} from '@ionic/angular/dist/providers/nav-controller';
+import {PushService} from '../../services/push.service';
 
 @Component({
   selector: 'app-hive-card-form',
@@ -67,7 +68,8 @@ export class HiveCardFormPage implements OnInit {
               private navCtrl: NavController,
               public alertController: AlertController,
               private fireDb: FireDbService,
-              private firebaseFirestore: AngularFirestore,) {
+              private firebaseFirestore: AngularFirestore,
+              private pushService: PushService) {
 
 
     this.hiveId = this.route.snapshot.paramMap.get('hiveId');

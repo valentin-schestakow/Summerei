@@ -6,10 +6,15 @@ import {FireAuthService} from './fire-auth.service';
 
 import * as firebase from 'firebase';
 import FieldValue = firebase.firestore.FieldValue;
-import {Subject} from 'rxjs';
+import {Subject, timer} from 'rxjs';
 import {plainToClass} from 'class-transformer';
 import {ToastController} from '@ionic/angular';
 import {promise} from 'selenium-webdriver';
+import {OneSignal} from '@ionic-native/onesignal/ngx';
+import {LocalDbService} from './local-db.service';
+import {PushService} from './push.service';
+import {DatePipe} from '@angular/common';
+
 
 
 @Injectable({
@@ -19,7 +24,11 @@ export class FireDbService {
 
     constructor(private firebaseFirestore: AngularFirestore,
                 private fireAuth: FireAuthService,
-                private toastController: ToastController) {
+                private toastController: ToastController,
+                private oneSignal: OneSignal,
+                private localDb: LocalDbService,
+                private pushService: PushService,
+                private datePipe: DatePipe) {
     }
 
     public hives: Hive[] = [];
@@ -27,6 +36,7 @@ export class FireDbService {
 
     private hivesSubject = new Subject<Hive[]>();
     public hivesObservable = this.hivesSubject.asObservable();
+    public selectedHiveId: string;
 
     public setHives(hives: Hive[]) {
         this.hives = hives;
@@ -41,25 +51,33 @@ export class FireDbService {
             hives.forEach((hive) => {
                 tempHives.push(plainToClass(Hive, hive));
             });
+
+            console.log(JSON.stringify(tempHives));
+
             this.setHives(tempHives);
+            this.localDb.saveHives(tempHives)
+                .then(
+                    () => console.log(),
+                    () => this.presentToast('Fehler Beim speichern der Daten')
+                );
             // console.log('tempHives[0].name');
         });
     }
 
     createHive(hive: Hive) {
-        hive.id = this.firebaseFirestore.createId();
+
+        let tempPushIds: string [] = [];
+        tempPushIds.push(this.localDb.pushId);
+        hive.pushIds = tempPushIds;
+
+        if(hive.id == "") {
+            hive.id = this.firebaseFirestore.createId();
+        }
+
+
         hive.adminId = this.fireAuth.uid;
         hive.creationDate = new Date().toISOString();
         hive.adminName = this.fireAuth.user.name;
-        // hive.state = 'good';
-        //
-        // let today = new Date();
-        // let dd = String(today.getDate()).padStart(2, '0');
-        // let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        // let yyyy = today.getFullYear();
-        // let stringToday = dd + '.' + mm + '.' + yyyy;
-        // 0;
-        // hive.creationDate = stringToday;
 
         let members: string[] = [];
         members.push(this.fireAuth.uid);
@@ -72,6 +90,7 @@ export class FireDbService {
         let hivecards: Hivecard[] = [];
         hive.hivecards = hivecards;
 
+
         this.firebaseFirestore.collection('hive').doc(hive.id).set(JSON.parse(JSON.stringify(hive)))
             .then((ret) => {
                 console.log(ret);
@@ -81,6 +100,15 @@ export class FireDbService {
     }
 
     addHivecardToHive(hiveId: string, hiveCard: Hivecard) {
+
+        let hive = this.findHiveById(hiveId);
+        let ids: string[] = hive.pushIds;
+        ids.splice(ids.indexOf(this.localDb.pushId),1);
+        let name: string = hive.name;
+        let editor: string = this.fireAuth.user.name;
+
+        this.pushService.postNotificationToGroup(ids, 'Eintrag in '+name, editor+' hat einen neuen Eintrag getätigt!');
+
         let tempCards: Hivecard[] = this.hives.find(hive => isHive(hiveId, hive)).hivecards;
         tempCards.push(hiveCard);
 
@@ -123,18 +151,43 @@ export class FireDbService {
     }
 
     updateHivecard(hiveId: string, hivecardId: string, newHivecard: Hivecard) {
+
         let hiveIndex: number = this.hives.findIndex(hive => hive.id == hiveId);
         let hiveCardIndex: number = this.hives[hiveIndex].hivecards.findIndex(card => card.id == hivecardId);
         this.hives[hiveIndex].hivecards[hiveCardIndex] = newHivecard;
+
+        let date: string = this.datePipe.transform(this.hives[hiveIndex].hivecards[hiveCardIndex].creationDate,"dd-MM-yyyy");
+
+        let idsOfOthermMmbers: string[] =[];
+        this.hives[hiveIndex].pushIds.forEach((id) => {
+            if(id !== this.localDb.pushId) {
+                idsOfOthermMmbers.push(id);
+            }
+        });
+        let name: string = this.hives[hiveIndex].name;
+        let editor: string = this.fireAuth.user.name;
+        this.pushService.postNotificationToGroup(idsOfOthermMmbers, 'Bearbeitung in: '+name, editor+' hat einen Eintrag vom '+date+ ' bearbeitet!');
+
         this.firebaseFirestore.collection('hive').doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(this.hives[hiveIndex].hivecards))});
     }
 
     updateHive(hive: Hive) {
+        let idsOfOthermMmbers: string[] =[];
+        hive.pushIds.forEach((id) => {
+            if(id !== this.localDb.pushId) {
+                idsOfOthermMmbers.push(id);
+            }
+        });
+        let name: string = hive.name;
+        let editor: string = this.fireAuth.user.name;
+        this.pushService.postNotificationToGroup(idsOfOthermMmbers, 'Bearbeitung in: '+name, editor+' hat das Volk '+ name + ' editiert!');
+
         this.firebaseFirestore.collection('hive').doc(hive.id).set(JSON.parse(JSON.stringify(hive)));
     }
 
-    redeemInviteCode(key: string) {
+    async redeemInviteCode(key: string) {
         this.firebaseFirestore.collection('hive').doc(key).update({'memberNames': FieldValue.arrayUnion(this.fireAuth.user.name)});
+        this.firebaseFirestore.collection('hive').doc(key).update({'pushIds': FieldValue.arrayUnion(this.localDb.pushId)});
         return this.firebaseFirestore.collection('hive').doc(key).update({'members': FieldValue.arrayUnion(this.fireAuth.uid)});
     }
 
