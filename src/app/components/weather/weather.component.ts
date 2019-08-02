@@ -1,11 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Hive} from '../../model/hive.model';
-import {ActivatedRoute, Route, Router} from '@angular/router';
 import {LocalDbService} from '../../services/local-db.service';
 import {Weather} from '../../model/weather.model';
 import {ToastController} from '@ionic/angular';
 import {Forecast} from '../../model/forecast';
-import {FirestoreWeather} from '../../model/firestore-weather.model';
 import {WeatherService} from '../../services/weather.service';
 
 @Component({
@@ -20,15 +17,23 @@ export class WeatherComponent implements OnInit {
     @Input() forecasts: Forecast[];
     // forecasts: Forecast[];
 
+    /**
+     * @ignore
+     */
     constructor(private localDb: LocalDbService,
                 private toastController: ToastController,
-                private weatherService: WeatherService,
-                private localDbService: LocalDbService) {
+                private weatherService: WeatherService,) {
     }
 
+    /**
+     * @ignore
+     */
     ngOnInit() {
     }
 
+    /**
+     * @ignore
+     */
     async presentToast(text: string) {
         const toast = await this.toastController.create({
             message: text,
@@ -37,6 +42,12 @@ export class WeatherComponent implements OnInit {
         toast.present();
     }
 
+
+    /**
+     * fulfills a GET request to Weatherbit to refresh weatherdata
+     *
+     * @param event from the pull-to-refresh action
+     */
     doRefresh(event) {
         if (this.postalCode != '') {
             this.weatherService.loadForecast(this.postalCode).then((response) => {

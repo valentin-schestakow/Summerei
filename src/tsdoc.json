@@ -1,0 +1,37 @@
+{
+	"tags":
+	{
+		"allowUnknownTags" : true
+	},
+	"plugins":[
+		 "plugins/markdown"
+		,"/Users/Valentin/AppData/Roaming/npm/node_modules/tsdoc/template/plugins/TSDoc.js"
+	],
+	"opts":
+	{
+		"template"	:"/Users/Valentin/AppData/Roaming/npm/node_modules/tsdoc/template",
+		"recurse"	:"true"
+	},
+	"templates" : {
+		"cleverLinks"     : false,
+		"monospaceLinks"  : false
+	},
+	"source":
+	{
+		"includePattern": "(\\.d)?\\.ts$"
+	},
+	"markdown"  : {
+		"parser"   : "gfm",
+		"hardwrap" : true
+	},
+	"tsdoc":{
+		"source"		:"/Users/Valentin/Desktop/Semester_5/EMA/PRJ/summerei/src/src/",
+		"destination"	:"/Users/Valentin/Desktop/Semester_5/EMA/PRJ/summerei/src/docs",
+		"tutorials"		:"",
+		"systemName"	: "src",
+		"footer"		: "",
+		"copyright"		: "src Copyright © 2019 Valentin.",
+		"outputSourceFiles" : true,
+		"commentsOnly": true
+	}
+}
