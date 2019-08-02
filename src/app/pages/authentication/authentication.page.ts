@@ -3,7 +3,7 @@ import {NavController, ToastController} from '@ionic/angular';
 import {FireAuthService} from '../../services/fire-auth.service';
 import {Router} from '@angular/router';
 import {LocalDbService} from '../../services/local-db.service';
-import {Settings} from '../../model/settings.model';
+
 
 @Component({
   selector: 'app-authentication',
@@ -17,15 +17,30 @@ export class AuthenticationPage implements OnInit {
   passwordCofirm: string;
   username: string;
 
+  /**
+   *
+   *
+   * @param navctrl
+   * @param authService
+   * @param router
+   * @param toastController
+   * @param localDbService
+   */
   constructor(public navctrl: NavController,
               public authService: FireAuthService,
               public router: Router,
               public toastController: ToastController,
               private localDbService: LocalDbService) { }
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
   }
 
+  /**
+   * will create a firebase Account and route to main page if succeeded
+   */
   createAccount () {
 
     if (this.password === this.passwordCofirm) {
@@ -40,10 +55,16 @@ export class AuthenticationPage implements OnInit {
 
   }
 
+  /**
+   * routes back to login page
+   */
   back() {
     this.navctrl.pop();
   }
 
+  /**
+   * @ignore
+   */
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Die Login Daten stimmen leider nicht!.',
