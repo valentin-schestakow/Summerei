@@ -3,11 +3,13 @@ import {Hive} from '../model/hive.model';
 import {Hivecard} from '../model/hive-card.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FireAuthService} from './fire-auth.service';
+
 import * as firebase from 'firebase';
 import FieldValue = firebase.firestore.FieldValue;
 import {Subject, timer} from 'rxjs';
 import {plainToClass} from 'class-transformer';
 import {ToastController} from '@ionic/angular';
+import {promise} from 'selenium-webdriver';
 import {OneSignal} from '@ionic-native/onesignal/ngx';
 import {LocalDbService} from './local-db.service';
 import {PushService} from './push.service';
@@ -18,10 +20,6 @@ import {DatePipe} from '@angular/common';
 @Injectable({
     providedIn: 'root'
 })
-
-/**
- * this service is for all AngularFirestore functions
- */
 export class FireDbService {
 
     constructor(private firebaseFirestore: AngularFirestore,
@@ -38,6 +36,7 @@ export class FireDbService {
 
     private hivesSubject = new Subject<Hive[]>();
     public hivesObservable = this.hivesSubject.asObservable();
+    public selectedHiveId: string;
 
     public setHives(hives: Hive[]) {
         this.hives = hives;
@@ -45,10 +44,6 @@ export class FireDbService {
     }
 
 
-    /**
-     * used subscribe to value changes of all hives the current is a member of.
-     * also mirrors all data to native storage
-     */
     async listenHivesOfCurrentUser() {
 
         return await this.firebaseFirestore.collection('hive', ref => ref.where('members', 'array-contains', this.fireAuth.uid + '')).valueChanges().subscribe((hives: Hive[]) => {
@@ -57,20 +52,18 @@ export class FireDbService {
                 tempHives.push(plainToClass(Hive, hive));
             });
 
+            console.log(JSON.stringify(tempHives));
+
             this.setHives(tempHives);
             this.localDb.saveHives(tempHives)
                 .then(
                     () => console.log(),
                     () => this.presentToast('Fehler Beim speichern der Daten')
                 );
+            // console.log('tempHives[0].name');
         });
     }
 
-    /**
-     * used to create a hive in firestore
-     *
-     * @param hive given hive object to push in firestore
-     */
     createHive(hive: Hive) {
 
         let tempPushIds: string [] = [];
@@ -106,12 +99,6 @@ export class FireDbService {
         });
     }
 
-    /**
-     * used to push a hivecard object t o given hive
-     *
-     * @param hiveId id of given hive
-     * @param hiveCard hivecard object to add
-     */
     addHivecardToHive(hiveId: string, hiveCard: Hivecard) {
 
         let hive = this.findHiveById(hiveId);
@@ -128,12 +115,6 @@ export class FireDbService {
         this.firebaseFirestore.collection('hive').doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(tempCards))});
     }
 
-    /**
-     * deletes a hivecard from a given hive
-     *
-     * @param hiveId id of given hive
-     * @param hivecardId id of given hivecard
-     */
     deleteHivecard(hiveId: string, hivecardId: string) {
         let tempCards: Hivecard[] = this.hives.find(hive => isHive(hiveId, hive)).hivecards;
         for (let i = 0; i < tempCards.length; i++) {
@@ -146,20 +127,10 @@ export class FireDbService {
         this.firebaseFirestore.collection('hive').doc(hiveId).update({hivecards: tempCards});
     }
 
-    /**
-     * deletes a hive
-     *
-     * @param hiveId id of hive to delete
-     */
     deleteHive(hiveId: string) {
         this.firebaseFirestore.collection('hive').doc(hiveId).delete();
     }
 
-    /**
-     * used to find a hive by id
-     *
-     * @param id
-     */
     findHiveById(id: string): Hive {
         return this.hives.find(h => h.id == id);
     }
@@ -174,24 +145,11 @@ export class FireDbService {
         return this.hivecards;
     }
 
-    /**
-     * used to a hivecard by id
-     *
-     * @param hiveId id of hive in which the hivecard of interest is saved
-     * @param hivecardId id of searched hivecard
-     */
     findHivecardById(hiveId: string, hivecardId: string) {
         let tempHive: Hive = this.findHiveById(hiveId);
         return tempHive.hivecards.find(card => card.id == hivecardId);
     }
 
-    /**
-     * updates a hivecard
-     *
-     * @param hiveId
-     * @param hivecardId
-     * @param newHivecard
-     */
     updateHivecard(hiveId: string, hivecardId: string, newHivecard: Hivecard) {
 
         let hiveIndex: number = this.hives.findIndex(hive => hive.id == hiveId);
@@ -213,11 +171,6 @@ export class FireDbService {
         this.firebaseFirestore.collection('hive').doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(this.hives[hiveIndex].hivecards))});
     }
 
-    /**
-     * updates a given hive
-     *
-     * @param hive
-     */
     updateHive(hive: Hive) {
         let idsOfOthermMmbers: string[] =[];
         hive.pushIds.forEach((id) => {
@@ -239,10 +192,6 @@ export class FireDbService {
     }
 
 
-    /**
-     *
-     * @ignore
-     */
     async presentToast(msg: string) {
         const toast = await this.toastController.create({
             message: msg,
@@ -253,17 +202,11 @@ export class FireDbService {
     }
 
 }
-/**
- *
- * @ignore
- */
+
 function isHive(hiveId: string, hive: Hive) {
     return hive.id === hiveId;
 }
-/**
- *
- * @ignore
- */
+
 function isHiveCard(hivecradId: string, hivecard: Hivecard) {
     return hivecard.id === hivecradId;
 }

@@ -1,30 +1,14 @@
 
-/**
- * Model of the possible settings
- */
 export class Settings {
 
-    /**
-     * allow notification or not
-     */
     hivecardNotification: boolean;
-
-    /**
-     * can be listView or slideView
-     * used to distinguish which kind of view will be rendered
-     */
+    weatherNotification: boolean;
     viewKind: string;
 
 
-    /**
-     * self explanatory
-     *
-      *@param viewKind
-     * @param hivecardNotification
-     */
-    constructor(viewKind?: string, hivecardNotification?: boolean) {
+    constructor(viewKind?: string, hivecardNotification?: boolean, weatherNotification?: boolean) {
         this.viewKind = viewKind;
         this.hivecardNotification = hivecardNotification;
-
+        this.weatherNotification = weatherNotification;
     }
 }

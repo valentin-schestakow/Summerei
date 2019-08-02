@@ -1,23 +1,19 @@
 import {Injectable} from '@angular/core';
 import {NativeStorage} from '@ionic-native/native-storage/ngx';
-import {ToastController} from '@ionic/angular';
+import {NavController, ToastController} from '@ionic/angular';
 import {Settings} from '../model/settings.model';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {plainToClass} from 'class-transformer';
 import {Weather} from '../model/weather.model';
 import {Hive} from '../model/hive.model';
 import {Forecast} from '../model/forecast';
+import {Hivecard} from '../model/hive-card.model';
 
 
 @Injectable({
     providedIn: 'root'
 })
-
-/**
- * used to save all mandatory data for current user
- */
 export class LocalDbService {
-
 
     settings: Settings = new Settings();
     private settingsSubject = new Subject<any>();
@@ -39,9 +35,6 @@ export class LocalDbService {
                 private toastController: ToastController,) {
     }
 
-    /**
-     * clear whole local storage except for pushId, which can only be retrieved once
-     */
     clearLocalStorage() {
         this.nativeStorage.remove('settings');
         this.nativeStorage.remove('user');
@@ -51,11 +44,6 @@ export class LocalDbService {
 
 
     // ----------------USER-FUNCTIONS---------------
-    /**
-     * self explanatory
-     *
-     * @return Promise<any> resolves user data if succeeded and false otherwise
-     */
     async checkIfUserIsLoggedIn(): Promise<any> {
 
         return await this.nativeStorage.getItem('user')
@@ -67,14 +55,6 @@ export class LocalDbService {
     }
 
 
-    /**
-     * self explanatory
-     *
-     * @param email
-     * @param password
-     * @param id
-     * @param name
-     */
     saveLoginLocal(email: string, password: string, id: string, name: string) {
         this.nativeStorage.setItem('user', {email: email, password: password, id: id, name: name})
             .then(
@@ -83,9 +63,6 @@ export class LocalDbService {
             );
     }
 
-    /**
-     * @ignore
-     */
     async getLocalLogin(): Promise<any> {
 
         await this.nativeStorage.getItem('user')
@@ -100,17 +77,12 @@ export class LocalDbService {
 
     //-----------SETTINGS-FUNCTIONS----------------
 
-    /**
-     * self explanatory
-     *
-     * @return Promise<any> return settings if available, false otherwise
-     */
     async getUserSettings(): Promise<any> {
 
 
         await this.nativeStorage.getItem('settings')
             .then(data => {
-                this.setSettings(new Settings(data.viewKind, data.hivecardNotification));
+                this.setSettings(new Settings(data.viewKind, data.hivecardNotification, data.weatherNotification));
                 return Promise.resolve(true);
             }).catch((error) => {
                 return Promise.reject(false);
@@ -118,11 +90,6 @@ export class LocalDbService {
     }
 
 
-    /**
-     * self explanatory
-     *
-     * @param settings
-     */
     saveSettings(settings: Settings) {
         this.settings = settings;
         this.nativeStorage.setItem('settings', JSON.parse(JSON.stringify(settings)))
@@ -134,11 +101,6 @@ export class LocalDbService {
     }
 
 
-    /**
-     * triggers observable next function for weatherObservable
-     *
-     * @param settings
-     */
     public setSettings(settings: Settings) {
         console.log(JSON.stringify(settings));
         this.settings = settings;
@@ -147,11 +109,6 @@ export class LocalDbService {
 
     //----------------WEATHER-DATA-----------------------------------------
 
-    /**
-     * self explanatory
-     *
-     * @return Promise<any> returns true if available, false otherwise
-     */
     async getWeatherData(): Promise<any> {
         await this.nativeStorage.getItem('weather')
             .then((data) => {
@@ -175,11 +132,6 @@ export class LocalDbService {
             });
     }
 
-    /**
-     * saves weather data and triggers observables next function for this data
-     *
-     * @param weather
-     */
     async setWeatherData(weather: Weather): Promise<any> {
         this.addWeatherData(weather);
         await this.nativeStorage.setItem('weather', JSON.parse(JSON.stringify(this.weatherData)))
@@ -190,11 +142,6 @@ export class LocalDbService {
             });
     }
 
-    /**
-     * triggers observables next function
-     *
-     * @param weather
-     */
     private addWeatherData(weather: Weather) {
         let weatherIndex: number = this.weatherData.findIndex(obj => obj.hiveId == weather.hiveId);
         if (weatherIndex != -1) {
@@ -207,12 +154,6 @@ export class LocalDbService {
         }
     }
 
-    /**
-     * self explanatory
-     *
-     * @param hiveId
-     * @return weather data for given hive
-     */
     getWeatherById(hiveId: string) {
         return this.weatherData.find(obj => obj.hiveId == hiveId);
     }
@@ -226,12 +167,6 @@ export class LocalDbService {
 
 
     //----------------PUSH-DATA-----------------------------------------
-
-    /**
-     * self explanatory
-     *
-     * @param id pushId to be saved
-     */
     async savePushId(id: string) {
         await this.nativeStorage.setItem('pushId', {id: id})
             .then(() => {
@@ -242,10 +177,6 @@ export class LocalDbService {
             });
     }
 
-
-    /**
-     * @ignore
-     */
     async getPushData(): Promise<any> {
         await this.nativeStorage.getItem('pushId')
             .then((data) => {
@@ -256,24 +187,12 @@ export class LocalDbService {
             });
     }
 
-    /**
-     * triggers observables next function for pushIdObservable
-     *
-     * @param id
-     */
     private setPushId(id: string) {
         this.pushId = id;
         this.pushIdSubject.next(id);
     }
 
     // ----------------HIVE-DATA------------------------------------------
-
-
-    /**
-     * self explanatory
-     *
-     * @param hives to save local
-     */
     async saveHives(hives: Hive[]): Promise<any> {
         await this.nativeStorage.setItem('hives', JSON.parse(JSON.stringify(hives)))
             .then(() => {
@@ -283,12 +202,6 @@ export class LocalDbService {
             });
     }
 
-
-    /**
-     * self explanatory
-     *
-     * @return true if hives available, false otherwise
-     */
     async getHives(): Promise<any> {
         await this.nativeStorage.getItem('hives')
             .then((hives: any[]) => {
@@ -298,6 +211,14 @@ export class LocalDbService {
                 hives.forEach((hive: Hive) => {
                     tempHives.push(plainToClass(Hive, hive));
                 });
+
+                // hives.forEach((hive: Hive) => {
+                //     let tempCards: Hivecard[] = [];
+                //     hive.hivecards.forEach((card) => tempCards.push(plainToClass(Hivecard, card)));
+                //     hive.hivecards = tempCards;
+                //     tempHives.push(plainToClass(Hive, hive));
+                // });
+
                 this.setHives(tempHives);
 
                 // this.presentToast('got Hives');
@@ -307,21 +228,12 @@ export class LocalDbService {
             });
     }
 
-    /**
-     * triggers observables next function for hivesObservable
-     *
-     * @param hives
-     */
     private setHives(hives: Hive[]) {
         this.hives = hives;
         this.hivesSubject.next(hives);
     }
 
 
-    /**
-     *
-     * @ignore
-     * */
     async presentToast(msg: string) {
         const toast = await this.toastController.create({
             message: msg,

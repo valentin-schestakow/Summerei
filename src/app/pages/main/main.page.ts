@@ -8,6 +8,12 @@ import {LocalDbService} from '../../services/local-db.service';
 import {Settings} from '../../model/settings.model';
 import {PushService} from '../../services/push.service';
 import {Router} from '@angular/router';
+import {timer} from 'rxjs/observable/timer';
+import {OneSignal} from '@ionic-native/onesignal/ngx';
+import {FirestoreWeather} from '../../model/firestore-weather.model';
+import {Forecast} from '../../model/forecast';
+import {Weather} from '../../model/weather.model';
+import {stringify} from 'querystring';
 import {WeatherService} from '../../services/weather.service';
 
 
@@ -16,10 +22,6 @@ import {WeatherService} from '../../services/weather.service';
     templateUrl: './main.page.html',
     styleUrls: ['./main.page.scss'],
 })
-
-/**
- * main page of this application
- */
 export class MainPage implements OnInit {
 
     @ViewChild('voelker') voelkerSlide: IonSlides;
@@ -57,26 +59,17 @@ export class MainPage implements OnInit {
     tempHiveData: Hive[] = [];
 
 
-    /**
-     *
-     * @param fireDb
-     * @param router
-     * @param popoverController
-     * @param localDbService
-     * @param toastController
-     * @param alertController
-     */
     constructor(private fireDb: FireDbService,
                 private router: Router,
                 private popoverController: PopoverController,
                 private localDbService: LocalDbService,
                 private toastController: ToastController,
-                private alertController: AlertController,) {
+                private alertController: AlertController,
+                private pushService: PushService,
+                private weatherService: WeatherService,
+                private navCtrl: NavController) {
     }
 
-    /**
-     * subscribes to all data mandatory for a user
-     */
     ngOnInit() {
 
         this.localDbService.getUserSettings()
@@ -150,17 +143,11 @@ export class MainPage implements OnInit {
     }
 
 
-    /**
-     * routes to hive-card-form
-     */
     createHiveCard() {
         this.router.navigate(['hive-card-form', {hiveId: this.currentHive.id}]);
     }
 
 
-    /**
-     * @ignore
-     */
     transitionFromStockkarten() {
 
         if (this.stockkartenSlide) {
@@ -192,9 +179,6 @@ export class MainPage implements OnInit {
     }
 
 
-    /**
-     * @ignore
-     */
     transitionFromVoelker() {
         if (this.voelkerSlide) {
             this.voelkerSlide.getActiveIndex()
@@ -227,9 +211,6 @@ export class MainPage implements OnInit {
     }
 
 
-    /**
-     * @ignore
-     */
     setVisibleSlideRange(i: number) {
         let numSlides = this.hiveData.length;
         for (let index = 0; index < numSlides + 1; index++) {
@@ -239,10 +220,6 @@ export class MainPage implements OnInit {
         }
     }
 
-
-    /**
-     * @ignore
-     */
     slideVisibility(index: number) {
         if (this.showDashboard) {
             index--;
@@ -280,25 +257,21 @@ export class MainPage implements OnInit {
     }
 
 
-    /**
-     * creates a popover for more options
-     *
-     * @param event
-     */
-    async moreButton(event: Event) {
+    async moreButton(ev: Event) {
         let popover = await this.popoverController.create({
-            event: event,
+            event: ev,
             component: MoreButtonPage,
             cssClass: 'custom-popover',
         });
         await popover.present();
     }
 
-    /**
-     * @ignore
-     */
     checkIfnotNull(object: any) {
         if (object == null) {
+            return false;
+        }
+
+        if (object === null) {
             return false;
         }
 
@@ -307,19 +280,11 @@ export class MainPage implements OnInit {
         }
     }
 
-    /**
-     * routes hive-form for editing a given hive
-     *
-     * @param id
-     */
     editHive(id: string) {
         this.router.navigate(['hive-form', {hiveId: this.currentHive.id}]);
     }
 
 
-    /**
-     * @ignore
-     */
     async presentToast(msg: string) {
         const toast = await this.toastController.create({
             message: msg,
@@ -329,17 +294,11 @@ export class MainPage implements OnInit {
         toast.present();
     }
 
-    /**
-     * routes to hive-form to create a new hive
-     */
     creatHive() {
         this.router.navigateByUrl('hive-form');
     }
 
 
-    /**
-     * self explanatory
-     */
     initSearch() {
 
         if(this.showSearch) {
@@ -356,9 +315,6 @@ export class MainPage implements OnInit {
 
     }
 
-    /**
-     * self explanatory
-     */
     doSearch(event) {
 
         const searchInput = event.target.value;
@@ -378,27 +334,18 @@ export class MainPage implements OnInit {
         }
     }
 
-    /**
-     * @ignore
-     */
     clearSearchbar() {
         this.searchbar.value = '';
         this.hiveData = this.tempHiveData;
         this.showNothingFound = false;
     }
 
-    /**
-     * @ignore
-     */
     resetSearch() {
         this.showSearch = false;
         this.hiveData = this.tempHiveData;
         this.showNothingFound = false;
     }
 
-    /**
-     * @ignore
-     */
     async anyDialog(msg: string) {
         const alert = await this.alertController.create({
             header: msg,
@@ -407,9 +354,6 @@ export class MainPage implements OnInit {
     }
 
     //@TODO: this function is not even close to a value comparison
-    /**
-     * @ignore
-     */
     compare(hivelist1: Hive[], hivelist2: Hive[]): boolean{
 
         if(hivelist1.length != hivelist2.length) {

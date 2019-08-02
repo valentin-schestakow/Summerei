@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'invite', loadChildren: './pages/invite/invite.module#InvitePageModule' },
   { path: 'hive', loadChildren: './pages/hive/hive.module#HivePageModule' },
   { path: 'hivedetail', loadChildren: './pages/hivedetail/hivedetail.module#HivedetailPageModule' },
+  { path: 'weather', loadChildren: './pages/weather/weather.module#WeatherPageModule' },
   { path: 'entry', loadChildren: './pages/entry/entry.module#EntryPageModule' },
   { path: 'start-loading', loadChildren: './pages/start-loading/start-loading.module#StartLoadingPageModule' },
 

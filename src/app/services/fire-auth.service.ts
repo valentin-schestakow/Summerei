@@ -12,10 +12,6 @@ import {Settings} from '../model/settings.model';
 @Injectable({
     providedIn: 'root'
 })
-
-/**
- * service used for login and authentication using AngularFireAuth
- */
 export class FireAuthService {
 
     public currentUser: any;
@@ -25,18 +21,10 @@ export class FireAuthService {
     public email: string;
     public networkStatus: string = '';
     public user: User;
+
     private password: string;
 
 
-    /**
-     *
-     * @param fireAuth
-     * @param router
-     * @param db
-     * @param network
-     * @param localDbService
-     * @param toastController
-     */
     constructor(private fireAuth: AngularFireAuth,
                 private router: Router,
                 private db: AngularFirestore,
@@ -46,16 +34,9 @@ export class FireAuthService {
 
     }
 
-    /**
-     * registers a new user
-     *
-     * @param email
-     * @param password
-     * @param username
-     *
-     * @return Promise<boolean> Promise to resolve if operation was successful
-     */
     async register(email: string, password: string, username?: string): Promise<boolean> {
+
+
         return  await this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
             .then(data => {
                 // console.log(data);
@@ -76,16 +57,10 @@ export class FireAuthService {
             }).catch(error => {
                 // this.presentToast(error);
                 return Promise.reject(false);
+                console.log(error);
             });
     }
 
-
-    /**
-     * used to login a user by given email and password
-     *
-     * @param email
-     * @param password
-     */
     async login(email: string, password: string): Promise<boolean> {
 
         return await this.fireAuth.auth.signInWithEmailAndPassword(email, password)
@@ -109,10 +84,6 @@ export class FireAuthService {
             });
     }
 
-
-    /**
-     * retrieves user data of current user
-     */
     async getCurrentUser() {
         return await this.db.collection('user').doc(this.uid).valueChanges().subscribe((user: User) => {
             this.user = plainToClass(User, user);
@@ -121,9 +92,6 @@ export class FireAuthService {
     }
 
 
-    /**
-     * @ignore
-     */
     private createUser() {
         let user: User = new User();
         user.email = this.email;
@@ -140,9 +108,6 @@ export class FireAuthService {
         });
     }
 
-    /**
-     * @ignore
-     */
     handleNetwork() {
 
         this.network.onConnect().subscribe((data) => {
@@ -166,9 +131,6 @@ export class FireAuthService {
     }
 
 
-    /**
-     * @ignore
-     */
     async presentToast(msg: string) {
         const toast = await this.toastController.create({
             message: msg,
@@ -179,26 +141,25 @@ export class FireAuthService {
     }
 
 
-    /**
-     * @ignore
-     */
     private addSettings() {
 
         this.localDbService.getUserSettings()
             .catch(() => {
                 this.getCurrentUser();
-                let settings: Settings = new Settings('listView', true);
+                let settings: Settings = new Settings('listView', true, true);
                 this.localDbService.setSettings(settings);
             });
     }
 
 
-    /**
-     * @ignore
-     */
     logout() {
         this.localDbService.clearLocalStorage();
         this.router.navigateByUrl('login');
     }
 
+
+    //@TODO kann man machen, muss aber vorerst nicht sein
+    deleteAccount() {
+
+    }
 }

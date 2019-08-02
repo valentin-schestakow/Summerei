@@ -17,6 +17,11 @@
     </ion-item>
 
     <ion-item>
+      <ion-label>Wetter-Benachrichtigung</ion-label>
+      <ion-toggle [checked]="weatherNoti" [(ngModel)]="weatherNoti"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Ansichtsart</ion-label>
       <ion-select cancelText="Abbrechen" [placeholder]="viewKind" [(ngModel)]="viewKind">
         <ion-select-option value="slideView" >Gleitansicht</ion-select-option>

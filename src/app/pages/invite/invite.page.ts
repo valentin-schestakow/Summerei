@@ -10,29 +10,17 @@ import {OneSignal} from '@ionic-native/onesignal/ngx';
   templateUrl: './invite.page.html',
   styleUrls: ['./invite.page.scss'],
 })
-
-
-/**
- * page to send invite codes to a given hive or to join one
- */
 export class InvitePage implements OnInit {
 
   showSpinner: boolean = false;
+
   private hives: Hive[] = [];
   private redeemCode: string;
+
   @ViewChild('hive')
   private selectedHiveRef: IonSelect;
 
 
-  /**
-   * retrieves current available hives
-   *
-   * @param fireDb
-   * @param navCtrl
-   * @param socialSharing
-   * @param toastController
-   * @param alertCtrl
-   */
   constructor(private fireDb: FireDbService,
               private navCtrl: NavController,
               private socialSharing: SocialSharing,
@@ -42,15 +30,9 @@ export class InvitePage implements OnInit {
   }
 
 
-  /**
-   * @ignore
-   */
   ngOnInit() {
   }
 
-  /**
-   * used to redeem a code to join a hive
-   */
   redeemButton() {
     if (this.redeemCode !== "" && this.redeemCode !== null && this.redeemCode !== undefined) {
       this.showSpinner = true;
@@ -65,10 +47,6 @@ export class InvitePage implements OnInit {
     }
   }
 
-  /**
-   *
-   * @ignore
-   */
   generateButton() {
     if (this.selectedHiveRef.value !== "" && this.selectedHiveRef.value !== null && this.selectedHiveRef.value !== undefined) {
       this.chooseShareMethodDialog();
@@ -78,9 +56,6 @@ export class InvitePage implements OnInit {
   }
 
 
-  /**
-   * used to share invite code via mail
-   */
   shareViaMail() {
     this.socialSharing.canShareViaEmail()
         .then(() => {
@@ -94,9 +69,6 @@ export class InvitePage implements OnInit {
   }
 
 
-  /**
-   * alert in which a user can choose between e-mail and whatsapp to share a invite code
-   */
    async chooseShareMethodDialog() {
     const alert = await this.alertCtrl.create({
       header: 'Wie wollen Sie senden?',
@@ -125,9 +97,6 @@ export class InvitePage implements OnInit {
     await alert.present();
   }
 
-  /**
-   * retrieves user input for receiver of the mail and the corresponding message
-   */
  async emailShareDialog() {
    const alert = await this.alertCtrl.create({
      header: 'Email senden',
@@ -165,11 +134,6 @@ export class InvitePage implements OnInit {
    await alert.present();
   }
 
-  /**
-   * opens whats app
-   *
-   * @param msg
-   */
   shareViaWhatsApp(msg: string) {
     this.socialSharing.canShareVia('whatsapp')
         .then(() => {
@@ -186,11 +150,8 @@ export class InvitePage implements OnInit {
         })
   }
 
+  //@TODO share via sms
 
-  /**
-   *
-   * @ignore
-   */
   async presentToast(msg: string) {
     const toast = await this.toastController.create({
       message: 'TOAST: ' + msg,
@@ -200,9 +161,6 @@ export class InvitePage implements OnInit {
     toast.present();
   }
 
-  /**
-   * routes back
-   */
   back() {
     this.navCtrl.pop();
   }

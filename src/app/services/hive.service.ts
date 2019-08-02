@@ -3,9 +3,6 @@ import {Hive} from '../model/hive.model';
 import {Hivecard} from '../model/hive-card.model';
 import {Observable} from 'rxjs';
 
-/**
- * @ignore
- */
 @Injectable({
   providedIn: 'root'
 })

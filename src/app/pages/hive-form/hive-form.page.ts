@@ -19,47 +19,36 @@ import {AngularFirestore} from '@angular/fire/firestore';
   templateUrl: './hive-form.page.html',
   styleUrls: ['./hive-form.page.scss'],
 })
-
-/**
- * this page is used to create or edit a selected hive object
- */
 export class HiveFormPage implements OnInit {
-
   isEditMode = false;
   hivecard: Hivecard = new Hivecard();
   hive: Hive = new Hive();
   pageTitle: string;
+
+
+
   selectedColor: string = "blue";
+
   @ViewChild('hiveName')
   private hiveNameRef: IonTextarea;
   @ViewChild('race')
   private raceRef: IonTextarea;
   @ViewChild('beehiveKind')
   private beehiveKindRef: IonTextarea;
+
   location: string = "";
   locationSet: boolean = false;
+
   state: string = "good";
+
   showSpinner: boolean = false;
   private showDelete: boolean;
   weather: Weather;
   private firestoreWeather: FirestoreWeather = new FirestoreWeather('','');
 
 
-  /**
-   *
-   * @param route
-   * @param router
-   * @param navCtrl
-   * @param popoverController
-   * @param fireDb
-   * @param geolocation
-   * @param alertController
-   * @param weatherService
-   * @param toastController
-   * @param localDb
-   * @param firebaseFirestore
-   * @param firestore
-   */
+
+
   constructor(private route: ActivatedRoute,
               public router: Router,
               private navCtrl: NavController,
@@ -80,9 +69,6 @@ export class HiveFormPage implements OnInit {
     }
   }
 
-  /**
-   * retrieves hiveId (if given) to get the hive selected for modifying
-   */
   ngOnInit() {
     let hiveId = this.route.snapshot.paramMap.get('hiveId');
     if(hiveId) {
@@ -96,10 +82,6 @@ export class HiveFormPage implements OnInit {
     }
   }
 
-  /**
-   *
-   * fills the view with data provided if this page is used to edit a hive
-   */
   ionViewWillEnter() {
     if (this.isEditMode) {
       this.hiveNameRef.value = this.hive.name;
@@ -115,16 +97,10 @@ export class HiveFormPage implements OnInit {
     }
   }
 
-  /**
-   * routes back
-   */
   back() {
     this.navCtrl.pop();
   }
 
-  /**
-   * takes of saving changes or creating a new hive
-   */
   async save() {
     this.hive.name = this.hiveNameRef.value;
     this.hive.queenColor = this.selectedColor;
@@ -144,22 +120,14 @@ export class HiveFormPage implements OnInit {
 
   }
 
-  /**
-   * deletes a hive and routes back
-   */
   delete() {
     this.fireDb.deleteHive(this.hive.id);
     this.back();
   }
 
-  /**
-   * responsible to create a popover for color selection
-   *
-   * @param event popover event
-   */
-  async moreColorButton(event: Event) {
+  async moreColorButton(ev: Event) {
     let popover = await this.popoverController.create({
-      event: event,
+      event: ev,
       component: ColorPickerPage,
       cssClass: 'custom-popover',
     });
@@ -173,11 +141,6 @@ export class HiveFormPage implements OnInit {
     })
   }
 
-  /**
-   * retrieves weather data by given postal code and saves both: location and weather data
-   *
-   * @param postalCode
-   */
   getLocation(postalCode: string) {
     this.weatherService.loadForecast(postalCode).then((response) => {
       this.firestoreWeather = new FirestoreWeather(response.body.city_name, postalCode);
@@ -185,6 +148,11 @@ export class HiveFormPage implements OnInit {
 
       let tempForecastArray: Forecast[] = [];
       response.body.data.forEach((forecast) => {
+
+          // let yyyy = JSON.stringify(forecast.datetime).slice(0,5);
+          // let mm = JSON.stringify(forecast.datetime).slice(6,8);
+          // let dd = JSON.stringify(forecast.datetime).slice(9);
+          // let date = dd + "/" + mm + "/" + yyyy;
           let tempForecast: Forecast = new Forecast(forecast.app_min_temp, forecast.app_max_temp, forecast.temp, forecast.datetime, forecast.weather.description, forecast.weather.icon);
           tempForecastArray.push(tempForecast);
       });
@@ -218,9 +186,6 @@ export class HiveFormPage implements OnInit {
     });
   }
 
-  /**
-   * used for a user to input a postal code
-   */
   async locationDialog() {
     const alert = await this.alertController.create({
       header: 'Geben Sie bitte die Postleizahl des Standortes an:',
@@ -252,14 +217,9 @@ export class HiveFormPage implements OnInit {
 
   }
 
-  /**
-   * responsible to create a popover for state selection
-   *
-   * @param event
-   */
-  async moreSmileysButton(event: Event) {
+  async moreSmileysButton(ev: Event) {
     let popover = await this.popoverController.create({
-      event: event,
+      event: ev,
       component: SmileyPickerPage,
       cssClass: 'custom-popover',
     });
@@ -273,10 +233,6 @@ export class HiveFormPage implements OnInit {
     })
   }
 
-  /**
-   *
-   * @ignore
-   */
   async presentToast(text: string) {
     const toast = await this.toastController.create({
       message: text,
@@ -286,10 +242,6 @@ export class HiveFormPage implements OnInit {
   }
 
 
-  /**
-   *
-   * @ignore
-   */
   async anyDialog(msg: string) {
     const alert = await this.alertController.create({
       header: msg,

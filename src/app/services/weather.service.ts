@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 
 @Injectable({
@@ -7,26 +7,13 @@ import {HttpClient} from '@angular/common/http';
 })
 export class WeatherService {
 
-  /**
-   * api url
-   */
   static WEATHER_URL = 'https://api.weatherbit.io/v2.0/';
-  /**
-   * api key
-   */
+  weatherData: any = "";
   apiKey: string = "41aea7e2922b4647819b485d1f262d85";
+  // postalCode: string = "";
 
-  /**
-   *
-   * @param http
-   */
   constructor(private http: HttpClient) { }
 
-  /**
-   * GET request to api for weather data by given postal code
-   *
-   * @param postalCode postal code of location
-   */
   async loadForecast(postalCode: string): Promise<any> {
     return await this.http.get(WeatherService.WEATHER_URL + 'forecast/daily?&postal_code='+postalCode+'&country=DE&lang=de&key='+this.apiKey, {
       observe: 'response',
@@ -37,4 +24,9 @@ export class WeatherService {
       return Promise.reject(false);
     });
   }
+
+  //@TODO
+  // async subscribeToWarnings() {
+  //
+  // }
 }

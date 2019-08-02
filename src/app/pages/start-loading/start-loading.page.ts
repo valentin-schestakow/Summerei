@@ -9,32 +9,21 @@ import {ToastController} from '@ionic/angular';
     templateUrl: './start-loading.page.html',
     styleUrls: ['./start-loading.page.scss'],
 })
-
-/**
- * this is used bridge loading time corresponding to loading mandatory user data
- */
 export class StartLoadingPage implements OnInit {
 
-    /**
-     *
-     * @param localDb
-     * @param fireAuth
-     * @param router
-     * @param toastController
-     */
     constructor(private localDb: LocalDbService,
                 private fireAuth: FireAuthService,
                 private router: Router,
                 private toastController: ToastController) {
     }
 
-    /**
-     * loading mandatory user data and routes to main page if those are given
-     */
     ngOnInit() {
         this.localDb.getUserSettings();
         this.localDb.checkIfUserIsLoggedIn()
             .then((user) => {
+                // this.localDb.getHives().then(() => {
+                // }).catch(() => {
+                // });
                 this.router.navigateByUrl('menu');
                 this.fireAuth.uid = user.id;
                 this.fireAuth.login(user.email, user.password);
@@ -45,10 +34,6 @@ export class StartLoadingPage implements OnInit {
     }
 
 
-    /**
-     *
-     * @ignore
-     */
     async presentToast(msg: string) {
         const toast = await this.toastController.create({
             message: msg,
