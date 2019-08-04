@@ -1,15 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AlertController, IonCheckbox, IonDatetime, IonInput, IonSegmentButton, IonSelect, IonTextarea, NavController} from '@ionic/angular';
-import {FormBuilder} from '@angular/forms';
+import {AlertController, IonCheckbox, IonDatetime, IonSelect, IonTextarea, NavController} from '@ionic/angular';
 import {Hive} from '../../model/hive.model';
-import {HiveService} from '../../services/hive.service';
 import {Hivecard} from '../../model/hive-card.model';
-import {templateRefExtractor} from '@angular/core/src/render3';
 import {FireDbService} from '../../services/fire-db.service';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {DatePicker} from '@ionic-native/date-picker/ngx';
-import {NavigationOptions} from '@ionic/angular/dist/providers/nav-controller';
 import {PushService} from '../../services/push.service';
 
 @Component({
@@ -17,7 +12,12 @@ import {PushService} from '../../services/push.service';
   templateUrl: './hive-card-form.page.html',
   styleUrls: ['./hive-card-form.page.scss'],
 })
+
+/**
+ * this page is used to create or edit a hivecard
+ */
 export class HiveCardFormPage implements OnInit {
+
 
   isEditMode = false;
   hivecard: Hivecard = new Hivecard();
@@ -61,8 +61,17 @@ export class HiveCardFormPage implements OnInit {
   private behaviorStar_1_reset: boolean = false;
 
 
-
-
+  /**
+   * retrieves hiveId nad hivecardId (if provided) to modify those later on
+   *
+   * @param route
+   * @param router
+   * @param navCtrl
+   * @param alertController
+   * @param fireDb
+   * @param firebaseFirestore
+   * @param pushService
+   */
   constructor(private route: ActivatedRoute,
               public router: Router,
               private navCtrl: NavController,
@@ -87,6 +96,9 @@ export class HiveCardFormPage implements OnInit {
 
   }
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
     this.gentleStarSelectedCount = 0;
     this.gentleStar_1 = document.getElementById('gentleStar_1');
@@ -103,13 +115,19 @@ export class HiveCardFormPage implements OnInit {
     this.behaviorStar_5 = document.getElementById('behaviorStar_5');
   }
 
+
+  /**
+   * routes back
+   */
   back() {
     this.navCtrl.pop();
   }
 
+  /**
+   * fills the view with data provided if this page is used to edit a hivecard
+   */
   ionViewWillEnter() {
     if (this.isEditMode) {
-      //@TODO momentanes Datum auswählen
         this.dateRef.value = this.hivecard.creationDate;
         this.broodStatusRef.value = this.hivecard.broodStatus;
         this.queenSeenCheckRef.checked = this.hivecard.queenSeen;
@@ -123,10 +141,9 @@ export class HiveCardFormPage implements OnInit {
     }
   }
 
+
   /**
-   * @Todo
-   * - Nutzereinganben überprüfen und melden
-   * - Fallunterscheidung zwischen neu Karte anlegen und vorhandene bearbeiten
+   * saves the changes made or the newly created hivecard
    */
   save() {
       this.hivecard.creationDate = this.dateRef.value;
@@ -150,11 +167,19 @@ export class HiveCardFormPage implements OnInit {
       this.back()
   }
 
+  /**
+   * deletes a hivecard
+   */
   delete() {
     this.fireDb.deleteHivecard(this.hiveId, this.hivecardId);
     this.navCtrl.pop();
   }
 
+  /**
+   * this function is used to control the logic of displaying the amount of stars given for gentleness
+   *
+   * @param count
+   */
   gentleStar(count: number) {
     switch (count) {
       case 1:
@@ -253,6 +278,11 @@ export class HiveCardFormPage implements OnInit {
     }
   }
 
+  /**
+   * this function is used to control the logic of displaying the amount of stars given for behavior
+   *
+   * @param count
+   */
   behaviorStar(count: number) {
     switch (count) {
       case 1:

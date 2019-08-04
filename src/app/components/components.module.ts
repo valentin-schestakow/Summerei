@@ -6,6 +6,9 @@ import {SliderItemComponent} from './slider-item/slider-item.component';
 import {WeatherComponent} from './weather/weather.component';
 import {SpinnerComponent} from './spinner/spinner.component';
 
+/**
+ * @ignore
+ */
 @NgModule({
     declarations: [ HiveListComponent, SliderItemComponent, WeatherComponent, SpinnerComponent],
     imports: [
@@ -14,4 +17,7 @@ import {SpinnerComponent} from './spinner/spinner.component';
     ],
     exports: [ SpinnerComponent ,HiveListComponent, SliderItemComponent, WeatherComponent]
 })
+/**
+ * @ignore
+ */
 export class ComponentsModule {}

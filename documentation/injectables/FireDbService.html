@@ -1,0 +1,1647 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>summerei documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">summerei documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>FireDbService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/fire-db.service.ts</code>
+        </p>
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hivecards">hivecards</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hives">hives</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hivesObservable">hivesObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#hivesSubject">hivesSubject</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addHivecardToHive">addHivecardToHive</a>
+                            </li>
+                            <li>
+                                <a href="#createHive">createHive</a>
+                            </li>
+                            <li>
+                                <a href="#deleteHive">deleteHive</a>
+                            </li>
+                            <li>
+                                <a href="#deleteHivecard">deleteHivecard</a>
+                            </li>
+                            <li>
+                                <a href="#findAllHiveCards">findAllHiveCards</a>
+                            </li>
+                            <li>
+                                <a href="#findHiveById">findHiveById</a>
+                            </li>
+                            <li>
+                                <a href="#findHivecardById">findHivecardById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#listenHivesOfCurrentUser">listenHivesOfCurrentUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#redeemInviteCode">redeemInviteCode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#setHives">setHives</a>
+                            </li>
+                            <li>
+                                <a href="#updateHive">updateHive</a>
+                            </li>
+                            <li>
+                                <a href="#updateHivecard">updateHivecard</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(firebaseFirestore: AngularFirestore, fireAuth: <a href="../injectables/FireAuthService.html">FireAuthService</a>, toastController: ToastController, oneSignal: OneSignal, localDb: <a href="../injectables/LocalDbService.html">LocalDbService</a>, pushService: <a href="../injectables/PushService.html">PushService</a>, datePipe: <a href="https://angular.io/api/common/DatePipe" target="_blank">DatePipe</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/services/fire-db.service.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>firebaseFirestore</td>
+                                                  
+                                                        <td>
+                                                                    <code>AngularFirestore</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fireAuth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FireAuthService.html" target="_self" >FireAuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toastController</td>
+                                                  
+                                                        <td>
+                                                                    <code>ToastController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>oneSignal</td>
+                                                  
+                                                        <td>
+                                                                    <code>OneSignal</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>localDb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LocalDbService.html" target="_self" >LocalDbService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>pushService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PushService.html" target="_self" >PushService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>datePipe</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/DatePipe" target="_blank" >DatePipe</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addHivecardToHive"></a>
+                    <span class="name">
+                        <b>
+                            addHivecardToHive
+                        </b>
+                        <a href="#addHivecardToHive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addHivecardToHive(hiveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, hiveCard: <a href="../classes/Hivecard.html">Hivecard</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:115</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>used to push a hivecard object t o given hive</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hiveId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of given hive</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>hiveCard</td>
+                                    <td>
+                                                <code><a href="../classes/Hivecard.html" target="_self" >Hivecard</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>hivecard object to add</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createHive"></a>
+                    <span class="name">
+                        <b>
+                            createHive
+                        </b>
+                        <a href="#createHive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createHive(hive: <a href="../classes/Hive.html">Hive</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:74</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>used to create a hive in firestore</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hive</td>
+                                    <td>
+                                                <code><a href="../classes/Hive.html" target="_self" >Hive</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>given hive object to push in firestore</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteHive"></a>
+                    <span class="name">
+                        <b>
+                            deleteHive
+                        </b>
+                        <a href="#deleteHive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteHive(hiveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="154"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:154</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>deletes a hive</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hiveId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of hive to delete</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteHivecard"></a>
+                    <span class="name">
+                        <b>
+                            deleteHivecard
+                        </b>
+                        <a href="#deleteHivecard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteHivecard(hiveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, hivecardId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>deletes a hivecard from a given hive</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hiveId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of given hive</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>hivecardId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of given hivecard</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAllHiveCards"></a>
+                    <span class="name">
+                        <b>
+                            findAllHiveCards
+                        </b>
+                        <a href="#findAllHiveCards"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findAllHiveCards()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="167"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:167</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Hivecard[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findHiveById"></a>
+                    <span class="name">
+                        <b>
+                            findHiveById
+                        </b>
+                        <a href="#findHiveById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findHiveById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:163</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>used to find a hive by id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Hive.html" target="_self" >Hive</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findHivecardById"></a>
+                    <span class="name">
+                        <b>
+                            findHivecardById
+                        </b>
+                        <a href="#findHivecardById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findHivecardById(hiveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, hivecardId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="183"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:183</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>used to a hivecard by id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hiveId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of hive in which the hivecard of interest is saved</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>hivecardId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>id of searched hivecard</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listenHivesOfCurrentUser"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            listenHivesOfCurrentUser
+                        </b>
+                        <a href="#listenHivesOfCurrentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>listenHivesOfCurrentUser()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:52</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>used subscribe to value changes of all hives the current is a member of.
+also mirrors all data to native storage</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="redeemInviteCode"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            redeemInviteCode
+                        </b>
+                        <a href="#redeemInviteCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>redeemInviteCode(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="235"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:235</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setHives"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            setHives
+                        </b>
+                        <a href="#setHives"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setHives(hives: <a href="../classes/Hive.html">Hive[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:42</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hives</td>
+                                    <td>
+                                                <code><a href="../classes/Hive.html" target="_self" >Hive[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateHive"></a>
+                    <span class="name">
+                        <b>
+                            updateHive
+                        </b>
+                        <a href="#updateHive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateHive(hive: <a href="../classes/Hive.html">Hive</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="221"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:221</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>updates a given hive</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hive</td>
+                                    <td>
+                                                <code><a href="../classes/Hive.html" target="_self" >Hive</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateHivecard"></a>
+                    <span class="name">
+                        <b>
+                            updateHivecard
+                        </b>
+                        <a href="#updateHivecard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateHivecard(hiveId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, hivecardId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, newHivecard: <a href="../classes/Hivecard.html">Hivecard</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="195"
+                            class="link-to-prism">src/app/services/fire-db.service.ts:195</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>updates a hivecard</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hiveId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>hivecardId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>newHivecard</td>
+                                    <td>
+                                                <code><a href="../classes/Hivecard.html" target="_self" >Hivecard</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hivecards"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            hivecards</b>
+                            <a href="#hivecards"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Hivecard[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/services/fire-db.service.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hives"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            hives</b>
+                            <a href="#hives"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Hive.html" target="_self" >Hive[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/services/fire-db.service.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hivesObservable"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            hivesObservable</b>
+                            <a href="#hivesObservable"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.hivesSubject.asObservable()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/services/fire-db.service.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hivesSubject"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            hivesSubject</b>
+                            <a href="#hivesSubject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Subject&lt;Hive[]&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/services/fire-db.service.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Injectable} from &#x27;@angular/core&#x27;;
+import {Hive} from &#x27;../model/hive.model&#x27;;
+import {Hivecard} from &#x27;../model/hive-card.model&#x27;;
+import {AngularFirestore} from &#x27;@angular/fire/firestore&#x27;;
+import {FireAuthService} from &#x27;./fire-auth.service&#x27;;
+import * as firebase from &#x27;firebase&#x27;;
+import FieldValue &#x3D; firebase.firestore.FieldValue;
+import {Subject, timer} from &#x27;rxjs&#x27;;
+import {plainToClass} from &#x27;class-transformer&#x27;;
+import {ToastController} from &#x27;@ionic/angular&#x27;;
+import {OneSignal} from &#x27;@ionic-native/onesignal/ngx&#x27;;
+import {LocalDbService} from &#x27;./local-db.service&#x27;;
+import {PushService} from &#x27;./push.service&#x27;;
+import {DatePipe} from &#x27;@angular/common&#x27;;
+
+
+
+@Injectable({
+    providedIn: &#x27;root&#x27;
+})
+
+/**
+ * this service is for all AngularFirestore functions
+ */
+export class FireDbService {
+
+    constructor(private firebaseFirestore: AngularFirestore,
+                private fireAuth: FireAuthService,
+                private toastController: ToastController,
+                private oneSignal: OneSignal,
+                private localDb: LocalDbService,
+                private pushService: PushService,
+                private datePipe: DatePipe) {
+    }
+
+    public hives: Hive[] &#x3D; [];
+    public hivecards: Hivecard[] &#x3D; [];
+
+    private hivesSubject &#x3D; new Subject&lt;Hive[]&gt;();
+    public hivesObservable &#x3D; this.hivesSubject.asObservable();
+
+    public setHives(hives: Hive[]) {
+        this.hives &#x3D; hives;
+        this.hivesSubject.next(hives);
+    }
+
+
+    /**
+     * used subscribe to value changes of all hives the current is a member of.
+     * also mirrors all data to native storage
+     */
+    async listenHivesOfCurrentUser() {
+
+        return await this.firebaseFirestore.collection(&#x27;hive&#x27;, ref &#x3D;&gt; ref.where(&#x27;members&#x27;, &#x27;array-contains&#x27;, this.fireAuth.uid + &#x27;&#x27;)).valueChanges().subscribe((hives: Hive[]) &#x3D;&gt; {
+            let tempHives: Hive[] &#x3D; [];
+            hives.forEach((hive) &#x3D;&gt; {
+                tempHives.push(plainToClass(Hive, hive));
+            });
+
+            this.setHives(tempHives);
+            this.localDb.saveHives(tempHives)
+                .then(
+                    () &#x3D;&gt; console.log(),
+                    () &#x3D;&gt; this.presentToast(&#x27;Fehler Beim speichern der Daten&#x27;)
+                );
+        });
+    }
+
+    /**
+     * used to create a hive in firestore
+     *
+     * @param hive given hive object to push in firestore
+     */
+    createHive(hive: Hive) {
+
+        let tempPushIds: string [] &#x3D; [];
+        tempPushIds.push(this.localDb.pushId);
+        hive.pushIds &#x3D; tempPushIds;
+
+        if(hive.id &#x3D;&#x3D; &quot;&quot;) {
+            hive.id &#x3D; this.firebaseFirestore.createId();
+        }
+
+
+        hive.adminId &#x3D; this.fireAuth.uid;
+        hive.creationDate &#x3D; new Date().toISOString();
+        hive.adminName &#x3D; this.fireAuth.user.name;
+
+        let members: string[] &#x3D; [];
+        members.push(this.fireAuth.uid);
+        hive.members &#x3D; members;
+
+        let memberNames: string[] &#x3D; [];
+        memberNames.push(this.fireAuth.user.name);
+        hive.memberNames &#x3D; memberNames;
+
+        let hivecards: Hivecard[] &#x3D; [];
+        hive.hivecards &#x3D; hivecards;
+
+
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(hive.id).set(JSON.parse(JSON.stringify(hive)))
+            .then((ret) &#x3D;&gt; {
+                console.log(ret);
+            }).catch((error) &#x3D;&gt; {
+            console.log(error);
+        });
+    }
+
+    /**
+     * used to push a hivecard object t o given hive
+     *
+     * @param hiveId id of given hive
+     * @param hiveCard hivecard object to add
+     */
+    addHivecardToHive(hiveId: string, hiveCard: Hivecard) {
+
+        let hive &#x3D; this.findHiveById(hiveId);
+        let ids: string[] &#x3D; hive.pushIds;
+        ids.splice(ids.indexOf(this.localDb.pushId),1);
+        let name: string &#x3D; hive.name;
+        let editor: string &#x3D; this.fireAuth.user.name;
+
+        this.pushService.postNotificationToGroup(ids, &#x27;Eintrag in &#x27;+name, editor+&#x27; hat einen neuen Eintrag getätigt!&#x27;);
+
+        let tempCards: Hivecard[] &#x3D; this.hives.find(hive &#x3D;&gt; isHive(hiveId, hive)).hivecards;
+        tempCards.push(hiveCard);
+
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(tempCards))});
+    }
+
+    /**
+     * deletes a hivecard from a given hive
+     *
+     * @param hiveId id of given hive
+     * @param hivecardId id of given hivecard
+     */
+    deleteHivecard(hiveId: string, hivecardId: string) {
+        let tempCards: Hivecard[] &#x3D; this.hives.find(hive &#x3D;&gt; isHive(hiveId, hive)).hivecards;
+        for (let i &#x3D; 0; i &lt; tempCards.length; i++) {
+            if (tempCards[i].id &#x3D;&#x3D; hivecardId) {
+                tempCards.splice(i, 1);
+                break;
+            }
+        }
+
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(hiveId).update({hivecards: tempCards});
+    }
+
+    /**
+     * deletes a hive
+     *
+     * @param hiveId id of hive to delete
+     */
+    deleteHive(hiveId: string) {
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(hiveId).delete();
+    }
+
+    /**
+     * used to find a hive by id
+     *
+     * @param id
+     */
+    findHiveById(id: string): Hive {
+        return this.hives.find(h &#x3D;&gt; h.id &#x3D;&#x3D; id);
+    }
+
+    findAllHiveCards(): Hivecard[] {
+        this.hivecards &#x3D; [];
+        this.hives.forEach(hive &#x3D;&gt; {
+            hive.hivecards.forEach(card &#x3D;&gt; {
+                this.hivecards.push(card);
+            });
+        });
+        return this.hivecards;
+    }
+
+    /**
+     * used to a hivecard by id
+     *
+     * @param hiveId id of hive in which the hivecard of interest is saved
+     * @param hivecardId id of searched hivecard
+     */
+    findHivecardById(hiveId: string, hivecardId: string) {
+        let tempHive: Hive &#x3D; this.findHiveById(hiveId);
+        return tempHive.hivecards.find(card &#x3D;&gt; card.id &#x3D;&#x3D; hivecardId);
+    }
+
+    /**
+     * updates a hivecard
+     *
+     * @param hiveId
+     * @param hivecardId
+     * @param newHivecard
+     */
+    updateHivecard(hiveId: string, hivecardId: string, newHivecard: Hivecard) {
+
+        let hiveIndex: number &#x3D; this.hives.findIndex(hive &#x3D;&gt; hive.id &#x3D;&#x3D; hiveId);
+        let hiveCardIndex: number &#x3D; this.hives[hiveIndex].hivecards.findIndex(card &#x3D;&gt; card.id &#x3D;&#x3D; hivecardId);
+        this.hives[hiveIndex].hivecards[hiveCardIndex] &#x3D; newHivecard;
+
+        let date: string &#x3D; this.datePipe.transform(this.hives[hiveIndex].hivecards[hiveCardIndex].creationDate,&quot;dd-MM-yyyy&quot;);
+
+        let idsOfOthermMmbers: string[] &#x3D;[];
+        this.hives[hiveIndex].pushIds.forEach((id) &#x3D;&gt; {
+            if(id !&#x3D;&#x3D; this.localDb.pushId) {
+                idsOfOthermMmbers.push(id);
+            }
+        });
+        let name: string &#x3D; this.hives[hiveIndex].name;
+        let editor: string &#x3D; this.fireAuth.user.name;
+        this.pushService.postNotificationToGroup(idsOfOthermMmbers, &#x27;Bearbeitung in: &#x27;+name, editor+&#x27; hat einen Eintrag vom &#x27;+date+ &#x27; bearbeitet!&#x27;);
+
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(hiveId).update({hivecards: JSON.parse(JSON.stringify(this.hives[hiveIndex].hivecards))});
+    }
+
+    /**
+     * updates a given hive
+     *
+     * @param hive
+     */
+    updateHive(hive: Hive) {
+        let idsOfOthermMmbers: string[] &#x3D;[];
+        hive.pushIds.forEach((id) &#x3D;&gt; {
+            if(id !&#x3D;&#x3D; this.localDb.pushId) {
+                idsOfOthermMmbers.push(id);
+            }
+        });
+        let name: string &#x3D; hive.name;
+        let editor: string &#x3D; this.fireAuth.user.name;
+        this.pushService.postNotificationToGroup(idsOfOthermMmbers, &#x27;Bearbeitung in: &#x27;+name, editor+&#x27; hat das Volk &#x27;+ name + &#x27; editiert!&#x27;);
+
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(hive.id).set(JSON.parse(JSON.stringify(hive)));
+    }
+
+    async redeemInviteCode(key: string) {
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(key).update({&#x27;memberNames&#x27;: FieldValue.arrayUnion(this.fireAuth.user.name)});
+        this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(key).update({&#x27;pushIds&#x27;: FieldValue.arrayUnion(this.localDb.pushId)});
+        return this.firebaseFirestore.collection(&#x27;hive&#x27;).doc(key).update({&#x27;members&#x27;: FieldValue.arrayUnion(this.fireAuth.uid)});
+    }
+
+
+    /**
+     *
+     * @ignore
+     */
+    async presentToast(msg: string) {
+        const toast &#x3D; await this.toastController.create({
+            message: msg,
+            duration: 2000,
+            position: &#x27;bottom&#x27;,
+        });
+        toast.present();
+    }
+
+}
+/**
+ *
+ * @ignore
+ */
+function isHive(hiveId: string, hive: Hive) {
+    return hive.id &#x3D;&#x3D;&#x3D; hiveId;
+}
+/**
+ *
+ * @ignore
+ */
+function isHiveCard(hivecradId: string, hivecard: Hivecard) {
+    return hivecard.id &#x3D;&#x3D;&#x3D; hivecradId;
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'FireDbService.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
