@@ -12,7 +12,6 @@ const routes: Routes = [
         path: 'hive',
         component: HivePage,
         children: [
-                {path: 'weather', loadChildren: '../weather/weather.module#WeatherPageModule'},
                 {path: 'entry', loadChildren: '../entry/entry.module#EntryPageModule'},
                 {path: 'hivedetail', loadChildren: '../hivedetail/hivedetail.module#HivedetailPageModule'},
             ]
