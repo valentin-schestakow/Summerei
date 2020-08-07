@@ -38,7 +38,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.0.0-alpha.0",
     "@ng-bootstrap/schematics": "^2.0.0-alpha.1",
     "bootstrap": "^4.0.0",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
     "cordova-android": "8.0.0",
     "cordova-ios": "5.0.1",
